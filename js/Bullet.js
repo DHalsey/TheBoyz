@@ -13,8 +13,6 @@ function Bullet(game, x, y, atlas, frame, damage) {
 	//set additional properties
 	this.movementSpeed = 1000;
 	this.damage = damage;
-	this.checkWorldBounds = true;
-	this.outOfBoundsKill = true;
 
 	//make the bullet fire at the pointer
 	game.physics.arcade.moveToPointer(this, this.movementSpeed);
