@@ -7,8 +7,12 @@ function Bullet(game, x, y, atlas, frame, damage) {
 
 	//enable physics and set some properties
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.body.collideWorldBounds = false;
 	this.anchor.set(0.5);
+
+    //properties that allow bullets to be destroyed at world bounds
+    this.body.collideWorldBounds = true;
+    this.body.onWorldBounds = new Phaser.Signal();
+    this.body.onWorldBounds.add(destroyBullet, this);
 
 	//set additional properties
 	this.movementSpeed = 1000;
@@ -23,4 +27,9 @@ Bullet.prototype.constructor = Bullet;
 
 Bullet.prototype.update = function() {
     	
+}
+
+function destroyBullet(bullet) {
+   bullet.destroy();
+   console.log('bullet destroyed');
 }
