@@ -11,7 +11,9 @@ window.onload = function(){
 var Preloader = function(game) {};
 Preloader.prototype = {
 	preload: function(){
-		
+		//load images
+		game.load.path = 'assets/img/';
+		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
 	},
 	create: function(){
 		game.state.start('Play');
@@ -24,10 +26,9 @@ Play.prototype = {
 
 	},
 	create: function(){
-		
-
+        player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 	},
 	update: function(){
-
+        
 	}
 };
