@@ -2,7 +2,7 @@
 var game;
 
 window.onload = function(){
-	game = new Phaser.Game(800,600, Phaser.AUTO);
+	game = new Phaser.Game(1280,720, Phaser.AUTO);
 	game.state.add('Preloader', Preloader);
 	game.state.add('Play', Play);
 	game.state.start('Preloader');
