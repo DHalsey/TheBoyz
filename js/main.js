@@ -27,6 +27,7 @@ Play.prototype = {
 	},
 	create: function(){
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
+        enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
 	},
 	update: function(){
         
