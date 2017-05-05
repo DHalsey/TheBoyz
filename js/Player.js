@@ -21,6 +21,8 @@ function Player(game, x, y, atlas, frame, health) {
     this.movingDown = false;
     this.movingLeft = false;
     this.movingRight = false;
+    this.body.drag.x = 800; //TESTCODE
+    this.body.drag.y = 800; //TESTCODE
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -47,8 +49,8 @@ Player.prototype.update = function() {
 }
 
 function resetMovement(player) {
-	player.body.velocity.x = 0;
-	player.body.velocity.y = 0;
+	//player.body.velocity.x = 0;
+	//player.body.velocity.y = 0;
 
 	player.movingUp = false;
 	player.movingDown = false;
@@ -82,6 +84,7 @@ function moveRight(player) {
 
 function shootPistol(player) {
     if(game.time.now > player.pistolNextFire) {
+    	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.pistolNextFire = game.time.now + player.pistolFireRate;
         var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
