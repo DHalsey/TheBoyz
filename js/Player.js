@@ -14,8 +14,8 @@ function Player(game, x, y, atlas, frame, health) {
 
 	//Player properties
     this.hp = health;
-    this.pistolFireRate = 500;
-    this.pistolNextFire = 0;
+    
+    //Player movement properties
     this.movementSpeed = 300;
     this.movingUp = false;
     this.movingDown = false;
@@ -23,6 +23,13 @@ function Player(game, x, y, atlas, frame, health) {
     this.movingRight = false;
     this.body.drag.x = 800; //TESTCODE
     this.body.drag.y = 800; //TESTCODE
+    
+    //Player weapon properties
+    this.pistolFireRate = 500;
+    this.nextFire = 0;
+    this.fireRate = 0;
+    this.currentWeapon = 'pistol';
+    this.secondWeapon = '';
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -41,11 +48,16 @@ Player.prototype.update = function() {
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
 
+    //Swap weapon
+    if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
+
     //make the player face the mouse
     this.rotation = game.physics.arcade.angleToPointer(this);
 
     //shoot on mouse click
-    if(game.input.activePointer.isDown) shootPistol(this);
+    if(game.input.activePointer.isDown) shootWeapon(this);
+
+
 }
 
 function resetMovement(player) {
@@ -82,11 +94,27 @@ function moveRight(player) {
 	player.movingLeft = false;
 }
 
-function shootPistol(player) {
-    if(game.time.now > player.pistolNextFire) {
+function swap(player) {
+	if (player.secondWeapon != '') {
+		var temp = player.currentWeapon;
+		player.currentWeapon = player.secondWeapon;
+		player.secondWeapon = temp;
+		console.log('Weapon: ' + player.currentWeapon);		
+	}
+	
+}
+
+function shootWeapon(player) {
+    if (player.currentWeapon == 'pistol' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
-        player.pistolNextFire = game.time.now + player.pistolFireRate;
+        player.nextFire = game.time.now + player.pistolFireRate;
         var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+    }
+
+    if (game.time.now > player.nextFire) {
+    	knockback(player, 150, player.rotation);
+    	player.nextFire = game.time.now + player.fireRate;
+    	var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 }
 

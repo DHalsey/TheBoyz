@@ -14,6 +14,7 @@ Preloader.prototype = {
 		//load images
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+		game.load.image('rifleSprite', 'weapon_rifle.png');
 	},
 	create: function(){
 		game.state.start('Play');
@@ -28,6 +29,8 @@ Play.prototype = {
 	create: function(){
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
+        var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 
+        	100, player);
 	},
 	update: function(){
         
