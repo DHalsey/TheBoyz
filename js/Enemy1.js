@@ -17,9 +17,12 @@ function Enemy1(game, x, y, atlas, frame, health, player) {
     this.playerSprite = player;
     this.movementSpeed = 150;
 
-    //These are to allow damage to the player
+    //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
     this.attackRate = 1000;
+    this.knockedBack = false;
+    this.knockBackTimer = 500;
+    this.knockBackFinish = 0;
 }
 
 Enemy1.prototype = Object.create(Phaser.Sprite.prototype);
@@ -27,8 +30,19 @@ Enemy1.prototype.constructor = Enemy1;
 
 //override Enemy1's update
 Enemy1.prototype.update = function() {
-    //make enemy move towards the player
-    game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
+    //make enemy move towards the player unless it is in the process of being knocked back
+    if(!this.knockedBack) {
+        game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
+    }
+    else {  //if the enemy is currently being knocked back, wait until the knockback timer is finished, then restore normal movement
+            if(this.knockBackFinish == 0) this.knockBackFinish = game.time.now + this.knockBackTimer;
+            if(game.time.now > this.knockBackFinish) { //restore normal movement
+                this.knockedBack = false;
+                this.knockBackFinish = 0;
+                enemy.body.drag.x = 0;
+                enemy.body.drag.y = 0;
+            } 
+    }
 
     //make enemy face the player
     this.rotation = angleToSprite(this, this.playerSprite);
@@ -50,6 +64,11 @@ function playerEnemy1Collision(enemy, player) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         knockback(player, 500, angleToSprite(player, enemy));
+        enemy.knockedBack = true;
+        knockback(enemy, 500, enemy.rotation);
+        enemy.body.drag.x = 1000;
+        enemy.body.drag.y = 1000;
         console.log("Player HP: " + player.hp); //just for testing
     }
 }
+
