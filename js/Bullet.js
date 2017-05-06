@@ -31,5 +31,4 @@ Bullet.prototype.update = function() {
 
 function destroyBullet(bullet) {
    bullet.destroy();
-   console.log('bullet destroyed');
 }
