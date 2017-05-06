@@ -34,8 +34,7 @@ Enemy1.prototype.update = function() {
     }
     else {  
             //if the enemy is currently being knocked back, wait until the knockback is finished, then restore normal movement
-            if(this.body.velocity.x == 0 && this.body.velocity.y == 0)
-            {
+            if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
                 this.knockedBack = false;
                 this.body.drag.x = 0;
                 this.body.drag.y = 0;
