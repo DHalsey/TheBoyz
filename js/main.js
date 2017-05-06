@@ -14,8 +14,8 @@ Preloader.prototype = {
 		//load images
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
-		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON);
-		game.load.image('mapImage','MapTiles.png');
+		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
+		game.load.image('mapImage','MapTiles.png'); //tilemap images
 	},
 	create: function(){
 		game.state.start('Play');
@@ -30,7 +30,7 @@ Play.prototype = {
 	create: function(){
 		var map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
-        layer = map.createLayer('worldMain');
+        layer = map.createLayer('worldMain'); //main world layer
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
 	},
