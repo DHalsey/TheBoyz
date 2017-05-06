@@ -21,8 +21,6 @@ function Enemy1(game, x, y, atlas, frame, health, player) {
     this.nextAttack = 0;
     this.attackRate = 1000;
     this.knockedBack = false;
-    this.knockBackTimer = 500;
-    this.knockBackFinish = 0;
 }
 
 Enemy1.prototype = Object.create(Phaser.Sprite.prototype);
@@ -34,14 +32,14 @@ Enemy1.prototype.update = function() {
     if(!this.knockedBack) {
         game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
     }
-    else {  //if the enemy is currently being knocked back, wait until the knockback timer is finished, then restore normal movement
-            if(this.knockBackFinish == 0) this.knockBackFinish = game.time.now + this.knockBackTimer;
-            if(game.time.now > this.knockBackFinish) { //restore normal movement
+    else {  
+            //if the enemy is currently being knocked back, wait until the knockback is finished, then restore normal movement
+            if(this.body.velocity.x == 0 && this.body.velocity.y == 0)
+            {
                 this.knockedBack = false;
-                this.knockBackFinish = 0;
-                enemy.body.drag.x = 0;
-                enemy.body.drag.y = 0;
-            } 
+                this.body.drag.x = 0;
+                this.body.drag.y = 0;
+            }
     }
 
     //make enemy face the player
