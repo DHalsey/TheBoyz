@@ -32,15 +32,22 @@ Play.prototype = {
 
 	},
 	create: function(){
+		var game_width = 3840;
+		var game_height= 2304;
+
 		var map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
         layer = map.createLayer('worldMain'); //main world layer
+        game.world.setBounds(0,0,game_width,game_height);
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 
         	100, player);
         //create groups
         bullets = game.add.physicsGroup();
+
+        //camera
+        game.camera.follow(player);
 
 	},
 	update: function(){
