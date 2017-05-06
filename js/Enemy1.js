@@ -46,6 +46,12 @@ Enemy1.prototype.update = function() {
 
     //handle collision between player and enemy
     game.physics.arcade.collide(this, this.playerSprite, playerEnemy1Collision, null, this);
+
+    //handle collision between bullets and enemy
+    game.physics.arcade.overlap(this, bullets, bulletsEnemy1Collision, null, this);
+
+    //check if enemy is dead
+    if(this.hp <= 0) this.destroy();
 }
 
 //this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
@@ -56,6 +62,7 @@ function angleToSprite(thisSprite, targetSprite) {
     return Math.atan2(dy, dx);
 }
 
+//when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerEnemy1Collision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
@@ -67,5 +74,17 @@ function playerEnemy1Collision(enemy, player) {
         enemy.body.drag.y = 1000;
         console.log("Player HP: " + player.hp); //just for testing
     }
+}
+
+//handle collision between bullets group and enemy1
+function bulletsEnemy1Collision(enemy, bullet) {
+    bullet.destroy();
+    enemy.hp -= bullet.damage;
+
+    //knock back the enemy
+    enemy.knockedBack = true;
+    knockback(enemy, 300, enemy.rotation);
+    enemy.body.drag.x = 1000;
+    enemy.body.drag.y = 1000;
 }
 

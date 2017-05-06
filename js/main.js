@@ -1,6 +1,9 @@
 //main.js
 var game;
 
+//global groups
+var bullets;
+
 window.onload = function(){
 	game = new Phaser.Game(1280,768, Phaser.AUTO);
 	game.state.add('Preloader', Preloader);
@@ -36,6 +39,9 @@ Play.prototype = {
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 
         	100, player);
+        //create groups
+        bullets = game.add.physicsGroup();
+
 	},
 	update: function(){
         
