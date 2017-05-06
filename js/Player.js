@@ -16,7 +16,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.hp = health;
     this.pistolFireRate = 500;
     this.pistolNextFire = 0;
-    this.movementSpeed = 300;
+    this.movementSpeed = 40;
     this.maxVelSoft = 300; //soft cap on velocity for WASD movement
     this.maxVelHard = 400; //hard cap on velocity that does not allow the player to move faster than
     this.movingUp = false;
@@ -63,7 +63,7 @@ function resetMovement(player) {
 function moveUp(player) {
 	//accelerates player up to a cap (this implementation allows knockback to occur while moving)
 	if (player.body.velocity.y>-player.maxVelSoft){
-		player.body.velocity.y += player.movementSpeed*-1/5;
+		player.body.velocity.y -= player.movementSpeed;
 	}
 	player.movingUp = true;
 	player.movingDown = false;
@@ -72,7 +72,7 @@ function moveUp(player) {
 function moveDown(player) {
 	//accelerates player up to a cap (this implementation allows knockback to occur while moving)
 	if (player.body.velocity.y<player.maxVelSoft){
-		player.body.velocity.y += player.movementSpeed/5;
+		player.body.velocity.y += player.movementSpeed;
 	}
 	player.movingDown = true;
 	player.movingUp = false;
@@ -81,7 +81,7 @@ function moveDown(player) {
 function moveLeft(player) {
 	//accelerates player up to a cap (this implementation allows knockback to occur while moving)
 	if (player.body.velocity.x>-player.maxVelSoft){
-		player.body.velocity.x += player.movementSpeed*-1/5;
+		player.body.velocity.x -= player.movementSpeed;
 	}
 	player.movingLeft = true;
 	player.movingRight = false;
@@ -90,7 +90,7 @@ function moveLeft(player) {
 function moveRight(player) {
 	//accelerates player up to a cap (this implementation allows knockback to occur while moving)
 	if (player.body.velocity.x<player.maxVelSoft){
-		player.body.velocity.x += player.movementSpeed/5;
+		player.body.velocity.x += player.movementSpeed;
 	}
 	player.movingRight = true;
 	player.movingLeft = false;
