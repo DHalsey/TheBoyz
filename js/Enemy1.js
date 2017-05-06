@@ -49,6 +49,7 @@ function playerEnemy1Collision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        console.log(player.hp);
+        knockback(player, 500, angleToSprite(player, enemy));
+        console.log("Player HP: " + player.hp); //just for testing
     }
 }
