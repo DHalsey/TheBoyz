@@ -19,7 +19,6 @@ function Player(game, x, y, atlas, frame, health) {
     this.maxVelHard = 400; //hard cap on velocity that does not allow the player to move faster than
     
     //Player movement properties
-    this.movementSpeed = 300;
     this.movingUp = false;
     this.movingDown = false;
     this.movingLeft = false;
