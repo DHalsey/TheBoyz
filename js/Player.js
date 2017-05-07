@@ -59,7 +59,8 @@ Player.prototype.update = function() {
     //shoot on mouse click
     if(game.input.activePointer.isDown) shootWeapon(this);
 
-
+      //handle collision between bullets and enemy
+    game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
 }
 
 function resetMovement(player) {
@@ -122,13 +123,23 @@ function shootWeapon(player) {
     if (player.currentWeapon == 'pistol' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.nextFire = game.time.now + player.pistolFireRate;
-        var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 
     if (game.time.now > player.nextFire) {
     	knockback(player, 150, player.rotation);
     	player.nextFire = game.time.now + player.fireRate;
-    	var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+    	new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 }
 
+//handle collision between bullets group and player
+function bulletsPlayerCollision(player, bullet) {
+    bullet.destroy();
+    player.hp -= bullet.damage;
+
+    //knock back the player based on the bullet's trajectory
+    player.knockedBack = true;
+    knockback(player, 300, bullet.rotation - Math.PI);
+    console.log('Player HP: ' + player.hp);
+}
