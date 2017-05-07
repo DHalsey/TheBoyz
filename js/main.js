@@ -45,6 +45,8 @@ Play.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        game.world.setBounds(0,0,game_width,game_height);
+
         var map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
 
@@ -59,7 +61,6 @@ Play.prototype = {
         //create groups
         bullets = game.add.physicsGroup();
 
-        game.world.setBounds(0,0,game_width,game_height);
         //camera
         Room1 = new RoomAnchor(game,room_width/2, room_height/2);
         Room2 = new RoomAnchor(game,room_width*1.5, room_height/2);
