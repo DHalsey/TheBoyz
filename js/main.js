@@ -61,7 +61,7 @@ Play.prototype = {
         //create groups
         bullets = game.add.physicsGroup();
 
-        //camera
+        //Create RoomAnchors for the camera to follow
         Room1 = new RoomAnchor(game,room_width/2, room_height/2);
         Room2 = new RoomAnchor(game,room_width*1.5, room_height/2);
         Room3 = new RoomAnchor(game,room_width/2, room_height*1.5);
@@ -70,6 +70,10 @@ Play.prototype = {
 
     },
     update: function(){
+        
+
+
+        //Switch Rooms depending where the player is
         if(player.position.x < room_width && player.position.y < room_height) {
             game.camera.follow(Room1);
         }else if(player.position.x < room_width*2 && player.position.y < room_height) {
