@@ -21,7 +21,7 @@ function EnemyBullet(game, x, y, atlas, frame, damage) {
 	//add to the bullets group
 	enemyBullets.add(this);
 
-	//make the bullet fire at the pointer
+	//make the bullet fire at the player
 	game.physics.arcade.moveToObject(this, player, this.movementSpeed);
 }
 

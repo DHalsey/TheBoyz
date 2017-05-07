@@ -123,13 +123,13 @@ function shootWeapon(player) {
     if (player.currentWeapon == 'pistol' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.nextFire = game.time.now + player.pistolFireRate;
-        var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 
     if (game.time.now > player.nextFire) {
     	knockback(player, 150, player.rotation);
     	player.nextFire = game.time.now + player.fireRate;
-    	var bullet = new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+    	new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 }
 
