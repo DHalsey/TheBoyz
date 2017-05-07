@@ -1,8 +1,7 @@
 { "height":12,
  "layers":[
         {
-         "data":"AgAAYAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAABAABgAwAAAAMAAAABAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAIAAAAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAIAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMAEAADAAQAAwAMAAAADAAAAAQAAQAQAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMACAACg",
-         "encoding":"base64",
+         "data":[1610612738, 4, 4, 4, 4, 4, 4, 4, 1610612737, 3, 3, 1, 4, 4, 4, 4, 4, 4, 4, 2, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 3, 2684354561, 3221225476, 3221225476, 3221225473, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 2684354561, 2684354562, 5, 5, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 2684354564, 5, 5, 1610612738, 1610612737, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 2684354564, 5, 5, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 1, 4, 4, 1610612737, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 1610612740, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2684354564, 3221225474, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 3221225473, 3, 3, 1073741825, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 3221225476, 2684354562],
          "height":12,
          "name":"worldMain",
          "opacity":1,
@@ -11,8 +10,19 @@
          "width":20,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":[6, 8, 8, 8, 8, 8, 8, 8, 7, 0, 0, 2684354567, 8, 8, 8, 8, 8, 8, 8, 2684354566, 536870920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 0, 3221225479, 3221225480, 3221225480, 1610612743, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 3221225479, 3221225478, 9, 9, 1610612744, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 2684354568, 9, 9, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 2684354568, 9, 9, 1610612744, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 2684354567, 8, 8, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 536870920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3758096392, 1610612742, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 1610612743, 0, 0, 3221225479, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 1073741832, 3221225478],
+         "height":12,
+         "name":"CollisionBounds",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":64,
@@ -20,7 +30,7 @@
         {
          "columns":5,
          "firstgid":1,
-         "image":"C:\/Users\/Dustin\/Desktop\/Assets\/MapTiles.png",
+         "image":"C:\/Users\/Dustin\/Desktop\/Assets\/Images\/MapTiles.png",
          "imageheight":64,
          "imagewidth":320,
          "margin":0,
@@ -28,6 +38,159 @@
          "spacing":0,
          "tilecount":5,
          "tileheight":64,
+         "tileproperties":
+            {
+             "3":
+                {
+                 "Collision":""
+                }
+            },
+         "tilepropertytypes":
+            {
+             "3":
+                {
+                 "Collision":"string"
+                }
+            },
+         "tiles":
+            {
+             "0":
+                {
+                 "objectgroup":
+                    {
+                     "color":"#64ff0000",
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":9,
+                             "x":55,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "1":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":64,
+                             "x":0,
+                             "y":0
+                            }, 
+                            {
+                             "height":55,
+                             "id":2,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":9,
+                             "x":55,
+                             "y":9
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "3":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":4,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":64,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                }
+            },
+         "tilewidth":64
+        }, 
+        {
+         "columns":4,
+         "firstgid":6,
+         "image":"Collision.png",
+         "imageheight":64,
+         "imagewidth":256,
+         "margin":0,
+         "name":"Collision",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":64,
+         "tiles":
+            {
+             "2":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":8,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":64,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                }
+            },
          "tilewidth":64
         }],
  "tilewidth":64,

@@ -1,6 +1,6 @@
 //main.js
 var game;
-
+var map, layerCollision;
 //global groups
 var bullets;
 
@@ -34,21 +34,29 @@ Play.prototype = {
 
 	},
 	create: function(){
-		var map = game.add.tilemap('maptile');
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
-        //game.physics.enable(mapImage, Phaser.Physics.ARCADE);
         layerMain = map.createLayer('worldMain'); //main world layer
+
         map.addTilesetImage('Collision','collisionImage');
+        
+        
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
+        map.setCollisionBetween(6, 9,true,'CollisionBounds');
+        //map.setCollision(7,true);
+        layerMain.resizeWorld();
+        layerCollision.debug = true;
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 
         	100, player);
         //create groups
         bullets = game.add.physicsGroup();
-
+        game.physics.arcade.enable(map);
+        //layerCollision.visible = false;
 	},
 	update: function(){
-        
+        game.physics.arcade.collide(player, layerCollision);
 	}
 };
