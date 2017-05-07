@@ -23,6 +23,10 @@ function EnemyBullet(game, x, y, atlas, frame, damage) {
 
 	//make the bullet fire at the player
 	game.physics.arcade.moveToObject(this, player, this.movementSpeed);
+
+	//set the bullet rotation so knockback works correctly
+	//make enemy face the player
+    this.rotation = angleToSprite(this, player);
 }
 
 EnemyBullet.prototype = Object.create(Phaser.Sprite.prototype);

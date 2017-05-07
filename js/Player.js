@@ -138,8 +138,8 @@ function bulletsPlayerCollision(player, bullet) {
     bullet.destroy();
     player.hp -= bullet.damage;
 
-    //knock back the enemy
+    //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
-    knockback(player, 300, player.rotation);
+    knockback(player, 300, bullet.rotation - Math.PI);
     console.log('Player HP: ' + player.hp);
 }

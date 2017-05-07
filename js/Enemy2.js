@@ -20,7 +20,7 @@ function Enemy2(game, x, y, atlas, frame, health, player) {
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
-    this.attackRate = 1500;
+    this.attackRate = 500;
     this.nextShot = 0;
     this.fireRate = 800;
     this.knockedBack = false;
