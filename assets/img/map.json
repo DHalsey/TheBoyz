@@ -1,7 +1,7 @@
 { "height":12,
  "layers":[
         {
-         "data":"AgAAYAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAABAABgAwAAAAMAAAABAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAIAAAAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAIAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMAEAADAAQAAwAMAAAADAAAAAQAAQAQAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMACAACg",
+         "data":"AgAAYAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAABAABgAwAAAAMAAAABAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAIAAAAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAAAwAAAAEAAKAEAADABAAAwAEAAMADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAABAACgAgAAoAUAAAAFAAAABAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAQAAKAFAAAABQAAAAIAAGABAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAQAAGADAAAABAAAoAUAAAAFAAAABAAAYAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAAEAACgBAAAYAMAAAABAAAABAAAAAQAAAABAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAQAAKAEAABgAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAABAAAoAIAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMAEAADAAQAAwAMAAAADAAAAAQAAQAQAAMAEAADABAAAwAQAAMAEAADABAAAwAQAAMACAACg",
          "encoding":"base64",
          "height":12,
          "name":"worldMain",
@@ -11,8 +11,20 @@
          "width":20,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":"BgAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAAAAHAAAgAAAAAAAAAAAHAACACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAAYAAKAIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAoAgAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAACgCAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAKAIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAoAgAAGAAAAAAAAAAAAcAAMAIAADACAAAwAcAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAACgCAAAYAAAAAAHAADABgAAwAkAAAAJAAAACAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAKAIAABgAAAAAAgAAKAJAAAACQAAAAYAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAoAgAAGAAAAAACAAAoAkAAAAJAAAACAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAACgCAAAYAAAAAAHAACgCAAAAAgAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAKAIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAoAYAAGAIAADACAAAwAgAAMAIAADACAAAwAgAAMAIAADABwAAYAAAAAAAAAAABwAA4AgAAMAIAADACAAAwAgAAMAIAADACAAAwAgAAMAGAADA",
+         "encoding":"base64",
+         "height":12,
+         "name":"CollisionBounds",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":false,
+         "width":20,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":64,
@@ -20,13 +32,136 @@
         {
          "columns":5,
          "firstgid":1,
-         "image":"C:\/Users\/Dustin\/Desktop\/Assets\/MapTiles.png",
+         "image":"C:\/Users\/Dustin\/Desktop\/Assets\/Images\/MapTiles.png",
          "imageheight":64,
          "imagewidth":320,
          "margin":0,
          "name":"Map",
          "spacing":0,
          "tilecount":5,
+         "tileheight":64,
+         "tileproperties":
+            {
+             "3":
+                {
+                 "Collision":""
+                }
+            },
+         "tilepropertytypes":
+            {
+             "3":
+                {
+                 "Collision":"string"
+                }
+            },
+         "tiles":
+            {
+             "0":
+                {
+                 "objectgroup":
+                    {
+                     "color":"#64ff0000",
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":9,
+                             "x":55,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "1":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":1,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":64,
+                             "x":0,
+                             "y":0
+                            }, 
+                            {
+                             "height":55,
+                             "id":2,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":9,
+                             "x":55,
+                             "y":9
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                },
+             "3":
+                {
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "height":0,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":9,
+                             "id":4,
+                             "name":"",
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":64,
+                             "x":0,
+                             "y":0
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "width":0,
+                     "x":0,
+                     "y":0
+                    }
+                }
+            },
+         "tilewidth":64
+        }, 
+        {
+         "columns":4,
+         "firstgid":6,
+         "image":"C:\/Users\/Dustin\/Desktop\/Assets\/Images\/Collision.png",
+         "imageheight":64,
+         "imagewidth":256,
+         "margin":0,
+         "name":"Collision",
+         "spacing":0,
+         "tilecount":4,
          "tileheight":64,
          "tilewidth":64
         }],
