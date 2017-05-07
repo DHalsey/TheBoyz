@@ -141,5 +141,5 @@ function bulletsPlayerCollision(player, bullet) {
     //knock back the enemy
     player.knockedBack = true;
     knockback(player, 300, player.rotation);
-    console.log(player.hp);
+    console.log('Player HP: ' + player.hp);
 }
