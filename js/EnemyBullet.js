@@ -1,5 +1,5 @@
-//bullet prefab
-function Bullet(game, x, y, atlas, frame, damage) {
+//enemy bullet prefab
+function EnemyBullet(game, x, y, atlas, frame, damage) {
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
 	//add to the game
@@ -19,16 +19,16 @@ function Bullet(game, x, y, atlas, frame, damage) {
 	this.damage = damage;
 
 	//add to the bullets group
-	playerBullets.add(this);
+	enemyBullets.add(this);
 
 	//make the bullet fire at the pointer
-	game.physics.arcade.moveToPointer(this, this.movementSpeed);
+	game.physics.arcade.moveToObject(this, player, this.movementSpeed);
 }
 
-Bullet.prototype = Object.create(Phaser.Sprite.prototype);
-Bullet.prototype.constructor = Bullet;
+EnemyBullet.prototype = Object.create(Phaser.Sprite.prototype);
+EnemyBullet.prototype.constructor = EnemyBullet;
 
-Bullet.prototype.update = function() {
+EnemyBullet.prototype.update = function() {
     	
 }
 

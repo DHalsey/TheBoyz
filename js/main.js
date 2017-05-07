@@ -2,7 +2,8 @@
 var game;
 
 //global groups
-var bullets;
+var playerBullets;
+var enemyBullets;
 
 window.onload = function(){
 	game = new Phaser.Game(1280,768, Phaser.AUTO);
@@ -42,10 +43,12 @@ Play.prototype = {
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
+        enemy2 = new Enemy2(game, 600, 50, 'atlas', 'player0002', 5, player);
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 
         	100, player);
         //create groups
-        bullets = game.add.physicsGroup();
+        playerBullets = game.add.physicsGroup();
+        enemyBullets = game.add.physicsGroup();
 
 	},
 	update: function(){

@@ -59,7 +59,8 @@ Player.prototype.update = function() {
     //shoot on mouse click
     if(game.input.activePointer.isDown) shootWeapon(this);
 
-
+      //handle collision between bullets and enemy
+    game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
 }
 
 function resetMovement(player) {
@@ -132,3 +133,13 @@ function shootWeapon(player) {
     }
 }
 
+//handle collision between bullets group and player
+function bulletsPlayerCollision(player, bullet) {
+    bullet.destroy();
+    player.hp -= bullet.damage;
+
+    //knock back the enemy
+    player.knockedBack = true;
+    knockback(player, 300, player.rotation);
+    console.log(player.hp);
+}
