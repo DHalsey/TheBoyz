@@ -66,3 +66,23 @@ function roomTransition(player, room_width, room_height) {
         game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
     }
 }
+function toPointer (displayObject, speed, pointer, maxTime) {
+
+        if (speed === undefined) { speed = 60; }
+        pointer = pointer || this.game.input.activePointer;
+        if (maxTime === undefined) { maxTime = 0; }
+
+        var angle = player.rotation;
+
+        if (maxTime > 0)
+        {
+            //  We know how many pixels we need to move, but how fast?
+            speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
+        }
+
+        displayObject.body.velocity.x = (Math.cos(angle) * speed) + 10;
+        displayObject.body.velocity.y = (Math.sin(angle) * speed) + 10;
+
+        return angle;
+
+    }
