@@ -42,3 +42,27 @@ function shootPlayer(enemy) {
         new EnemyBullet(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 1);
     }
 }
+
+function roomAnchors() {
+    //Create RoomAnchors for the camera to follow
+    Room1 = new RoomAnchor(game,room_width/2, room_height/2);
+    Room2 = new RoomAnchor(game,room_width*1.5, room_height/2);
+    Room3 = new RoomAnchor(game,room_width/2, room_height*1.5);
+    Room4 = new RoomAnchor(game,room_width*1.5, room_height*1.5);
+
+    // Fix camera on first room
+    game.camera.follow(Room1);
+}
+
+function roomTransition(player, room_width, room_height) {
+    //Switch Rooms depending where the player is
+    if(player.position.x < room_width && player.position.y < room_height) {
+        game.camera.follow(Room1 , Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height) {
+        game.camera.follow(Room2, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+    }else if(player.position.x < room_width && player.position.y < room_height*2) {
+        game.camera.follow(Room3, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
+        game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+    }
+}
