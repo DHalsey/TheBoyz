@@ -23,6 +23,9 @@ function Bullet(game, x, y, atlas, frame, damage) {
 
 	//make the bullet fire at the pointer
 	toPointer(this, this.movementSpeed);
+
+	//temporarily scale the bullet sprite
+	this.scale.setTo(2,2);
 }
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);

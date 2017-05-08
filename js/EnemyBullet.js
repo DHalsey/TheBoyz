@@ -27,6 +27,9 @@ function EnemyBullet(game, x, y, atlas, frame, damage) {
 	//set the bullet rotation so knockback works correctly
 	//make enemy face the player
     this.rotation = angleToSprite(this, player);
+
+    //temporarily scale the bullet sprite
+	this.scale.setTo(2,2);
 }
 
 EnemyBullet.prototype = Object.create(Phaser.Sprite.prototype);
