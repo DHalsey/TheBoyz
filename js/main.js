@@ -1,6 +1,7 @@
 //main.js
 var game;
 var map, layerCollision;
+
 //global groups
 var playerBullets;
 var enemyBullets;
@@ -21,8 +22,7 @@ Preloader.prototype = {
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
-		game.load.image('collisionImage','Collision.png'); //tilemap images
-
+		game.load.image('collisionImage','Collision.png'); //tilemap images     
 	},
 	create: function(){
 		game.state.start('Play');
@@ -44,7 +44,7 @@ Play.prototype = {
         map.setCollisionBetween(6, 9,true,'CollisionBounds');
         layerMain.resizeWorld();
         layerCollision.debug = true;
-
+        
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
         enemy2 = new Enemy2(game, 600, 50, 'atlas', 'player0002', 5, player);
@@ -62,3 +62,5 @@ Play.prototype = {
         game.physics.arcade.collide(player, layerCollision);
 	}
 };
+
+
