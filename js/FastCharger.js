@@ -69,22 +69,14 @@ FastCharger.prototype.update = function() {
     if(this.hp <= 0) this.destroy();
 }
 
-//this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
-//I based this on phaser's built in method called angleToPointer()
-function angleToSprite(thisSprite, targetSprite) {
-    var dx = targetSprite.body.x - thisSprite.body.x;
-    var dy = targetSprite.body.y - thisSprite.body.y;
-    return Math.atan2(dy, dx);
-}
-
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerFastChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        knockback(player, 400, angleToSprite(player, enemy));
+        knockback(player, 300, angleToSprite(player, enemy));
         enemy.knockedBack = true;
-        knockback(enemy, 400, enemy.rotation);
+        knockback(enemy, 600, enemy.rotation);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
         console.log("Player HP: " + player.hp); //just for testing
@@ -101,24 +93,5 @@ function bulletsFastChargerCollision(enemy, bullet) {
     knockback(enemy, 300, enemy.rotation);
     enemy.body.drag.x = 1000;
     enemy.body.drag.y = 1000;
-}
-
-//find the distance between two sprites
-function distance(sprite1, sprite2) {
-    var dx = sprite1.body.x - sprite2.body.x;
-    var dy = sprite1.body.y - sprite2.body.y;
-    return Math.sqrt(dx*dx + dy*dy);
-}
-
-function chargeAtPlayer(enemy) {
-      if(enemy.distanceToPlayer <= 300 && game.time.now > enemy.nextCharge) {
-        enemy.nextCharge = game.time.now + enemy.chargeRate;
-
-        //knockback the enemy towards the direction its facing
-        enemy.knockedBack = true;
-        knockback(enemy, 800, enemy.rotation - Math.PI);
-        enemy.body.drag.x = 1000;
-        enemy.body.drag.y = 1000;
-      }
 }
 
