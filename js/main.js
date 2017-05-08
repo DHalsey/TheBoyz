@@ -46,8 +46,8 @@ Play.prototype = {
         layerCollision.debug = true;
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
-        enemy = new Enemy1(game, 400, 200, 'atlas', 'player0002', 5, player);
-        enemy2 = new Enemy2(game, 600, 50, 'atlas', 'player0002', 5, player);
+        enemy = new BasicCharger(game, 400, 200, 'atlas', 'player0002', 5, player);
+        enemy2 = new BasicShooter(game, 600, 50, 'atlas', 'player0002', 5, player);
 
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 100, player);
         

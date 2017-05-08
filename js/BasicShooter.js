@@ -1,6 +1,7 @@
-//Enemy1.js
+//BasicShooter.js
+//this enemy follows the player slowly and fires bullets
 
-function Enemy1(game, x, y, atlas, frame, health, player) {
+function BasicShooter(game, x, y, atlas, frame, health, player) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -12,23 +13,25 @@ function Enemy1(game, x, y, atlas, frame, health, player) {
 	this.body.collideWorldBounds = true;
 	this.anchor.set(0.5);
 
-	//Ebemy1 properties
+	//Ebemy2 properties
     this.hp = health;
     this.playerSprite = player;
-    this.movementSpeed = 150;
+    this.movementSpeed = 50;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
     this.attackRate = 500;
+    this.nextShot = 0;
+    this.fireRate = 800;
     this.knockedBack = false;
 }
 
-Enemy1.prototype = Object.create(Phaser.Sprite.prototype);
-Enemy1.prototype.constructor = Enemy1;
+BasicShooter.prototype = Object.create(Phaser.Sprite.prototype);
+BasicShooter.prototype.constructor = BasicShooter;
 
-//override Enemy1's update
-Enemy1.prototype.update = function() {
-    //make enemy move towards the player unless it is in the process of being knocked back
+//override BasicShooter's update
+BasicShooter.prototype.update = function() {
+	//make enemy move towards the player unless it is in the process of being knocked back
     if(!this.knockedBack) {
         game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
     }
@@ -41,29 +44,24 @@ Enemy1.prototype.update = function() {
             }
     }
 
+    //shoot at the player
+    shootPlayer(this);
+
     //make enemy face the player
     this.rotation = angleToSprite(this, this.playerSprite);
 
     //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerEnemy1Collision, null, this);
+    game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
 
     //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, playerBullets, bulletsEnemy1Collision, null, this);
+    game.physics.arcade.overlap(this, playerBullets, bulletsBasicShooterCollision, null, this);
 
     //check if enemy is dead
     if(this.hp <= 0) this.destroy();
 }
 
-//this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
-//I based this on phaser's built in method called angleToPointer()
-function angleToSprite(thisSprite, targetSprite) {
-    var dx = targetSprite.body.x - thisSprite.body.x;
-    var dy = targetSprite.body.y - thisSprite.body.y;
-    return Math.atan2(dy, dx);
-}
-
 //when player and enemy1 collide, player hp is decremented and both get knocked back
-function playerEnemy1Collision(enemy, player) {
+function playerBasicShooterCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
@@ -77,7 +75,7 @@ function playerEnemy1Collision(enemy, player) {
 }
 
 //handle collision between bullets group and enemy1
-function bulletsEnemy1Collision(enemy, bullet) {
+function bulletsBasicShooterCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
 
@@ -88,3 +86,15 @@ function bulletsEnemy1Collision(enemy, bullet) {
     enemy.body.drag.y = 1000;
 }
 
+function shootPlayer(enemy) {
+    if(game.time.now > enemy.nextShot) {
+    	enemy.nextShot = game.time.now + enemy.fireRate;
+
+    	//knock back the enemy
+    	enemy.knockedBack = true;
+    	knockback(enemy, 150, enemy.rotation);
+    	enemy.body.drag.x = 1000;
+    	enemy.body.drag.y = 1000;
+        new EnemyBullet(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 1);
+    }
+}
