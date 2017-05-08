@@ -32,8 +32,8 @@ Preloader.prototype = {
 
 var Play = function(game) {
     var player
-    var game_width;
-    var game_height;
+    var world_width;
+    var world_height;
     var room_width;
     var room_height;
 };
@@ -41,12 +41,12 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
-        game_width = 2560;
-        game_height= 1536;
+        world_width = 2560;
+        world_height= 1536;
         room_width = 1280;
         room_height= 768;
 
-        game.world.setBounds(0,0,game_width,game_height);
+        game.world.setBounds(0,0,world_width,world_height);
 
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
@@ -55,7 +55,7 @@ Play.prototype = {
         map.addTilesetImage('Collision','collisionImage');
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
         map.setCollisionBetween(6, 9,true,'CollisionBounds');
-        layerMain.resizeWorld();
+        //layerMain.resizeWorld();
         layerCollision.debug = true;
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
@@ -64,7 +64,7 @@ Play.prototype = {
         enemy3 = new TankyCharger(game, 650, 400, 'atlas', 'player0002', player);
         enemy4 = new FastCharger(game, 800, 400, 'atlas', 'player0002', player);
 
-        var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 100, player);
+        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 
         game.physics.arcade.enable(map);
 

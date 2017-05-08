@@ -22,7 +22,9 @@ function Bullet(game, x, y, atlas, frame, damage) {
 	playerBullets.add(this);
 
 	//make the bullet fire at the pointer
-	game.physics.arcade.moveToXY(this, game.input.mousePointer.x + 10, game.input.mousePointer.y + 10, this.movementSpeed);
+	game.physics.arcade.moveToPointer(this, this.movementSpeed);
+	//game.physics.arcade.moveToXY(this, game.input.mousePointer.x + 10, game.input.mousePointer.y + 10, this.movementSpeed);
+	//Changed the above line of code back to the original code. For some reason this wasn't working with an increased world size. 
 }
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
