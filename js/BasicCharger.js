@@ -1,6 +1,7 @@
-//Enemy1.js
+//BasicCharger.js
+//the standard, boring enemy type
 
-function Enemy1(game, x, y, atlas, frame, health, player) {
+function BasicCharger(game, x, y, atlas, frame, player) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -12,22 +13,22 @@ function Enemy1(game, x, y, atlas, frame, health, player) {
 	this.body.collideWorldBounds = true;
 	this.anchor.set(0.5);
 
-	//Ebemy1 properties
-    this.hp = health;
+	//BasicCharger properties
+    this.hp = 5;
     this.playerSprite = player;
     this.movementSpeed = 150;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
-    this.attackRate = 1000;
+    this.attackRate = 500;
     this.knockedBack = false;
 }
 
-Enemy1.prototype = Object.create(Phaser.Sprite.prototype);
-Enemy1.prototype.constructor = Enemy1;
+BasicCharger.prototype = Object.create(Phaser.Sprite.prototype);
+BasicCharger.prototype.constructor = BasicCharger;
 
-//override Enemy1's update
-Enemy1.prototype.update = function() {
+//override BasicCharger's update
+BasicCharger.prototype.update = function() {
     //make enemy move towards the player unless it is in the process of being knocked back
     if(!this.knockedBack) {
         game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
@@ -45,31 +46,23 @@ Enemy1.prototype.update = function() {
     this.rotation = angleToSprite(this, this.playerSprite);
 
     //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerEnemy1Collision, null, this);
+    game.physics.arcade.collide(this, this.playerSprite, playerBasicChargerCollision, null, this);
 
     //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, bullets, bulletsEnemy1Collision, null, this);
+    game.physics.arcade.overlap(this, playerBullets, bulletsBasicChargerCollision, null, this);
 
     //check if enemy is dead
     if(this.hp <= 0) this.destroy();
 }
 
-//this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
-//I based this on phaser's built in method called angleToPointer()
-function angleToSprite(thisSprite, targetSprite) {
-    var dx = targetSprite.body.x - thisSprite.body.x;
-    var dy = targetSprite.body.y - thisSprite.body.y;
-    return Math.atan2(dy, dx);
-}
-
 //when player and enemy1 collide, player hp is decremented and both get knocked back
-function playerEnemy1Collision(enemy, player) {
+function playerBasicChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        knockback(player, 500, angleToSprite(player, enemy));
+        knockback(player, 400, angleToSprite(player, enemy));
         enemy.knockedBack = true;
-        knockback(enemy, 500, enemy.rotation);
+        knockback(enemy, 400, enemy.rotation);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
         console.log("Player HP: " + player.hp); //just for testing
@@ -77,7 +70,7 @@ function playerEnemy1Collision(enemy, player) {
 }
 
 //handle collision between bullets group and enemy1
-function bulletsEnemy1Collision(enemy, bullet) {
+function bulletsBasicChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
 
