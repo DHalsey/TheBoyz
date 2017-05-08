@@ -85,16 +85,3 @@ function bulletsBasicShooterCollision(enemy, bullet) {
     enemy.body.drag.x = 1000;
     enemy.body.drag.y = 1000;
 }
-
-function shootPlayer(enemy) {
-    if(game.time.now > enemy.nextShot) {
-    	enemy.nextShot = game.time.now + enemy.fireRate;
-
-    	//knock back the enemy
-    	enemy.knockedBack = true;
-    	knockback(enemy, 150, enemy.rotation);
-    	enemy.body.drag.x = 1000;
-    	enemy.body.drag.y = 1000;
-        new EnemyBullet(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 1);
-    }
-}

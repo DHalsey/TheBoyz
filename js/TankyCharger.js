@@ -55,14 +55,6 @@ TankyCharger.prototype.update = function() {
     if(this.hp <= 0) this.destroy();
 }
 
-//this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
-//I based this on phaser's built in method called angleToPointer()
-function angleToSprite(thisSprite, targetSprite) {
-    var dx = targetSprite.body.x - thisSprite.body.x;
-    var dy = targetSprite.body.y - thisSprite.body.y;
-    return Math.atan2(dy, dx);
-}
-
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerTankyChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
