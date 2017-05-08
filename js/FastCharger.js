@@ -1,7 +1,8 @@
-//BasicCharger.js
-//the standard, boring enemy type
+//FastCharger.js
+//this enemy has low health, quick movement speed
+//when in range, it charges at you every 3 seconds
 
-function BasicCharger(game, x, y, atlas, frame, player) {
+function FastCharger(game, x, y, atlas, frame, player) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -13,22 +14,29 @@ function BasicCharger(game, x, y, atlas, frame, player) {
 	this.body.collideWorldBounds = true;
 	this.anchor.set(0.5);
 
-	//BasicCharger properties
-    this.hp = 5;
+	//FastCharger properties
+    this.hp = 2;
     this.playerSprite = player;
-    this.movementSpeed = 150;
+    this.movementSpeed = 200;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
     this.attackRate = 500;
     this.knockedBack = false;
+
+    //these are for the charge attack
+    this.nextCharge = 0;
+    this.chargeRate = 1500;
+     
+    //stores the distance from player
+    this.distanceToPlayer = 0;
 }
 
-BasicCharger.prototype = Object.create(Phaser.Sprite.prototype);
-BasicCharger.prototype.constructor = BasicCharger;
+FastCharger.prototype = Object.create(Phaser.Sprite.prototype);
+FastCharger.prototype.constructor = FastCharger;
 
-//override BasicCharger's update
-BasicCharger.prototype.update = function() {
+//override FastCharger's update
+FastCharger.prototype.update = function() {
     //make enemy move towards the player unless it is in the process of being knocked back
     if(!this.knockedBack) {
         game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
@@ -41,15 +49,21 @@ BasicCharger.prototype.update = function() {
                 this.body.drag.y = 0;
             }
     }
+    
+    //update the enemy's distance to the player
+    this.distanceToPlayer = distance(this, this.playerSprite);
+
+    //charge attack
+    chargeAtPlayer(this);
 
     //make enemy face the player
-    this.rotation = angleToSprite(this, this.playerSprite);
+    if(!this.knockedBack) this.rotation = angleToSprite(this, this.playerSprite);
 
     //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerBasicChargerCollision, null, this);
+    game.physics.arcade.collide(this, this.playerSprite, playerFastChargerCollision, null, this);
 
     //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, playerBullets, bulletsBasicChargerCollision, null, this);
+    game.physics.arcade.overlap(this, playerBullets, bulletsFastChargerCollision, null, this);
 
     //check if enemy is dead
     if(this.hp <= 0) this.destroy();
@@ -64,7 +78,7 @@ function angleToSprite(thisSprite, targetSprite) {
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
-function playerBasicChargerCollision(enemy, player) {
+function playerFastChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
@@ -78,7 +92,7 @@ function playerBasicChargerCollision(enemy, player) {
 }
 
 //handle collision between bullets group and enemy1
-function bulletsBasicChargerCollision(enemy, bullet) {
+function bulletsFastChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
 
@@ -87,5 +101,24 @@ function bulletsBasicChargerCollision(enemy, bullet) {
     knockback(enemy, 300, enemy.rotation);
     enemy.body.drag.x = 1000;
     enemy.body.drag.y = 1000;
+}
+
+//find the distance between two sprites
+function distance(sprite1, sprite2) {
+    var dx = sprite1.body.x - sprite2.body.x;
+    var dy = sprite1.body.y - sprite2.body.y;
+    return Math.sqrt(dx*dx + dy*dy);
+}
+
+function chargeAtPlayer(enemy) {
+      if(enemy.distanceToPlayer <= 300 && game.time.now > enemy.nextCharge) {
+        enemy.nextCharge = game.time.now + enemy.chargeRate;
+
+        //knockback the enemy towards the direction its facing
+        enemy.knockedBack = true;
+        knockback(enemy, 800, enemy.rotation - Math.PI);
+        enemy.body.drag.x = 1000;
+        enemy.body.drag.y = 1000;
+      }
 }
 

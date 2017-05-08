@@ -1,7 +1,7 @@
-//BasicShooter.js
-//this enemy follows the player slowly and fires bullets
+//TankyCharger.js
+//this charger has low movement speed, high health
 
-function BasicShooter(game, x, y, atlas, frame, player) {
+function TankyCharger(game, x, y, atlas, frame, player) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -13,25 +13,23 @@ function BasicShooter(game, x, y, atlas, frame, player) {
 	this.body.collideWorldBounds = true;
 	this.anchor.set(0.5);
 
-	//Ebemy2 properties
-    this.hp = 5;
+	//TankyCharger properties
+    this.hp = 10;
     this.playerSprite = player;
-    this.movementSpeed = 50;
+    this.movementSpeed = 75;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
     this.attackRate = 500;
-    this.nextShot = 0;
-    this.fireRate = 800;
     this.knockedBack = false;
 }
 
-BasicShooter.prototype = Object.create(Phaser.Sprite.prototype);
-BasicShooter.prototype.constructor = BasicShooter;
+TankyCharger.prototype = Object.create(Phaser.Sprite.prototype);
+TankyCharger.prototype.constructor = TankyCharger;
 
-//override BasicShooter's update
-BasicShooter.prototype.update = function() {
-	//make enemy move towards the player unless it is in the process of being knocked back
+//override TankyCharger's update
+TankyCharger.prototype.update = function() {
+    //make enemy move towards the player unless it is in the process of being knocked back
     if(!this.knockedBack) {
         game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
     }
@@ -44,30 +42,35 @@ BasicShooter.prototype.update = function() {
             }
     }
 
-    //shoot at the player
-    shootPlayer(this);
-
     //make enemy face the player
     this.rotation = angleToSprite(this, this.playerSprite);
 
     //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
+    game.physics.arcade.collide(this, this.playerSprite, playerTankyChargerCollision, null, this);
 
     //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, playerBullets, bulletsBasicShooterCollision, null, this);
+    game.physics.arcade.overlap(this, playerBullets, bulletsTankyChargerCollision, null, this);
 
     //check if enemy is dead
     if(this.hp <= 0) this.destroy();
 }
 
+//this function returns the angle to ratate thisSprite to, in order to make it face targetSprite
+//I based this on phaser's built in method called angleToPointer()
+function angleToSprite(thisSprite, targetSprite) {
+    var dx = targetSprite.body.x - thisSprite.body.x;
+    var dy = targetSprite.body.y - thisSprite.body.y;
+    return Math.atan2(dy, dx);
+}
+
 //when player and enemy1 collide, player hp is decremented and both get knocked back
-function playerBasicShooterCollision(enemy, player) {
+function playerTankyChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        knockback(player, 500, angleToSprite(player, enemy));
+        knockback(player, 400, angleToSprite(player, enemy));
         enemy.knockedBack = true;
-        knockback(enemy, 500, enemy.rotation);
+        knockback(enemy, 200, enemy.rotation);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
         console.log("Player HP: " + player.hp); //just for testing
@@ -75,26 +78,14 @@ function playerBasicShooterCollision(enemy, player) {
 }
 
 //handle collision between bullets group and enemy1
-function bulletsBasicShooterCollision(enemy, bullet) {
+function bulletsTankyChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
 
     //knock back the enemy
     enemy.knockedBack = true;
-    knockback(enemy, 300, enemy.rotation);
+    knockback(enemy, 100, enemy.rotation);
     enemy.body.drag.x = 1000;
     enemy.body.drag.y = 1000;
 }
 
-function shootPlayer(enemy) {
-    if(game.time.now > enemy.nextShot) {
-    	enemy.nextShot = game.time.now + enemy.fireRate;
-
-    	//knock back the enemy
-    	enemy.knockedBack = true;
-    	knockback(enemy, 150, enemy.rotation);
-    	enemy.body.drag.x = 1000;
-    	enemy.body.drag.y = 1000;
-        new EnemyBullet(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 1);
-    }
-}

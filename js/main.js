@@ -5,6 +5,7 @@ var map, layerCollision;
 //global groups
 var playerBullets;
 var enemyBullets;
+var enemies;
 
 window.onload = function(){
 	game = new Phaser.Game(1280,768, Phaser.AUTO);
@@ -46,15 +47,16 @@ Play.prototype = {
         layerCollision.debug = true;
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
-        enemy = new BasicCharger(game, 400, 200, 'atlas', 'player0002', 5, player);
-        enemy2 = new BasicShooter(game, 600, 50, 'atlas', 'player0002', 5, player);
+        enemy = new BasicCharger(game, 400, 200, 'atlas', 'player0002', player);
+        enemy2 = new BasicShooter(game, 600, 50, 'atlas', 'player0002', player);
+        enemy3 = new TankyCharger(game, 650, 400, 'atlas', 'player0002', player);
+        enemy4 = new FastCharger(game, 800, 400, 'atlas', 'player0002', player);
 
         var rifle = new Weapon(game, game.world.width/2, game.world.height/2, 'rifleSprite', 'rifle', 100, player);
-        
-        //create groups
-        bullets = game.add.physicsGroup();
+
         game.physics.arcade.enable(map);
 
+        //create groups
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
 	},
