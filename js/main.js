@@ -41,11 +41,13 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
-        world_width = 2560;
+        world_width = 2560; //The world has been set to be 2x2 rooms big
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
 
+        //Set world size and adjust color to white
+        game.stage.setBackgroundColor('#ffffff');
         game.world.setBounds(0,0,world_width,world_height);
 
 		map = game.add.tilemap('maptile');
@@ -72,26 +74,12 @@ Play.prototype = {
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
 
-        //Create RoomAnchors for the camera to follow
-        Room1 = new RoomAnchor(game,room_width/2, room_height/2);
-        Room2 = new RoomAnchor(game,room_width*1.5, room_height/2);
-        Room3 = new RoomAnchor(game,room_width/2, room_height*1.5);
-        Room4 = new RoomAnchor(game,room_width*1.5, room_height*1.5);
-        game.camera.follow(Room1);
+        roomAnchors();
 	},
 	update: function(){
         game.physics.arcade.collide(player, layerCollision);
 
-        //Switch Rooms depending where the player is
-        if(player.position.x < room_width && player.position.y < room_height) {
-            game.camera.follow(Room1);
-        }else if(player.position.x < room_width*2 && player.position.y < room_height) {
-            game.camera.follow(Room2);
-        }else if(player.position.x < room_width && player.position.y < room_height*2) {
-            game.camera.follow(Room3);
-        }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
-            game.camera.follow(Room4);
-        }
+        roomTransition(player, room_width, room_height);
 	}
 };
 
