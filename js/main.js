@@ -57,7 +57,7 @@ Play.prototype = {
         map.addTilesetImage('Collision','collisionImage');
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
         map.setCollisionBetween(6, 9,true,'CollisionBounds');
-        //layerMain.resizeWorld();
+        layerMain.resizeWorld();
         layerCollision.visible = false;
         layerCollision.debug = true;
         
