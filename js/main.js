@@ -58,6 +58,7 @@ Play.prototype = {
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
         map.setCollisionBetween(6, 9,true,'CollisionBounds');
         //layerMain.resizeWorld();
+        layerCollision.visible = false;
         layerCollision.debug = true;
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
