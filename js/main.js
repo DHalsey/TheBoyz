@@ -7,6 +7,13 @@ var playerBullets;
 var enemyBullets;
 var enemies;
 
+//Global variables
+var player;
+var world_width;
+var world_height;
+var room_width;
+var room_height;
+
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
     game.state.add('Preloader', Preloader);
@@ -30,13 +37,7 @@ Preloader.prototype = {
 	}
 };
 
-var Play = function(game) {
-    var player
-    var world_width;
-    var world_height;
-    var room_width;
-    var room_height;
-};
+var Play = function(game) {};
 Play.prototype = {
     preload: function(){
 	},
