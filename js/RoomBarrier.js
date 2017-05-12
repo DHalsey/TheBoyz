@@ -43,6 +43,8 @@ RoomBarrier.prototype.update = function() {
     } 
 }
 
+//this function checks if all of the enemies from a spawner have died
+//if all its enemies are dead, this function returnse true, else it returns false
 function checkSpawner(spawner) {
     if(spawner == undefined || spawner.enemiesAlive <= 0)
         return true;
