@@ -108,14 +108,21 @@ Play.prototype = {
        //this spawner will spawn one of each enemy type at the four passed in spawn points. 
        roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
        roomOneSpawner.spawn();
+       testSpawner = new EnemySpawner(['BasicShooter'], [new SpawnPoint(3,3)], player);
+       testSpawner.spawn();
 
        //room one barriers
-       new RoomBarrier(game, 19, 6, player, roomOneSpawner);
-       new RoomBarrier(game, 19, 5, player, roomOneSpawner);
-       new RoomBarrier(game, 8, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 9, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 10, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 11, 11, player, roomOneSpawner);
+       //these barriers are tracking the enemies from both roomOneSpawner and testSpawner
+       //when all of the enemies from both of these spawners are dead, the barriers will despawn
+       //RoomBarriers can track the enemies from up to 5 spawners
+       //they can be used for just 1 spawner also
+       //I added this functionality just in case we want to have more than 1 spawner per room
+       new RoomBarrier(game, 19, 6, player, roomOneSpawner, testSpawner);
+       new RoomBarrier(game, 19, 5, player, roomOneSpawner, testSpawner);
+       new RoomBarrier(game, 8, 11, player, roomOneSpawner, testSpawner);
+       new RoomBarrier(game, 9, 11, player, roomOneSpawner, testSpawner);
+       new RoomBarrier(game, 10, 11, player, roomOneSpawner, testSpawner);
+       new RoomBarrier(game, 11, 11, player, roomOneSpawner, testSpawner);
 
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
