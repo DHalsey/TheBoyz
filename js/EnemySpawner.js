@@ -2,6 +2,7 @@
 
 //EnemySpawner constructor:
 //Usage: spawnerName = new EnemySpawner([array of enemy names (strings)], [array of SpawnPoints], player)
+//NOTE: THE ARRAY OF ENEMY NAMES HAS TO BE THE SAME LENGTH AS THE ARRAY OF POINTS!!!!
 function EnemySpawner(enemyArray, spawnPoints, player) {
 	this.enemies = enemyArray;
 	this.spawns = spawnPoints;
