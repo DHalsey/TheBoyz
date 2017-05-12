@@ -117,6 +117,9 @@ Play.prototype = {
        //RoomBarriers can track the enemies from up to 5 spawners
        //they can be used for just 1 spawner also
        //I added this functionality just in case we want to have more than 1 spawner per room
+       //NOTE: I placed the barriers where they are right now so that you could see how they work
+       //      I suggest that we move them 1 block offscreen so that they function more like invisible walls
+       //      This way we can avoid problems when we place them every time the player switches rooms
        new RoomBarrier(game, 19, 6, player, roomOneSpawner, testSpawner);
        new RoomBarrier(game, 19, 5, player, roomOneSpawner, testSpawner);
        new RoomBarrier(game, 8, 11, player, roomOneSpawner, testSpawner);
