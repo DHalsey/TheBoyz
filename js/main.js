@@ -129,8 +129,11 @@ Play.prototype = {
 
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
-       //this one will spawn in 2 shooting enemies and one fast charer in a random order at the given spawn points
-       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], [new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6)], player);
+       //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
+       //I made this example to illustrate that you can set more poossible spawn points than enemies to spawn
+       //this could be a good way to add some extra randomness if we so choose
+       //note also that you can pass random integers as arguments to the SpawnPoint constructors
+       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], [new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6), new SpawnPoint(10,10), new SpawnPoint(11,3)], player);
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 

@@ -3,6 +3,8 @@
 //EnemySpawner constructor:
 //Usage: spawnerName = new EnemySpawner([array of enemy names (strings)], [array of SpawnPoints], player)
 //NOTE: THE ARRAY OF ENEMY NAMES HAS TO BE <= TO THE LENGTH OF THE SPAWN POINTS ARRAY!!!!
+//NOTE: YOU CAN PASS IT MORE SPAWN POINTS THAN ENEMIES, AND IT WILL WORK AS EXPECTED
+//      this is a good way to create some extra randomness
 function EnemySpawner(enemyArray, spawnPoints, player) {
 	this.enemies = enemyArray;
 	this.spawns = spawnPoints;
