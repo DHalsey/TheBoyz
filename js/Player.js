@@ -9,7 +9,7 @@ function Player(game, x, y, atlas, frame, health) {
 
 	//enable physics and set some properties
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.body.collideWorldBounds = true;
+	this.body.collideWorldBounds = false;
 	this.anchor.set(0.5);
 
 	//Player properties
@@ -59,7 +59,7 @@ Player.prototype.update = function() {
     //shoot on mouse click
     if(game.input.activePointer.isDown) shootWeapon(this);
 
-      //handle collision between bullets and enemy
+    //handle collision between bullets and player
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
 }
 

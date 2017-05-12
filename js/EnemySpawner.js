@@ -2,12 +2,13 @@
 
 //EnemySpawner constructor:
 //Usage: spawnerName = new EnemySpawner([array of enemy names (strings)], [array of SpawnPoints], player)
-//NOTE: THE ARRAY OF ENEMY NAMES HAS TO BE THE SAME LENGTH AS THE ARRAY OF POINTS!!!!
+//NOTE: THE ARRAY OF ENEMY NAMES HAS TO BE <= TO THE LENGTH OF THE SPAWN POINTS ARRAY!!!!
 function EnemySpawner(enemyArray, spawnPoints, player) {
 	this.enemies = enemyArray;
 	this.spawns = spawnPoints;
     this.playerSprite = player;
     this.spawned = false;
+    this.enemiesAlive = enemyArray.length;
 }
 
 //Spawn function
@@ -17,6 +18,7 @@ function EnemySpawner(enemyArray, spawnPoints, player) {
 EnemySpawner.prototype.spawn = function() {
    if(!this.spawned) {
         shuffleArray(this.enemies);
+        shuffleArray(this.spawns);
 
         var point;
         var enemy;
@@ -26,13 +28,13 @@ EnemySpawner.prototype.spawn = function() {
             point = this.spawns[i];
 
             if(this.enemies[i] === "BasicCharger") {
-                enemy = new BasicCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new BasicCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite, this);
             } else if(this.enemies[i] === "BasicShooter") {
-                enemy = new BasicShooter(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new BasicShooter(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite, this);
             } else if(this.enemies[i] === "TankyCharger") {
-                enemy = new TankyCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new TankyCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite, this);
             } else {
-                enemy = new FastCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new FastCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite, this);
             }
             enemyGroup.add(enemy);
         }

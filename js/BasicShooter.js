@@ -1,7 +1,7 @@
 //BasicShooter.js
 //this enemy follows the player slowly and fires bullets
 
-function BasicShooter(game, x, y, atlas, frame, player) {
+function BasicShooter(game, x, y, atlas, frame, player, spawner) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -16,6 +16,7 @@ function BasicShooter(game, x, y, atlas, frame, player) {
 	//Ebemy2 properties
     this.hp = 5;
     this.playerSprite = player;
+    this.enemySpawner = spawner;
     this.movementSpeed = 50;
 
     //These are to allow damage to the player and knockback effects
@@ -61,7 +62,10 @@ BasicShooter.prototype.update = function() {
     game.physics.arcade.overlap(this, playerBullets, bulletsBasicShooterCollision, null, this);
 
     //check if enemy is dead
-    if(this.hp <= 0) this.destroy();
+    if(this.hp <= 0) {
+        this.enemySpawner.enemiesAlive--;
+        this.destroy();
+    } 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back

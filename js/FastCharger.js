@@ -2,7 +2,7 @@
 //this enemy has low health, quick movement speed
 //when in range, it charges at you every 3 seconds
 
-function FastCharger(game, x, y, atlas, frame, player) {
+function FastCharger(game, x, y, atlas, frame, player, spawner) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -17,6 +17,7 @@ function FastCharger(game, x, y, atlas, frame, player) {
 	//FastCharger properties
     this.hp = 2;
     this.playerSprite = player;
+    this.enemySpawner = spawner;
     this.movementSpeed = 200;
 
     //These are to allow damage to the player and knockback effects
@@ -66,7 +67,10 @@ FastCharger.prototype.update = function() {
     game.physics.arcade.overlap(this, playerBullets, bulletsFastChargerCollision, null, this);
 
     //check if enemy is dead
-    if(this.hp <= 0) this.destroy();
+    if(this.hp <= 0) {
+        this.enemySpawner.enemiesAlive--;
+        this.destroy();
+    } 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back

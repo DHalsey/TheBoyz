@@ -1,7 +1,7 @@
 //TankyCharger.js
 //this charger has low movement speed, high health
 
-function TankyCharger(game, x, y, atlas, frame, player) {
+function TankyCharger(game, x, y, atlas, frame, player, spawner) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -16,6 +16,7 @@ function TankyCharger(game, x, y, atlas, frame, player) {
 	//TankyCharger properties
     this.hp = 10;
     this.playerSprite = player;
+    this.enemySpawner = spawner;
     this.movementSpeed = 75;
 
     //These are to allow damage to the player and knockback effects
@@ -52,7 +53,10 @@ TankyCharger.prototype.update = function() {
     game.physics.arcade.overlap(this, playerBullets, bulletsTankyChargerCollision, null, this);
 
     //check if enemy is dead
-    if(this.hp <= 0) this.destroy();
+    if(this.hp <= 0) {
+        this.enemySpawner.enemiesAlive--;
+        this.destroy();
+    } 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back

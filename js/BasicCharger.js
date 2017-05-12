@@ -1,7 +1,7 @@
 //BasicCharger.js
 //the standard, boring enemy type
 
-function BasicCharger(game, x, y, atlas, frame, player) {
+function BasicCharger(game, x, y, atlas, frame, player, spawner) {
 
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
@@ -16,6 +16,7 @@ function BasicCharger(game, x, y, atlas, frame, player) {
 	//BasicCharger properties
     this.hp = 5;
     this.playerSprite = player;
+    this.enemySpawner = spawner;
     this.movementSpeed = 150;
 
     //These are to allow damage to the player and knockback effects
@@ -52,7 +53,10 @@ BasicCharger.prototype.update = function() {
     game.physics.arcade.overlap(this, playerBullets, bulletsBasicChargerCollision, null, this);
 
     //check if enemy is dead
-    if(this.hp <= 0) this.destroy();
+    if(this.hp <= 0) {
+        this.enemySpawner.enemiesAlive--;
+        this.destroy();
+    } 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back

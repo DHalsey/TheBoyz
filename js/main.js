@@ -34,6 +34,7 @@ Preloader.prototype = {
 		game.load.image('collisionImage','Collision.png'); //tilemap images     
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
+        game.load.image('wall', 'wall.png');
 	},
 	create: function(){
 		game.state.start('Menu');
@@ -71,7 +72,7 @@ Menu.prototype =
 	}
 };
 
-var Play = function(game) {};
+var Play = function(game) {var roomOneSpawner;};
 Play.prototype = {
     preload: function(){
 	},
@@ -105,8 +106,17 @@ Play.prototype = {
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
      
        //this spawner will spawn one of each enemy type at the four passed in spawn points. 
-       var roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
+       roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
        roomOneSpawner.spawn();
+
+       //room one barriers
+       new RoomBarrier(game, 19, 6, player, roomOneSpawner);
+       new RoomBarrier(game, 19, 5, player, roomOneSpawner);
+       new RoomBarrier(game, 8, 11, player, roomOneSpawner);
+       new RoomBarrier(game, 9, 11, player, roomOneSpawner);
+       new RoomBarrier(game, 10, 11, player, roomOneSpawner);
+       new RoomBarrier(game, 11, 11, player, roomOneSpawner);
+
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
        //this one will spawn in 2 shooting enemies and one fast charer in a random order at the given spawn points
@@ -117,6 +127,7 @@ Play.prototype = {
         roomAnchors();
 	},
 	update: function(){
+
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);
