@@ -73,15 +73,14 @@ function toPointer (displayObject, speed, pointer, maxTime) {
         if (maxTime === undefined) { maxTime = 0; }
 
         var angle = player.rotation;
-
         if (maxTime > 0)
         {
             //  We know how many pixels we need to move, but how fast?
             speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
         }
 
-        displayObject.body.velocity.x = (Math.cos(angle) * speed) + 10;
-        displayObject.body.velocity.y = (Math.sin(angle) * speed) + 10;
+        displayObject.body.velocity.x = (Math.cos(angle) * speed);
+        displayObject.body.velocity.y = (Math.sin(angle) * speed);
 
         return angle;
 

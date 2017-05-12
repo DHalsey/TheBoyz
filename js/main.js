@@ -122,6 +122,8 @@ Play.prototype = {
         game.physics.arcade.collide(enemyGroup, layerCollision);
 
         roomTransition(player, room_width, room_height);
+
+        console.log(player.rotation);
 	}
 };
 
