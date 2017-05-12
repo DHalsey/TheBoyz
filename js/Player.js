@@ -61,6 +61,8 @@ Player.prototype.update = function() {
 
       //handle collision between bullets and enemy
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
+    if(this.hp <= 0)
+        game.state.start('Lose');
 }
 
 function resetMovement(player) {
