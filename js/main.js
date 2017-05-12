@@ -97,12 +97,12 @@ Play.prototype = {
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
      
        //this spawner will spawn one of each enemy type at the four passed in spawn points. 
-       var roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(400,200), new SpawnPoint(600, 650), new SpawnPoint(650, 400), new SpawnPoint(1000,100)], player);
+       var roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
        roomOneSpawner.spawn();
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
        //this one will spawn in 2 shooting enemies and one fast charer in a random order at the given spawn points
-       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], new SpawnPoint(100,400), new SpawnPoint(1000, 100), new SpawnPoint(500, 600), player);
+       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6), player);
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 

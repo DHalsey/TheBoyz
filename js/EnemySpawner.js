@@ -39,9 +39,10 @@ EnemySpawner.prototype.spawn = function() {
 
 //SpawnPoint constructor
 //Usage: pointName = new SpawnPoint(x, y)
+//room tiles start at [0,0] Note the +32 is to deal with an anchor offset of 0.5 so the enemy will spawn in the center of the tile
 function SpawnPoint(x,y) {
-    this.xCoord = x;
-    this.yCoord = y;
+    this.xCoord = x*64+32;
+    this.yCoord = y*64+32;
 }
 
 //this function randomizes the order of an array
