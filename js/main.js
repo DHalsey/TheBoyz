@@ -133,6 +133,7 @@ Play.prototype = {
        //I made this example to illustrate that you can set more poossible spawn points than enemies to spawn
        //this could be a good way to add some extra randomness if we so choose
        //note also that you can pass random integers as arguments to the SpawnPoint constructors
+       //i haven't called spawn() on this spawner, so the enemies won't actually show up in the game, but you get the point
        var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], [new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6), new SpawnPoint(10,10), new SpawnPoint(11,3)], player);
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
