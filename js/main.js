@@ -5,7 +5,7 @@ var map, layerCollision;
 //global groups
 var playerBullets;
 var enemyBullets;
-var enemies;
+var enemyGroup;
 
 //Global variables
 var player;
@@ -59,6 +59,8 @@ Menu.prototype =
 		//adds button to press
 		var button = game.add.button(game.world.centerX, game.world.centerY,
 			'button', this.actionOnClick, this);
+        button.inputEnabled = true;
+        button.input.useHandCursor = false;
 
 	},
 	update: function(){},
@@ -98,7 +100,7 @@ Play.prototype = {
         //create groups
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
-        enemies = game.add.physicsGroup();
+        enemyGroup = game.add.physicsGroup();
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
      
@@ -117,7 +119,7 @@ Play.prototype = {
 	update: function(){
         game.physics.arcade.collide(player, layerCollision);
 
-        game.physics.arcade.collide(enemies, layerCollision);
+        game.physics.arcade.collide(enemyGroup, layerCollision);
 
         roomTransition(player, room_width, room_height);
 	}

@@ -34,7 +34,7 @@ EnemySpawner.prototype.spawn = function() {
             } else {
                 enemy = new FastCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
             }
-            enemies.add(enemy);
+            enemyGroup.add(enemy);
         }
         this.spawned = true;
    }
