@@ -24,6 +24,7 @@ function BasicShooter(game, x, y, atlas, frame, player) {
     this.nextShot = 0;
     this.fireRate = 800;
     this.knockedBack = false;
+    this.distanceToPlayer = 0;
 }
 
 BasicShooter.prototype = Object.create(Phaser.Sprite.prototype);
@@ -44,8 +45,10 @@ BasicShooter.prototype.update = function() {
             }
     }
 
+    this.distanceToPlayer = distance(this, this.playerSprite);
+
     //shoot at the player
-    shootPlayer(this);
+    if(this.distanceToPlayer <= 450) shootPlayer(this);
 
     //make enemy face the player
     this.rotation = angleToSprite(this, this.playerSprite);
