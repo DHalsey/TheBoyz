@@ -19,20 +19,22 @@ EnemySpawner.prototype.spawn = function() {
         shuffleArray(this.enemies);
 
         var point;
+        var enemy;
 
         for(var i=0; i<this.enemies.length; i++) {
 
             point = this.spawns[i];
 
             if(this.enemies[i] === "BasicCharger") {
-                new BasicCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new BasicCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
             } else if(this.enemies[i] === "BasicShooter") {
-                new BasicShooter(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new BasicShooter(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
             } else if(this.enemies[i] === "TankyCharger") {
-                new TankyCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new TankyCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
             } else {
-                new FastCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
+                enemy = new FastCharger(game, point.xCoord, point.yCoord, 'atlas', 'player0002', this.playerSprite);
             }
+            enemies.add(enemy);
         }
         this.spawned = true;
    }

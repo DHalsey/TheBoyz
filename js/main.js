@@ -93,6 +93,12 @@ Play.prototype = {
         layerMain.resizeWorld();
         layerCollision.visible = false;
         layerCollision.debug = true;
+        game.physics.arcade.enable(map);
+
+        //create groups
+        playerBullets = game.add.physicsGroup();
+        enemyBullets = game.add.physicsGroup();
+        enemies = game.add.physicsGroup();
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
      
@@ -106,16 +112,12 @@ Play.prototype = {
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 
-        game.physics.arcade.enable(map);
-
-        //create groups
-        playerBullets = game.add.physicsGroup();
-        enemyBullets = game.add.physicsGroup();
-
         roomAnchors();
 	},
 	update: function(){
         game.physics.arcade.collide(player, layerCollision);
+
+        game.physics.arcade.collide(enemies, layerCollision);
 
         roomTransition(player, room_width, room_height);
 	}
