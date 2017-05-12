@@ -95,10 +95,14 @@ Play.prototype = {
         layerCollision.debug = true;
         
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
-        enemy = new BasicCharger(game, 400, 200, 'atlas', 'player0002', player);
-        enemy2 = new BasicShooter(game, 600, 50, 'atlas', 'player0002', player);
-        enemy3 = new TankyCharger(game, 650, 400, 'atlas', 'player0002', player);
-        enemy4 = new FastCharger(game, 800, 400, 'atlas', 'player0002', player);
+     
+       //this spawner will spawn one of each enemy type at the four passed in spawn points. 
+       var roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(400,200), new SpawnPoint(600, 650), new SpawnPoint(650, 400), new SpawnPoint(1000,100)], player);
+       roomOneSpawner.spawn();
+
+       //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
+       //this one will spawn in 2 shooting enemies and one fast charer in a random order at the given spawn points
+       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], new SpawnPoint(100,400), new SpawnPoint(1000, 100), new SpawnPoint(500, 600), player);
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 
