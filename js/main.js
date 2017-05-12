@@ -10,6 +10,7 @@ var enemies;
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
     game.state.add('Preloader', Preloader);
+    game.state.add('Menu', Menu);
     game.state.add('Play', Play);
     game.state.start('Preloader');
 };
@@ -24,8 +25,39 @@ Preloader.prototype = {
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images     
+		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
+		game.load.image('button', 'button.png');
 	},
 	create: function(){
+		game.state.start('Menu');
+	}
+};
+
+
+//starts the main menu state
+var Menu = function(game){};
+Menu.prototype = 
+{
+	preload: function(){},
+
+	create: function()
+	{
+		//adds background
+		menuBG = game.add.image(0,0, 'menuBackgrnd');
+
+		//adds menu text
+		var menuTitle = game.add.text(80, 80, 'Fyre Fight',
+			{font: '50px Arial', fill: '#000000'});
+
+		//adds button to press
+		var button = game.add.button(game.world.centerX, game.world.centerY,
+			'button', this.actionOnClick, this);
+
+	},
+	update: function(){},
+
+	actionOnClick: function()
+	{
 		game.state.start('Play');
 	}
 };
