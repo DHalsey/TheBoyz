@@ -72,7 +72,7 @@ Menu.prototype =
 	}
 };
 
-var Play = function(game) {var roomOneSpawner;};
+var Play = function(game) {var roomOneSpawner; var healthBar;};
 Play.prototype = {
     preload: function(){
 	},
@@ -149,5 +149,6 @@ Play.prototype = {
         game.physics.arcade.collide(enemyGroup, layerCollision);
 
         roomTransition(player, room_width, room_height);
+        updateHealthBar();
 	}
 };

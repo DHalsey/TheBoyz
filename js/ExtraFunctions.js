@@ -113,8 +113,23 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     healthBarBitmap.ctx.fill();
 
     //create a health bar using healthBarBitmap
-    var healthBar = game.add.sprite(positionX+2, positionY+2, healthBarBitmap);
+    healthBar = game.add.sprite(positionX+2, positionY+2, healthBarBitmap);
     healthBar.fixedToCamera = true;
     meters.add(healthBar);
 
+}
+
+function updateHealthBar(widthHP, heightHP) {
+    if(widthHP == undefined){widthHP = 192;}
+    if(heightHP == undefined){heightHP = 32;}
+    widthHP = widthHP - 4;
+    widthHP = widthHP - 4;
+
+    var m = (player.maxHP - player.hp)/player.maxHP;
+    var bh = widthHP - (widthHP * m);
+    //var offset = widthHP - bh;
+
+    healthBar.key.context.clearRect(0, 0, healthBar.width, healthBar.height);
+    healthBar.key.context.fillRect(0, 0, bh, healthBar.height);
+    healthBar.key.dirty = true;
 }
