@@ -36,7 +36,7 @@ Preloader.prototype = {
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
         game.load.image('wall', 'wall.png');
-        game.load.image('healthOverlay', 'healthBarOverlay2.png');
+        game.load.image('healthOverlay', 'healthBarOverlay.png');
 	},
 	create: function(){
 		game.state.start('Menu');

@@ -97,13 +97,25 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     var healthBackgroundBitmap = game.add.bitmapData(widthHP, heightHP);
     healthBackgroundBitmap.ctx.beginPath();
     healthBackgroundBitmap.ctx.rect(0, 0, healthBackgroundBitmap.width, healthBackgroundBitmap.height);
-    healthBackgroundBitmap.ctx.fillStyle = 'grey';
+    healthBackgroundBitmap.ctx.fillStyle = 'black';
     healthBackgroundBitmap.ctx.fill();
 
     //create a sprite using the healthBackgroundBitmap data
     var healthBarBG = game.add.sprite(positionX, positionY, healthBackgroundBitmap);
     healthBarBG.fixedToCamera = true;
     meters.add(healthBarBG);
+
+    //healthBackgroundBitmap2
+    var healthBackgroundBitmap2 = game.add.bitmapData(widthHP-4, heightHP-4);
+    healthBackgroundBitmap2.ctx.beginPath();
+    healthBackgroundBitmap2.ctx.rect(0, 0, healthBackgroundBitmap2.width, healthBackgroundBitmap2.height);
+    healthBackgroundBitmap2.ctx.fillStyle = 'grey';
+    healthBackgroundBitmap2.ctx.fill();
+
+    //create sprite using healthBackgroundBitmap2
+    healthBarBG2 = game.add.sprite(positionX+2, positionY+2, healthBackgroundBitmap2);
+    healthBarBG2.fixedToCamera = true;
+    meters.add(healthBarBG2);
 
     //create the actual health bar
     var healthBarBitmap = game.add.bitmapData(widthHP-4, heightHP-4);
@@ -118,7 +130,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     meters.add(healthBar);
 
     //add the overlay
-    var hpOverlay = game.add.sprite(positionX-28, positionY, 'healthOverlay');
+    var hpOverlay = game.add.sprite(positionX-26, positionY-4, 'healthOverlay');
     hpOverlay.fixedToCamera = true;
 
 }
