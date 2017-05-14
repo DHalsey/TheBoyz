@@ -19,6 +19,7 @@ window.onload = function(){
     game.state.add('Preloader', Preloader);
     game.state.add('Menu', Menu);
     game.state.add('Play', Play);
+    game.state.add('Lose', Lose);
     game.state.start('Preloader');
 };
 
@@ -69,7 +70,7 @@ Menu.prototype =
 	actionOnClick: function()
 	{
 		game.state.start('Play');
-	}
+	},
 };
 
 var Play = function(game) {var roomOneSpawner;};
@@ -89,7 +90,6 @@ Play.prototype = {
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
         layerMain = map.createLayer('worldMain'); //main world layer
-
         map.addTilesetImage('Collision','collisionImage');
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
         map.setCollisionBetween(6, 9,true,'CollisionBounds');
@@ -140,6 +140,7 @@ Play.prototype = {
 
         roomAnchors();
 	},
+
 	update: function(){
 
         game.physics.arcade.collide(player, layerCollision);
@@ -148,6 +149,35 @@ Play.prototype = {
 
         roomTransition(player, room_width, room_height);
 	}
+};
+
+//Lose state
+var Lose = function(game){};
+Lose.prototype = 
+{
+	preload: function(){},
+
+	create: function()
+	{
+		//adds background
+		loseBG = game.add.image(0,0, 'menuBackgrnd');
+
+		//adds menu text
+		var loseTitle = game.add.text(80, 80, 'You Lost',
+			{font: '50px Arial', fill: '#ffffff'});
+		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
+			{font: '25px Arial', fill: '#ffffff'});
+
+		//adds keypress
+		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+
+	},
+	update: function()
+	{
+		//sends the game back to the play state
+		if(this.rkey.justPressed())
+			game.state.start('Play');
+	},
 };
 
 
