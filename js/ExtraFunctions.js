@@ -97,7 +97,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     var healthBackgroundBitmap = game.add.bitmapData(widthHP, heightHP);
     healthBackgroundBitmap.ctx.beginPath();
     healthBackgroundBitmap.ctx.rect(0, 0, healthBackgroundBitmap.width, healthBackgroundBitmap.height);
-    healthBackgroundBitmap.ctx.fillStyle = 'pink';
+    healthBackgroundBitmap.ctx.fillStyle = 'grey';
     healthBackgroundBitmap.ctx.fill();
 
     //create a sprite using the healthBackgroundBitmap data
@@ -109,13 +109,17 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     var healthBarBitmap = game.add.bitmapData(widthHP-4, heightHP-4);
     healthBarBitmap.ctx.beginPath();
     healthBarBitmap.ctx.rect(0, 0, healthBarBitmap.width, healthBarBitmap.height);
-    healthBarBitmap.ctx.fillStyle = 'red';
+    healthBarBitmap.ctx.fillStyle = '#04fd00';
     healthBarBitmap.ctx.fill();
 
     //create a health bar using healthBarBitmap
     healthBar = game.add.sprite(positionX+2, positionY+2, healthBarBitmap);
     healthBar.fixedToCamera = true;
     meters.add(healthBar);
+
+    //add the overlay
+    var hpOverlay = game.add.sprite(positionX-28, positionY, 'healthOverlay');
+    hpOverlay.fixedToCamera = true;
 
 }
 
