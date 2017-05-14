@@ -32,8 +32,9 @@ function Player(game, x, y, atlas, frame, health) {
     this.pistolFireRate = 500;
     this.nextFire = 0;
     this.fireRate = 0;
-    this.currentWeapon = 'pistol';
+    this.currentWeapon = 'PISTOL';
     this.secondWeapon = '';
+    this.ammo = 0;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -124,16 +125,17 @@ function swap(player) {
 }
 
 function shootWeapon(player) {
-    if (player.currentWeapon == 'pistol' && game.time.now > player.nextFire) {
+    if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.nextFire = game.time.now + player.pistolFireRate;
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
     }
 
-    if (game.time.now > player.nextFire) {
+    if (game.time.now > player.nextFire && player.ammo > 0) {
     	knockback(player, 150, player.rotation);
     	player.nextFire = game.time.now + player.fireRate;
     	new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+        player.ammo--;
     }
 }
 

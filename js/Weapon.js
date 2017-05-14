@@ -21,10 +21,11 @@ Weapon.prototype = Object.create(Phaser.Sprite.prototype);
 Weapon.constructor = Weapon;
 
 Weapon.prototype.update = function() {
-	if (game.physics.arcade.overlap(this, player) && game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
+	if (distance(player, this) < 50 && game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
 		player.currentWeapon = this.type;
-		player.secondWeapon = 'pistol';
+		player.secondWeapon = 'PISTOL';
 		player.fireRate = this.fireRate;
+		player.ammo = 50;
 		this.kill();
 	}
 }

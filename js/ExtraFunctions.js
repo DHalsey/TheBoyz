@@ -152,3 +152,20 @@ function updateHealthBar(widthHP, heightHP) {
     healthBar.key.context.fillRect(0, 0, bh, healthBar.height);
     healthBar.key.dirty = true;
 }
+
+function createAmmoText(player) {
+    this.ammoText = game.add.text(1150, 30, player.currentWeapon,
+        {font: '20px Arial', fill: '#ffffff'});
+    this.ammoText.fixedToCamera = true;
+    return this.ammoText;
+}
+
+function updateAmmoText(ammoText, player) {
+    if (player.currentWeapon != 'PISTOL') {
+        ammoText.text = player.currentWeapon + '   ' + player.ammo;
+        if (player.ammo <= 0) ammoText.fill = '#ff0000';
+    } else {
+        ammoText.text = player.currentWeapon;
+        ammoText.fill = '#ffffff';
+    }
+}
