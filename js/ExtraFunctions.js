@@ -89,7 +89,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     if(positionX == undefined){positionX = 64;}
     if(positionY == undefined){positionY = 32;}
     if(widthHP == undefined){widthHP = 192;}
-    if(heightHP == undefined){heightHP = 32;}
+    if(heightHP == undefined){heightHP = 16;}
 
     meters = game.add.group();
 
@@ -97,7 +97,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     var healthBackgroundBitmap = game.add.bitmapData(widthHP, heightHP);
     healthBackgroundBitmap.ctx.beginPath();
     healthBackgroundBitmap.ctx.rect(0, 0, healthBackgroundBitmap.width, healthBackgroundBitmap.height);
-    healthBackgroundBitmap.ctx.fillStyle = 'black';
+    healthBackgroundBitmap.ctx.fillStyle = 'red';
     healthBackgroundBitmap.ctx.fill();
 
     //create a sprite using the healthBackgroundBitmap data
@@ -109,7 +109,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     var healthBackgroundBitmap2 = game.add.bitmapData(widthHP-4, heightHP-4);
     healthBackgroundBitmap2.ctx.beginPath();
     healthBackgroundBitmap2.ctx.rect(0, 0, healthBackgroundBitmap2.width, healthBackgroundBitmap2.height);
-    healthBackgroundBitmap2.ctx.fillStyle = 'grey';
+    healthBackgroundBitmap2.ctx.fillStyle = '#ca0000';
     healthBackgroundBitmap2.ctx.fill();
 
     //create sprite using healthBackgroundBitmap2
@@ -137,7 +137,7 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
 
 function updateHealthBar(widthHP, heightHP) {
     if(widthHP == undefined){widthHP = 192;}
-    if(heightHP == undefined){heightHP = 32;}
+    if(heightHP == undefined){heightHP = 16;}
     widthHP = widthHP - 4;
     widthHP = widthHP - 4;
 
