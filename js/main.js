@@ -115,7 +115,7 @@ Play.prototype = {
        roomFourSpawner = new EnemySpawner(['FastCharger'], [new SpawnPoint(29, 16)], player);
 
        //room one barriers
-       //these barriers are tracking the enemies from both roomOneSpawner and testSpawner
+       //these barriers are tracking the enemies from both roomOneSpawner
        //when all of the enemies from both of these spawners are dead, the barriers will despawn
        //RoomBarriers can track the enemies from up to 5 spawners
        //they can be used for just 1 spawner also
@@ -165,17 +165,18 @@ Play.prototype = {
         if(player.currentRoom == 1) {
           roomOneSpawner.spawn();
           escape.trackSpawner(roomOneSpawner);
-        } else if(player.currentRoom == 2) {
+        } 
+        else if(player.currentRoom == 2) {
           roomTwoSpawner.spawn();
           escape.trackSpawner(roomTwoSpawner);
-        } else if(player.currentRoom == 3) {
+        } 
+        else if(player.currentRoom == 3) {
           roomThreeSpawner.spawn();
           escape.trackSpawner(roomThreeSpawner);
-        } else {
-          if(player.currentRoom == 4) {
-            roomFourSpawner.spawn();
-            escape.trackSpawner(roomFourSpawner);
-          }
+        } 
+        else {
+          roomFourSpawner.spawn();
+          escape.trackSpawner(roomFourSpawner);
         }
 	}
 };

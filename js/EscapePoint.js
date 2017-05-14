@@ -52,10 +52,6 @@ EscapePoint.prototype.update = function() {
     game.physics.arcade.collide(this, this.playerSprite, startNewState, null, this);
 }
 
-function startNewState(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start(escapePoint.stateToStart);
-}
-
 //this function checks if all enemies in the room are dead
 //if there are enemies still alive, then the escape point will not transport the player
 function checkEscapeStatus(statusArray) {
@@ -66,3 +62,8 @@ function checkEscapeStatus(statusArray) {
 	}
 	return returnValue;
 }
+
+function startNewState(escapePoint, player) {
+	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start(escapePoint.stateToStart);
+}
+
