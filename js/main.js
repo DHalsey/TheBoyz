@@ -31,7 +31,7 @@ Preloader.prototype = {
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
-		game.load.image('collisionImage','Collision.png'); //tilemap images     
+		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
         game.load.image('wall', 'wall.png');
@@ -44,7 +44,7 @@ Preloader.prototype = {
 
 //starts the main menu state
 var Menu = function(game){};
-Menu.prototype = 
+Menu.prototype =
 {
 	preload: function(){},
 
@@ -102,10 +102,10 @@ Play.prototype = {
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
-        
+
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
-     
-       //this spawner will spawn one of each enemy type at the four passed in spawn points. 
+
+       //this spawner will spawn one of each enemy type at the four passed in spawn points.
        roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter", "TankyCharger", "FastCharger"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
        roomOneSpawner.spawn();
        testSpawner = new EnemySpawner(['BasicShooter'], [new SpawnPoint(3,3)], player);
@@ -138,6 +138,8 @@ Play.prototype = {
 
         var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
 
+        createHealthBar();
+
         roomAnchors();
 	},
 	update: function(){
@@ -149,5 +151,3 @@ Play.prototype = {
         roomTransition(player, room_width, room_height);
 	}
 };
-
-

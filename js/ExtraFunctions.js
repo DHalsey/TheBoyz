@@ -85,3 +85,36 @@ function toPointer (displayObject, speed, pointer, maxTime) {
         return angle;
 
     }
+function createHealthBar(positionX, positionY, widthHP, heightHP) {
+    if(positionX == undefined){positionX = 64;}
+    if(positionY == undefined){positionY = 32;}
+    if(widthHP == undefined){widthHP = 192;}
+    if(heightHP == undefined){heightHP = 32;}
+
+    meters = game.add.group();
+
+    //create a plain black rectangle as the background of the meter
+    var healthBackgroundBitmap = game.add.bitmapData(widthHP, heightHP);
+    healthBackgroundBitmap.ctx.beginPath();
+    healthBackgroundBitmap.ctx.rect(0, 0, healthBackgroundBitmap.width, healthBackgroundBitmap.height);
+    healthBackgroundBitmap.ctx.fillStyle = 'pink';
+    healthBackgroundBitmap.ctx.fill();
+
+    //create a sprite using the healthBackgroundBitmap data
+    var healthBarBG = game.add.sprite(positionX, positionY, healthBackgroundBitmap);
+    healthBarBG.fixedToCamera = true;
+    meters.add(healthBarBG);
+
+    //create the actual health bar
+    var healthBarBitmap = game.add.bitmapData(widthHP-4, heightHP-4);
+    healthBarBitmap.ctx.beginPath();
+    healthBarBitmap.ctx.rect(0, 0, healthBarBitmap.width, healthBarBitmap.height);
+    healthBarBitmap.ctx.fillStyle = 'red';
+    healthBarBitmap.ctx.fill();
+
+    //create a health bar using healthBarBitmap
+    var healthBar = game.add.sprite(positionX+2, positionY+2, healthBarBitmap);
+    healthBar.fixedToCamera = true;
+    meters.add(healthBar);
+
+}
