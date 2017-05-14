@@ -1,7 +1,9 @@
 //EscapePoint.js
 
 //EscapePoint constructor
-//Usage: new EscapePoint(gamne, [array of possible spawn points], player, the name of the state that staerts when player collides with it)
+//Usage: new EscapePoint(game, [array of possible spawn points], player, the name of the state that staerts when player collides with it)
+//The escape point will start the next level when the player collides with it ONLY IF all enemies in the room are dead
+//in order to make this work only when all enemies are dead in a specific room, EscapePoints have to work together with enemySpawners
 function EscapePoint(game, points, player, state) {
     shuffleArray(points);
     var point = points[0];
