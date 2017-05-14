@@ -15,10 +15,12 @@ function Player(game, x, y, atlas, frame, health) {
 
 	//Player properties
     this.hp = health;
+	this.maxHP = health;
     this.movementSpeed = 40;
     this.maxVelSoft = 300; //soft cap on velocity for WASD movement
     this.maxVelHard = 400; //hard cap on velocity that does not allow the player to move faster than
-    
+    this.currentRoom = 1;
+
     //Player movement properties
     this.movingUp = false;
     this.movingDown = false;
@@ -26,7 +28,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.movingRight = false;
     this.body.drag.x = 800; //TESTCODE
     this.body.drag.y = 800; //TESTCODE
-    
+
     //Player weapon properties
     this.pistolFireRate = 500;
     this.nextFire = 0;
@@ -62,6 +64,8 @@ Player.prototype.update = function() {
 
     //handle collision between bullets and player
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
+    if(this.hp <= 0)
+        game.state.start('Lose');
 }
 
 function resetMovement(player) {
@@ -115,9 +119,9 @@ function swap(player) {
 		var temp = player.currentWeapon;
 		player.currentWeapon = player.secondWeapon;
 		player.secondWeapon = temp;
-		console.log('Weapon: ' + player.currentWeapon);		
+		console.log('Weapon: ' + player.currentWeapon);
 	}
-	
+
 }
 
 function shootWeapon(player) {

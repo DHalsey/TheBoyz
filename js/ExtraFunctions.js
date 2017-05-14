@@ -58,12 +58,16 @@ function roomTransition(player, room_width, room_height) {
     //Switch Rooms depending where the player is
     if(player.position.x < room_width && player.position.y < room_height) {
         game.camera.follow(Room1 , Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.currentRoom = 1;
     }else if(player.position.x < room_width*2 && player.position.y < room_height) {
         game.camera.follow(Room2, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.currentRoom = 2;
     }else if(player.position.x < room_width && player.position.y < room_height*2) {
         game.camera.follow(Room3, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.currentRoom = 3;
     }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
         game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.currentRoom = 4;
     }
 }
 function toPointer (displayObject, speed, pointer, maxTime) {
@@ -85,3 +89,66 @@ function toPointer (displayObject, speed, pointer, maxTime) {
         return angle;
 
     }
+function createHealthBar(positionX, positionY, widthHP, heightHP) {
+    if(positionX == undefined){positionX = 64;}
+    if(positionY == undefined){positionY = 32;}
+    if(widthHP == undefined){widthHP = 192;}
+    if(heightHP == undefined){heightHP = 16;}
+
+    meters = game.add.group();
+
+    //create a plain black rectangle as the background of the meter
+    var healthBackgroundBitmap = game.add.bitmapData(widthHP, heightHP);
+    healthBackgroundBitmap.ctx.beginPath();
+    healthBackgroundBitmap.ctx.rect(0, 0, healthBackgroundBitmap.width, healthBackgroundBitmap.height);
+    healthBackgroundBitmap.ctx.fillStyle = 'red';
+    healthBackgroundBitmap.ctx.fill();
+
+    //create a sprite using the healthBackgroundBitmap data
+    var healthBarBG = game.add.sprite(positionX, positionY, healthBackgroundBitmap);
+    healthBarBG.fixedToCamera = true;
+    meters.add(healthBarBG);
+
+    //healthBackgroundBitmap2
+    var healthBackgroundBitmap2 = game.add.bitmapData(widthHP-4, heightHP-4);
+    healthBackgroundBitmap2.ctx.beginPath();
+    healthBackgroundBitmap2.ctx.rect(0, 0, healthBackgroundBitmap2.width, healthBackgroundBitmap2.height);
+    healthBackgroundBitmap2.ctx.fillStyle = '#ca0000';
+    healthBackgroundBitmap2.ctx.fill();
+
+    //create sprite using healthBackgroundBitmap2
+    healthBarBG2 = game.add.sprite(positionX+2, positionY+2, healthBackgroundBitmap2);
+    healthBarBG2.fixedToCamera = true;
+    meters.add(healthBarBG2);
+
+    //create the actual health bar
+    var healthBarBitmap = game.add.bitmapData(widthHP-4, heightHP-4);
+    healthBarBitmap.ctx.beginPath();
+    healthBarBitmap.ctx.rect(0, 0, healthBarBitmap.width, healthBarBitmap.height);
+    healthBarBitmap.ctx.fillStyle = '#04fd00';
+    healthBarBitmap.ctx.fill();
+
+    //create a health bar using healthBarBitmap
+    healthBar = game.add.sprite(positionX+2, positionY+2, healthBarBitmap);
+    healthBar.fixedToCamera = true;
+    meters.add(healthBar);
+
+    //add the overlay
+    var hpOverlay = game.add.sprite(positionX-26, positionY-4, 'healthOverlay');
+    hpOverlay.fixedToCamera = true;
+
+}
+
+function updateHealthBar(widthHP, heightHP) {
+    if(widthHP == undefined){widthHP = 192;}
+    if(heightHP == undefined){heightHP = 16;}
+    widthHP = widthHP - 4;
+    widthHP = widthHP - 4;
+
+    var m = (player.maxHP - player.hp)/player.maxHP;
+    var bh = widthHP - (widthHP * m);
+
+    healthBar.key.context.clearRect(0, 0, healthBar.width, healthBar.height);
+    healthBar.key.context.fillRect(0, 0, bh, healthBar.height);
+    healthBar.key.dirty = true;
+}
