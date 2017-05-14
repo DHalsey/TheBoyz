@@ -143,7 +143,6 @@ function updateHealthBar(widthHP, heightHP) {
 
     var m = (player.maxHP - player.hp)/player.maxHP;
     var bh = widthHP - (widthHP * m);
-    //var offset = widthHP - bh;
 
     healthBar.key.context.clearRect(0, 0, healthBar.width, healthBar.height);
     healthBar.key.context.fillRect(0, 0, bh, healthBar.height);
