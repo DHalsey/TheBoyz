@@ -131,16 +131,18 @@ Lose.prototype =
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
 			{font: '50px Arial', fill: '#ffffff'});
-		//adds button to press
-		var button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this);
+		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
+			{font: '25px Arial', fill: '#ffffff'});
+
+		//adds keypress
+		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
 
 	},
-	update: function(){},
-
-	actionOnClick: function()
+	update: function()
 	{
-		game.state.start('Play');
+		//sends the game back to the play state
+		if(this.rkey.justPressed())
+			game.state.start('Play');
 	},
 };
 
