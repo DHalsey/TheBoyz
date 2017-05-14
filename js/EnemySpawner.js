@@ -11,6 +11,7 @@ function EnemySpawner(enemyArray, spawnPoints, player) {
     this.playerSprite = player;
     this.spawned = false;
     this.enemiesAlive = enemyArray.length;
+    this.addedToEscapePoint = false;
 }
 
 //Spawn function

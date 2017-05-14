@@ -18,6 +18,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.movementSpeed = 40;
     this.maxVelSoft = 300; //soft cap on velocity for WASD movement
     this.maxVelHard = 400; //hard cap on velocity that does not allow the player to move faster than
+    this.currentRoom = 1;
 
     //Player movement properties
     this.movingUp = false;

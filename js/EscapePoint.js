@@ -1,0 +1,66 @@
+//EscapePoint.js
+
+//EscapePoint constructor
+//Usage: new EscapePoint(gamne, [array of possible spawn points], player, the name of the state that staerts when player collides with it)
+function EscapePoint(game, points, player, state) {
+    shuffleArray(points);
+    var point = points[0];
+	Phaser.Sprite.call(this, game, point.xCoord, point.yCoord, 'wall');
+
+	//add to the game
+	game.add.existing(this);
+
+	//enable physics and set some properties
+	game.physics.enable(this, Phaser.Physics.ARCADE);
+	this.anchor.set(0.5);
+    this.playerSprite = player;
+    this.gameReference = game;
+    this.possibleSpawns = points;
+    this.stateToStart = state;
+    this.enemySpawners = new Array(0);
+    this.spawnerStatus = new Array(0);
+
+    //properties
+    this.body.immovable = true;
+
+}
+
+EscapePoint.prototype = Object.create(Phaser.Sprite.prototype);
+EscapePoint.prototype.constructor = EscapePoint;
+
+//call this function any time the player switches rooms
+//usage: trackSpawner(EnemySpawner)
+//this is here so that the escape point will only work when all enemies in the room are dead
+//you can see an example of how to do this in the play state of main.js (the block of if, else ifs in the update function)
+EscapePoint.prototype.trackSpawner = function(spawner) {
+	if(!spawner.addedToEscapePoint) {
+		this.enemySpawners.push(spawner);
+		this.spawnerStatus.push(false);
+		spawner.addedToEscapePoint = false;
+	}
+}
+
+EscapePoint.prototype.update = function() {
+	//update the status array
+    for(var i=0; i<this.enemySpawners.length;i++) {
+    	this.spawnerStatus[i] = checkSpawner(this.enemySpawners[i]);
+    }
+
+	//handle collision between player and EscapePoint
+    game.physics.arcade.collide(this, this.playerSprite, startNewState, null, this);
+}
+
+function startNewState(escapePoint, player) {
+	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start(escapePoint.stateToStart);
+}
+
+//this function checks if all enemies in the room are dead
+//if there are enemies still alive, then the escape point will not transport the player
+function checkEscapeStatus(statusArray) {
+	var returnValue = true;
+	for(var k=0; k<statusArray.length; k++) {
+        if(statusArray[k] == false)
+        	returnValue = false;
+	}
+	return returnValue;
+}
