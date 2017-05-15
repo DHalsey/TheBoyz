@@ -36,7 +36,7 @@ Preloader.prototype = {
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
-    game.load.image('wall', 'wall.png');
+    game.load.image('wall', 'wall2.png');
     game.load.image('healthOverlay', 'healthBarOverlay.png');
     game.load.image('barrier', 'barrier2.png');
 	},
@@ -117,7 +117,6 @@ Play.prototype = {
 
        //this spawner will spawn one of each enemy type at the four passed in spawn points.
        roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
-       roomOneSpawner.spawn();
        roomTwoSpawner = new EnemySpawner(['BasicShooter'], [new SpawnPoint(30,5)], player);
        roomThreeSpawner = new EnemySpawner(['BasicCharger'], [new SpawnPoint(8, 16)], player);
        roomFourSpawner = new EnemySpawner(['FastCharger'], [new SpawnPoint(29, 16)], player);
@@ -133,7 +132,7 @@ Play.prototype = {
        //Create the escape point
        //It will spawn randomly at one of the 3 points that I provided it
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
-       escape = new EscapePoint(game, [new SpawnPoint(29,16), new SpawnPoint(9,16), new SpawnPoint(29, 5)], player, 'Level2');
+       escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player, 'Level2');
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', 100, player);
 
@@ -148,7 +147,7 @@ Play.prototype = {
        roomTwoBarriersCreated = false;
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
-       barrierDelay = 800;
+       barrierDelay = 500;
 	},
 
 	update: function(){
@@ -162,7 +161,7 @@ Play.prototype = {
 
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
-        if(player.currentRoom == 1) {
+        if(player.currentRoom == 1 && game.time.now > player.timeSwitched+barrierDelay) {
           roomOneSpawner.spawn();
           escape.trackSpawner(roomOneSpawner);
           if(!roomOneBarriersCreated) {  //if the room one barriers haven't been created yet, create them
