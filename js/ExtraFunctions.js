@@ -154,7 +154,8 @@ function updateHealthBar(widthHP, heightHP) {
 }
 
 function createAmmoText(player) {
-    this.ammoText = game.add.text(1150, 30, player.currentWeapon,
+    
+    this.ammoText = game.add.text(1050, 30, player.currentWeapon,
         {font: '20px Arial', fill: '#ffffff'});
     this.ammoText.fixedToCamera = true;
     return this.ammoText;
@@ -164,8 +165,26 @@ function updateAmmoText(ammoText, player) {
     if (player.currentWeapon != 'PISTOL') {
         ammoText.text = player.currentWeapon + '   ' + player.ammo;
         if (player.ammo <= 0) ammoText.fill = '#ff0000';
+            else ammoText.fill = '#ffffff';
     } else {
         ammoText.text = player.currentWeapon;
         ammoText.fill = '#ffffff';
     }
+}
+
+// Enemies' weapon drop function
+function dropWeapon(enemy, player) {
+    
+    var randomNumber = game.rnd.realInRange(0,1);
+
+    if (randomNumber >= 0.5) {
+        this.weapon = new Weapon(game, enemy.x, enemy.y, 
+        'shotgunSprite', 'SHOTGUN', player);
+    }
+
+    if (randomNumber < 0.5) {
+        this.weapon = new Weapon(game, enemy.x, enemy.y, 
+        'rifleSprite', 'RIFLE', player);
+    }
+    
 }

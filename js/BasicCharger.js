@@ -55,6 +55,7 @@ BasicCharger.prototype.update = function() {
     //check if enemy is dead
     if(this.hp <= 0) {
         this.enemySpawner.enemiesAlive--;
+        dropWeapon(this, player);
         this.destroy();
     } 
 }
