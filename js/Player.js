@@ -2,8 +2,9 @@
 
 function Player(game, x, y, atlas, frame, health) {
 
-	Phaser.Sprite.call(this, game, x, y, atlas, frame);
-
+	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
+	Phaser.Sprite.call(this,game,x,y,'player');
+	this.angle=90;
 	//add to the game
 	game.add.existing(this);
 

@@ -3,7 +3,8 @@
 
 function BasicCharger(game, x, y, atlas, frame, player, spawner) {
 
-	Phaser.Sprite.call(this, game, x, y, atlas, frame);
+	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
+    Phaser.Sprite.call(this, game, x, y, 'enemyCharger');
 
 	//add to the game
 	game.add.existing(this);

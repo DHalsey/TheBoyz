@@ -30,6 +30,11 @@ Preloader.prototype = {
 		//load images
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+		game.load.image('player','player.png');
+		game.load.image('enemyShooter','enemyShooter.png');
+		game.load.image('enemyTank','enemyTank.png');
+		game.load.image('enemyCharger','enemyCharger.png');
+		game.load.image('enemyFastCharger','enemyFastCharger.png');
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
