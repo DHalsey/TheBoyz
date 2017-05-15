@@ -149,11 +149,14 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(29,16), new SpawnPoint(9,16), new SpawnPoint(29, 5)], player, 'Level2');
 
-        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
+       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', 100, player);
 
-        createHealthBar();
+       createHealthBar();
 
-        roomAnchors();
+       roomAnchors();
+
+       // Ammo indicator
+       ammoText = createAmmoText(player);
 	},
 
 	update: function(){
@@ -183,7 +186,11 @@ Play.prototype = {
           roomFourSpawner.spawn();
           escape.trackSpawner(roomFourSpawner);
         }
-	}
+
+        // Update ammoText
+        updateAmmoText(ammoText, player);
+        
+    }
 };
 
 var Level2 = function(game) {var healthBar;};
@@ -219,9 +226,10 @@ Level2.prototype = {
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
-   
+   		var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', 100, player);
 
-        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'rifle', 100, player);
+   		// Ammo indicator
+        ammoText = createAmmoText(player);
 
         createHealthBar();
 
@@ -238,6 +246,9 @@ Level2.prototype = {
 
         roomTransition(player, room_width, room_height);
         updateHealthBar();
+
+        // Update ammoText
+        updateAmmoText(ammoText, player);
   }
 };
 
