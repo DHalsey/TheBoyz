@@ -19,6 +19,8 @@ function Player(game, x, y, atlas, frame, health) {
     this.maxVelSoft = 300; //soft cap on velocity for WASD movement
     this.maxVelHard = 400; //hard cap on velocity that does not allow the player to move faster than
     this.currentRoom = 1;
+    this.timeSwitched = 0;
+    this.roomsVisited = new Array(0);
 
     //Player movement properties
     this.movingUp = false;
@@ -66,6 +68,24 @@ Player.prototype.update = function() {
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
     if(this.hp <= 0)
         game.state.start('Lose');
+}
+
+Player.prototype.logRoomSwitch = function(room) {
+    if(!this.roomVisited(room)) {
+        this.timeSwitched = game.time.now;
+        this.roomsVisited.push(room);
+    }
+    if(this.currentRoom != room) this.currentRoom = room;
+}
+
+Player.prototype.roomVisited = function(room) {
+    var returnValue = false;
+    for(var i=0; i<this.roomsVisited.length; i++) {
+        if(this.roomsVisited[i] == room) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function resetMovement(player) {

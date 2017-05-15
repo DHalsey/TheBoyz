@@ -7,7 +7,7 @@
 //NOTE: THIS OBJECT WILL TRACK THE ENEMIES FROM UP TO 5 SPAWNERS.
 function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4, spawner5) {
 
-	Phaser.Sprite.call(this, game, x*64+32, y*64+32, 'wall');
+	Phaser.Sprite.call(this, game, x*64+32, y*64+32, 'barrier');
 
 	//add to the game
 	game.add.existing(this);

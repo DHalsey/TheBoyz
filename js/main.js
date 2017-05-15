@@ -36,8 +36,9 @@ Preloader.prototype = {
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
-        game.load.image('wall', 'wall.png');
-        game.load.image('healthOverlay', 'healthBarOverlay.png');
+    game.load.image('wall', 'wall.png');
+    game.load.image('healthOverlay', 'healthBarOverlay.png');
+    game.load.image('barrier', 'barrier2.png');
 	},
 	create: function(){
 		game.state.start('Menu');
@@ -75,7 +76,14 @@ Menu.prototype =
 	},
 };
 
-var Play = function(game) {var roomOneSpawner, roomTwoSpawner, roomThreeSpawner, roomFourSpawner, escape, healthBar;};
+var Play = function(game) {
+  var roomOneSpawner, roomTwoSpawner, roomThreeSpawner, roomFourSpawner, escape, healthBar;
+  var roomOneBarriersCreated;
+  var roomTwoBarriersCreated;
+  var roomThreeBarriersCreated;
+  var roomFourBarriersCreated;
+  var barrierDelay;
+};
 Play.prototype = {
     preload: function(){
 	},
@@ -114,23 +122,6 @@ Play.prototype = {
        roomThreeSpawner = new EnemySpawner(['BasicCharger'], [new SpawnPoint(8, 16)], player);
        roomFourSpawner = new EnemySpawner(['FastCharger'], [new SpawnPoint(29, 16)], player);
 
-       //room one barriers
-       //these barriers are tracking the enemies from both roomOneSpawner
-       //when all of the enemies from both of these spawners are dead, the barriers will despawn
-       //RoomBarriers can track the enemies from up to 5 spawners
-       //they can be used for just 1 spawner also
-       //I added this functionality just in case we want to have more than 1 spawner per room
-       //NOTE: I placed the barriers where they are right now so that you could see how they work
-       //      I suggest that we move them 1 block offscreen so that they function more like invisible walls
-       //      This way we can avoid problems when we place them every time the player switches rooms
-       new RoomBarrier(game, 19, 6, player, roomOneSpawner);
-       new RoomBarrier(game, 19, 5, player, roomOneSpawner);
-       new RoomBarrier(game, 8, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 9, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 10, 11, player, roomOneSpawner);
-       new RoomBarrier(game, 11, 11, player, roomOneSpawner);
-
-
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
        //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
        //I made this example to illustrate that you can set more poossible spawn points than enemies to spawn
@@ -152,6 +143,12 @@ Play.prototype = {
 
        // Ammo indicator
        ammoText = createAmmoText(player);
+
+       roomOneBarriersCreated = false;
+       roomTwoBarriersCreated = false;
+       roomThreeBarriersCreated = false;
+       roomFourBarriersCreated = false;
+       barrierDelay = 800;
 	},
 
 	update: function(){
@@ -168,18 +165,76 @@ Play.prototype = {
         if(player.currentRoom == 1) {
           roomOneSpawner.spawn();
           escape.trackSpawner(roomOneSpawner);
+          if(!roomOneBarriersCreated) {  //if the room one barriers haven't been created yet, create them
+
+            //create barriers on the right side of room 1
+            new RoomBarrier(game, 20, 6, player, roomOneSpawner);
+            new RoomBarrier(game, 20, 5, player, roomOneSpawner);
+
+            //create barriers on the bottom of room 1
+            new RoomBarrier(game, 8, 12, player, roomOneSpawner);
+            new RoomBarrier(game, 9, 12, player, roomOneSpawner);
+            new RoomBarrier(game, 10, 12, player, roomOneSpawner);
+            new RoomBarrier(game, 11, 12, player, roomOneSpawner);
+
+            roomOneBarriersCreated = true;
+          }
         } 
-        else if(player.currentRoom == 2) {
+        else if(player.currentRoom == 2 && game.time.now > player.timeSwitched+barrierDelay) { 
           roomTwoSpawner.spawn();
           escape.trackSpawner(roomTwoSpawner);
+          if(!roomTwoBarriersCreated) { //if room 2 barriers haven't been created yet, create them
+            
+            //barriers on the left side of room 2
+            new RoomBarrier(game, 19, 6, player, roomTwoSpawner);
+            new RoomBarrier(game, 19, 5, player, roomTwoSpawner);
+
+            //barriers on the bottom of room 2
+            new RoomBarrier(game, 38, 12, player, roomTwoSpawner);
+            new RoomBarrier(game, 37, 12, player, roomTwoSpawner);
+            new RoomBarrier(game, 36, 12, player, roomTwoSpawner);
+            new RoomBarrier(game, 35, 12, player, roomTwoSpawner);
+
+            roomTwoBarriersCreated = true;
+          }
         } 
-        else if(player.currentRoom == 3) {
+        else if(player.currentRoom == 3 && game.time.now > player.timeSwitched+barrierDelay) {
           roomThreeSpawner.spawn();
           escape.trackSpawner(roomThreeSpawner);
+          if(!roomThreeBarriersCreated) {
+
+            //barriers on the top of room 3
+            new RoomBarrier(game, 8, 11, player, roomThreeSpawner);
+            new RoomBarrier(game, 9, 11, player, roomThreeSpawner);
+            new RoomBarrier(game, 10, 11, player, roomThreeSpawner);
+            new RoomBarrier(game, 11, 11, player, roomThreeSpawner);
+
+            //barriers on the right side of room 3
+            new RoomBarrier(game, 20, 19, player, roomThreeSpawner);
+            new RoomBarrier(game, 20, 20, player, roomThreeSpawner);
+            new RoomBarrier(game, 20, 21, player, roomThreeSpawner);
+
+            roomThreeBarriersCreated = true;
+          }
         } 
-        else {
+        else if(player.currentRoom == 4 && game.time.now > player.timeSwitched+barrierDelay) {
           roomFourSpawner.spawn();
           escape.trackSpawner(roomFourSpawner);
+          if(!roomFourBarriersCreated) {
+
+            //barriers on the left side of room 4
+            new RoomBarrier(game, 19, 19, player, roomFourSpawner);
+            new RoomBarrier(game, 19, 20, player, roomFourSpawner);
+            new RoomBarrier(game, 19, 21, player, roomFourSpawner);
+
+            //barriers on the top of room 4
+            new RoomBarrier(game, 38, 11, player, roomFourSpawner);
+            new RoomBarrier(game, 37, 11, player, roomFourSpawner);
+            new RoomBarrier(game, 36, 11, player, roomFourSpawner);
+            new RoomBarrier(game, 35, 11, player, roomFourSpawner);
+
+            roomFourBarriersCreated = true;
+          }
         }
 
         // Update ammoText

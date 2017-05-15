@@ -58,16 +58,16 @@ function roomTransition(player, room_width, room_height) {
     //Switch Rooms depending where the player is
     if(player.position.x < room_width && player.position.y < room_height) {
         game.camera.follow(Room1 , Phaser.Camera.FOLLOW_LOCKON, .2, .2);
-        player.currentRoom = 1;
+        player.logRoomSwitch(1);
     }else if(player.position.x < room_width*2 && player.position.y < room_height) {
         game.camera.follow(Room2, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
-        player.currentRoom = 2;
+        player.logRoomSwitch(2);
     }else if(player.position.x < room_width && player.position.y < room_height*2) {
         game.camera.follow(Room3, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
-        player.currentRoom = 3;
+        player.logRoomSwitch(3);
     }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
         game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
-        player.currentRoom = 4;
+        player.logRoomSwitch(4);
     }
 }
 function toPointer (displayObject, speed, pointer, maxTime) {
@@ -154,7 +154,7 @@ function updateHealthBar(widthHP, heightHP) {
 }
 
 function createAmmoText(player) {
-    this.ammoText = game.add.text(1150, 30, player.currentWeapon,
+    this.ammoText = game.add.text(1136, 30, player.currentWeapon,
         {font: '20px Arial', fill: '#ffffff'});
     this.ammoText.fixedToCamera = true;
     return this.ammoText;
