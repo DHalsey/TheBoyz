@@ -41,11 +41,11 @@ Bullet.prototype.update = function() {
 	game.physics.arcade.collide(enemyMissiles, this, missileBulletCollision, null, this);
 
 	if(this.currentWeapon === 'SHOTGUN') {
-		if(game.time.now > this.startTime + 300) {
-           fadeBullet(this);
-		} else if(game.time.now > this.startTime + 500) {
+		if(game.time.now > this.startTime + 500) {
 			this.destroy();
-		}
+		} else if(game.time.now > this.startTime + 300) {
+           fadeBullet(this);
+		} 
 	}
 }
 
