@@ -18,6 +18,9 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback) {
 	this.movementSpeed = 1000;
 	this.damage = damage;
 	this.knockbackValue = knockback;
+	this.startTime = game.time.now;
+	this.currentWeapon = player.currentWeapon;
+	this.fading = false;
 
 	//add to the bullets group
 	playerBullets.add(this);
@@ -33,8 +36,17 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback) {
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 Bullet.prototype.constructor = Bullet;
 
+
 Bullet.prototype.update = function() {
 	game.physics.arcade.collide(enemyMissiles, this, missileBulletCollision, null, this);
+
+	if(this.currentWeapon === 'SHOTGUN') {
+		if(game.time.now > this.startTime + 300) {
+           fadeBullet(this);
+		} else if(game.time.now > this.startTime + 500) {
+			this.destroy();
+		}
+	}
 }
 
 function destroyBullet(bullet) {
@@ -44,4 +56,11 @@ function destroyBullet(bullet) {
 function missileBulletCollision(missile, bullet) {
 	destroyMissile(missile);
 	bullet.destroy();
+}
+
+function fadeBullet(bullet) {
+	if(!bullet.fading){
+		game.add.tween(bullet).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
+		bullet.fading = true;
+	}
 }

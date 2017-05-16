@@ -22,7 +22,7 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.nextAttack = 0;
     this.attackRate = 500;
     this.nextShot = 0;
-    this.fireRate = 4000;
+    this.fireRate = 3000;
     this.knockedBack = false;
 
     this.body.immovable = true;
