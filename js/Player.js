@@ -67,6 +67,10 @@ Player.prototype.update = function() {
 
     //handle collision between bullets and player
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
+
+    //collision between player and missiles
+    game.physics.arcade.overlap(this, enemyMissiles, missilesPlayerCollision, null, this);
+
     if(this.hp <= 0)
         game.state.start('Lose');
 }
@@ -170,3 +174,15 @@ function bulletsPlayerCollision(player, bullet) {
     knockback(player, 300, bullet.rotation - Math.PI);
     console.log('Player HP: ' + player.hp);
 }
+
+//handle collision between bullets group and player
+function missilesPlayerCollision(player, missile) {
+    missile.destroy();
+    player.hp -= missile.damage;
+
+    //knock back the player based on the bullet's trajectory
+    player.knockedBack = true;
+    knockback(player, 500, missile.rotation - Math.PI);
+    console.log('Player HP: ' + player.hp);
+}
+

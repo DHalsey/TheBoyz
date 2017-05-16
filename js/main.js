@@ -6,6 +6,7 @@ var map, layerCollision;
 var playerBullets;
 var enemyBullets;
 var enemyGroup;
+var enemyMissiles;
 
 //Global variables
 var player;
@@ -117,11 +118,12 @@ Play.prototype = {
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
+        enemyMissiles = game.add.physicsGroup();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
        //this spawner will spawn one of each enemy type at the four passed in spawn points.
-       roomOneSpawner = new EnemySpawner(["BasicCharger", "BasicShooter"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
+       roomOneSpawner = new EnemySpawner(["BasicCharger", "MissileLauncher"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
        roomTwoSpawner = new EnemySpawner(['BasicShooter'], [new SpawnPoint(30,5)], player);
        roomThreeSpawner = new EnemySpawner(['BasicCharger'], [new SpawnPoint(8, 16)], player);
        roomFourSpawner = new EnemySpawner(['FastCharger'], [new SpawnPoint(29, 16)], player);
