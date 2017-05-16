@@ -83,7 +83,7 @@ function bulletsBasicChargerCollision(enemy, bullet) {
     //knock back the enemy
     if(!enemy.knockedBack) {
         enemy.knockedBack = true;
-        knockback(enemy, 300, enemy.rotation);
+        knockback(enemy, bullet.knockbackValue, enemy.rotation);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
     }

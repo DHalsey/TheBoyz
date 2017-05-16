@@ -1,5 +1,5 @@
 //bullet prefab
-function Bullet(game, x, y, atlas, frame, damage, player) {
+function Bullet(game, x, y, atlas, frame, damage, player, knockback) {
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
 	//add to the game
@@ -17,6 +17,7 @@ function Bullet(game, x, y, atlas, frame, damage, player) {
 	//set additional properties
 	this.movementSpeed = 1000;
 	this.damage = damage;
+	this.knockbackValue = knockback;
 
 	//add to the bullets group
 	playerBullets.add(this);

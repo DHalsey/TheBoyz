@@ -82,7 +82,7 @@ function bulletsTankyChargerCollision(enemy, bullet) {
     //knock back the enemy
     if(!enemy.knockedBack) {
         enemy.knockedBack = true;
-        knockback(enemy, 100, enemy.rotation);
+        knockback(enemy, bullet.knockbackValue/1.5, enemy.rotation);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
     }

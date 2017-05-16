@@ -153,7 +153,7 @@ function shootWeapon(player) {
     if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.nextFire = game.time.now + player.pistolFireRate;
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
     }
 
     if (player.currentWeapon == 'RIFLE') shootRifle(player);
@@ -165,7 +165,7 @@ function shootRifle(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
         knockback(player, 150, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 200);
         player.ammo--;
     }
 }
@@ -175,16 +175,16 @@ function shootShotgun(player) {
         knockback(player, 400, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
         
         player.ammo--;
     }
