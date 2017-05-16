@@ -42,6 +42,6 @@ function destroyBullet(bullet) {
 }
 
 function missileBulletCollision(missile, bullet) {
-	missile.destroy();
+	destroyMissile(missile);
 	bullet.destroy();
 }

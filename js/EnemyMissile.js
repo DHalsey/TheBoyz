@@ -1,5 +1,5 @@
 //EnemyMissile prefab
-function EnemyMissile(game, x, y, atlas, frame, damage, player) {
+function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
 	//add to the game
@@ -12,10 +12,10 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player) {
     //properties that allow bullets to be destroyed at world bounds
     this.body.collideWorldBounds = true;
     this.body.onWorldBounds = new Phaser.Signal();
-    this.body.onWorldBounds.add(destroyMissile, this);
+    this.body.onWorldBounds.add(destroyMissile, this, emitter);
 
 	//set additional properties
-	this.movementSpeed = 350;
+	this.movementSpeed = 450;
 	this.damage = damage;
 	this.targetingTimer = 200;
 	this.nextTarget = 0;
@@ -40,5 +40,12 @@ EnemyMissile.prototype.update = function() {
 }
 
 function destroyMissile(missile) {
+   missileParticleExplosion(missile)
    missile.destroy();
+}
+
+function missileParticleExplosion(missile) {
+	for(var i=0; i<40; i++) {
+		new MissileParticle(game, missile);
+	}
 }

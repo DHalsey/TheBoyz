@@ -47,6 +47,7 @@ Preloader.prototype = {
     game.load.image('wall', 'wall2.png');
     game.load.image('healthOverlay', 'healthBarOverlay.png');
     game.load.image('barrier', 'barrier2.png');
+    game.load.image('missileParticle4', 'missileParticle4.png');
 	},
 	create: function(){
 		game.state.start('Menu');
@@ -100,6 +101,9 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
+
+        //start physics
+        game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Set world size and adjust color to white
         game.stage.setBackgroundColor('#ffffff');

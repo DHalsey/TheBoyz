@@ -203,12 +203,12 @@ function bulletsPlayerCollision(player, bullet) {
 
 //handle collision between bullets group and player
 function missilesPlayerCollision(player, missile) {
-    missile.destroy();
     player.hp -= missile.damage;
-
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
     knockback(player, 600, missile.rotation - Math.PI);
     console.log('Player HP: ' + player.hp);
+
+    destroyMissile(missile);
 }
 
