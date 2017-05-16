@@ -17,17 +17,39 @@ var room_height;
 
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
+    game.state.add('Boot', Boot);
     game.state.add('Preloader', Preloader);
     game.state.add('Menu', Menu);
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Lose', Lose);
-    game.state.start('Preloader');
+    game.state.start('Boot');
+};
+
+var Boot = function(game) {};
+Boot.prototype = {
+    preload: function() {
+        game.load.path = 'assets/img/';
+        game.load.image('loadBackground', 'loadBackground.png');
+        game.load.image('loadbar', 'loadbar.png');
+    },
+    create: function() {
+        game.state.start('Preloader');
+    }
 };
 
 var Preloader = function(game) {};
 Preloader.prototype = {
 	preload: function(){
+        //add loading screen background
+        game.add.image(0, 0, 'loadBackground');
+
+        //display text
+        game.add.text(20, 20, 'Loading...', {fontSize: '32px', fill: 'white'});
+
+       // add preloader bar and set as preloader sprite (auto-crops sprite)
+        var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
+        game.load.setPreloadSprite(preloadBar);
 		//load images
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
