@@ -175,16 +175,16 @@ function shootShotgun(player) {
         knockback(player, 400, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player);
         
         player.ammo--;
     }
