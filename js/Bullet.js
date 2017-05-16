@@ -1,5 +1,5 @@
 //bullet prefab
-function Bullet(game, x, y, atlas, frame, damage) {
+function Bullet(game, x, y, atlas, frame, damage, player) {
 	Phaser.Sprite.call(this, game, x, y, atlas, frame);
 
 	//add to the game
@@ -22,7 +22,8 @@ function Bullet(game, x, y, atlas, frame, damage) {
 	playerBullets.add(this);
 
 	//make the bullet fire at the pointer
-	toPointer(this, this.movementSpeed);
+	if (player.currentWeapon == 'SHOTGUN') toPointer(this, this.movementSpeed, undefined, undefined, 0.15);
+	else toPointer(this, this.movementSpeed, undefined, undefined, 0);
 
 	//temporarily scale the bullet sprite
 	this.scale.setTo(2,2);

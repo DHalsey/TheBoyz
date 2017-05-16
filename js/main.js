@@ -146,6 +146,7 @@ Play.prototype = {
        escape = new EscapePoint(game, [new SpawnPoint(29,16), new SpawnPoint(9,16), new SpawnPoint(29, 5)], player, 'Level2');
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
+       var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
 
        createHealthBar();
 

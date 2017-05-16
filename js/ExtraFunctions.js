@@ -70,25 +70,26 @@ function roomTransition(player, room_width, room_height) {
         player.currentRoom = 4;
     }
 }
-function toPointer (displayObject, speed, pointer, maxTime) {
+function toPointer (displayObject, speed, pointer, maxTime, spread) {
 
-        if (speed === undefined) { speed = 60; }
-        pointer = pointer || this.game.input.activePointer;
-        if (maxTime === undefined) { maxTime = 0; }
+    if (speed === undefined) { speed = 60; }
+    pointer = pointer || this.game.input.activePointer;
+    if (maxTime === undefined) { maxTime = 0; }
 
-        var angle = player.rotation;
-        if (maxTime > 0)
-        {
-            //  We know how many pixels we need to move, but how fast?
-            speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
-        }
+    var angle = player.rotation;
+    if (maxTime > 0)
+    {
+        //  We know how many pixels we need to move, but how fast?
+        speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
+    }
 
-        displayObject.body.velocity.x = (Math.cos(angle) * speed);
-        displayObject.body.velocity.y = (Math.sin(angle) * speed);
+    displayObject.body.velocity.x = ((Math.cos(angle) + game.rnd.realInRange(-spread, spread)) * speed);
+    displayObject.body.velocity.y = ((Math.sin(angle) + game.rnd.realInRange(-spread, spread)) * speed);
 
-        return angle;
+    return angle;
 
     }
+
 function createHealthBar(positionX, positionY, widthHP, heightHP) {
     if(positionX == undefined){positionX = 64;}
     if(positionY == undefined){positionY = 32;}
@@ -177,12 +178,12 @@ function dropWeapon(enemy, player) {
     
     var randomNumber = game.rnd.realInRange(0,1);
 
-    if (randomNumber >= 0.5) {
+    if (randomNumber <= 0.33) {
         this.weapon = new Weapon(game, enemy.x, enemy.y, 
         'shotgunSprite', 'SHOTGUN', player);
     }
 
-    if (randomNumber < 0.5) {
+    else if (randomNumber > 0.33 && randomNumber <= 0.66) {
         this.weapon = new Weapon(game, enemy.x, enemy.y, 
         'rifleSprite', 'RIFLE', player);
     }
