@@ -35,18 +35,10 @@ EnemyMissile.prototype.update = function() {
 	if(game.time.now > this.nextTarget) {
 		this.nextTarget = game.time.now + this.targetingTimer;
 		game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
-		this.rotation = angleToSprite(this, this.playerSprite);
+		this.rotation = angleToSprite(this, this.playerSprite);  
 	}
-
-	//handle collision between bullets and missiles
-    game.physics.arcade.overlap(this, playerBullets, missileBulletCollision, null, this);
 }
 
 function destroyMissile(missile) {
    missile.destroy();
-}
-
-function missileBulletCollision(missile, bullet) {
-	missile.destroy();
-	bullet.destroy();
 }

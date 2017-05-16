@@ -1,9 +1,7 @@
 //BasicShooter.js
 //this enemy follows the player slowly and fires bullets
 
-function BasicShooter(game, x, y, atlas, frame, player, spawner) {
-
-	Phaser.Sprite.call(this, game, x, y, atlas, frame);
+function BasicShooter(game, x, y, player, spawner) {
     Phaser.Sprite.call(this, game, x, y, 'enemyShooter');
 	//add to the game
 	game.add.existing(this);

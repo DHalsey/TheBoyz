@@ -1,7 +1,7 @@
 //TankyCharger.js
 //this charger has low movement speed, high health
 
-function TankyCharger(game, x, y, atlas, frame, player, spawner) {
+function TankyCharger(game, x, y, player, spawner) {
 
 	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
     Phaser.Sprite.call(this, game, x, y, 'enemyTank');

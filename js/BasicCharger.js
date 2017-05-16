@@ -1,7 +1,7 @@
 //BasicCharger.js
 //the standard, boring enemy type
 
-function BasicCharger(game, x, y, atlas, frame, player, spawner) {
+function BasicCharger(game, x, y, player, spawner) {
 
 	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
     Phaser.Sprite.call(this, game, x, y, 'enemyCharger');

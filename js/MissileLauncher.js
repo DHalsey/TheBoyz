@@ -1,9 +1,8 @@
 //MissileLauncher.js
 //this enemy follows the player slowly and fires bullets
 
-function MissileLauncher(game, x, y, atlas, frame, player, spawner) {
+function MissileLauncher(game, x, y, player, spawner) {
 
-	Phaser.Sprite.call(this, game, x, y, atlas, frame);
     Phaser.Sprite.call(this, game, x, y, 'enemyShooter');
 	//add to the game
 	game.add.existing(this);
@@ -25,6 +24,8 @@ function MissileLauncher(game, x, y, atlas, frame, player, spawner) {
     this.nextShot = 0;
     this.fireRate = 4000;
     this.knockedBack = false;
+
+    this.body.immovable = true;
 }
 
 MissileLauncher.prototype = Object.create(Phaser.Sprite.prototype);
@@ -72,6 +73,6 @@ function bulletsMissileLauncherCollision(enemy, bullet) {
 function shootMissile(enemy) {
     if(game.time.now > enemy.nextShot) {
         enemy.nextShot = game.time.now + enemy.fireRate;
-        new EnemyMissile(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 1, enemy.playerSprite);
+        new EnemyMissile(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 2, enemy.playerSprite);
     }
 }

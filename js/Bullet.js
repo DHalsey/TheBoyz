@@ -32,9 +32,14 @@ Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 Bullet.prototype.constructor = Bullet;
 
 Bullet.prototype.update = function() {
-
+	game.physics.arcade.collide(enemyMissiles, this, missileBulletCollision, null, this);
 }
 
 function destroyBullet(bullet) {
    bullet.destroy();
+}
+
+function missileBulletCollision(missile, bullet) {
+	missile.destroy();
+	bullet.destroy();
 }

@@ -2,10 +2,10 @@
 //this enemy has low health, quick movement speed
 //when in range, it charges at you every 3 seconds
 
-function FastCharger(game, x, y, atlas, frame, player, spawner) {
+function FastCharger(game, x, y, player, spawner) {
 
 	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
-    Phaser.Sprite.call(this, game, x, y, 'enemyFastCharger', frame);
+    Phaser.Sprite.call(this, game, x, y, 'enemyFastCharger');
 
 	//add to the game
 	game.add.existing(this);

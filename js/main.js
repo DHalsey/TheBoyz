@@ -148,7 +148,7 @@ Play.prototype = {
        roomAnchors();
 
        // Ammo indicator
-       ammoText = createAmmoText(player);
+      ammoText = createAmmoText(player);
 
        roomOneBarriersCreated = false;
        roomTwoBarriersCreated = false;
@@ -243,8 +243,8 @@ Play.prototype = {
           }
         }
 
-        // Update ammoText
-        updateAmmoText(ammoText, player);
+       //Update ammoText
+       updateAmmoText(ammoText, player);
         
     }
 };

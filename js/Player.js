@@ -182,7 +182,7 @@ function missilesPlayerCollision(player, missile) {
 
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
-    knockback(player, 500, missile.rotation - Math.PI);
+    knockback(player, 600, missile.rotation - Math.PI);
     console.log('Player HP: ' + player.hp);
 }
 
