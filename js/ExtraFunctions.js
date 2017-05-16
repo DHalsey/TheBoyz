@@ -70,25 +70,26 @@ function roomTransition(player, room_width, room_height) {
         player.logRoomSwitch(4);
     }
 }
-function toPointer (displayObject, speed, pointer, maxTime) {
+function toPointer (displayObject, speed, pointer, maxTime, spread) {
 
-        if (speed === undefined) { speed = 60; }
-        pointer = pointer || this.game.input.activePointer;
-        if (maxTime === undefined) { maxTime = 0; }
+    if (speed === undefined) { speed = 60; }
+    pointer = pointer || this.game.input.activePointer;
+    if (maxTime === undefined) { maxTime = 0; }
 
-        var angle = player.rotation;
-        if (maxTime > 0)
-        {
-            //  We know how many pixels we need to move, but how fast?
-            speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
-        }
+    var angle = player.rotation;
+    if (maxTime > 0)
+    {
+        //  We know how many pixels we need to move, but how fast?
+        speed = this.distanceToPointer(displayObject, pointer) / (maxTime / 1000);
+    }
 
-        displayObject.body.velocity.x = (Math.cos(angle) * speed);
-        displayObject.body.velocity.y = (Math.sin(angle) * speed);
+    displayObject.body.velocity.x = ((Math.cos(angle) + game.rnd.realInRange(-spread, spread)) * speed);
+    displayObject.body.velocity.y = ((Math.sin(angle) + game.rnd.realInRange(-spread, spread)) * speed);
 
-        return angle;
+    return angle;
 
     }
+
 function createHealthBar(positionX, positionY, widthHP, heightHP) {
     if(positionX == undefined){positionX = 64;}
     if(positionY == undefined){positionY = 32;}
@@ -154,8 +155,10 @@ function updateHealthBar(widthHP, heightHP) {
 }
 
 function createAmmoText(player) {
-    this.ammoText = game.add.text(1136, 30, player.currentWeapon,
+    
+    this.ammoText = game.add.text(1050, 30, player.currentWeapon,
         {font: '20px Arial', fill: '#ffffff'});
+    
     this.ammoText.fixedToCamera = true;
     return this.ammoText;
 }
@@ -164,8 +167,26 @@ function updateAmmoText(ammoText, player) {
     if (player.currentWeapon != 'PISTOL') {
         ammoText.text = player.currentWeapon + '   ' + player.ammo;
         if (player.ammo <= 0) ammoText.fill = '#ff0000';
+            else ammoText.fill = '#ffffff';
     } else {
         ammoText.text = player.currentWeapon;
         ammoText.fill = '#ffffff';
     }
+}
+
+// Enemies' weapon drop function
+function dropWeapon(enemy, player) {
+    
+    var randomNumber = game.rnd.realInRange(0,1);
+
+    if (randomNumber <= 0.33) {
+        this.weapon = new Weapon(game, enemy.x, enemy.y, 
+        'shotgunSprite', 'SHOTGUN', player);
+    }
+
+    else if (randomNumber > 0.33 && randomNumber <= 0.66) {
+        this.weapon = new Weapon(game, enemy.x, enemy.y, 
+        'rifleSprite', 'RIFLE', player);
+    }
+    
 }

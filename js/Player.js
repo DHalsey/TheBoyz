@@ -153,13 +153,39 @@ function shootWeapon(player) {
     if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         player.nextFire = game.time.now + player.pistolFireRate;
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
     }
 
+    if (player.currentWeapon == 'RIFLE') shootRifle(player);
+
+    if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
+}
+
+function shootRifle(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
-    	knockback(player, 150, player.rotation);
-    	player.nextFire = game.time.now + player.fireRate;
-    	new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1);
+        knockback(player, 150, player.rotation);
+        player.nextFire = game.time.now + player.fireRate;
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        player.ammo--;
+    }
+}
+
+function shootShotgun(player) {
+    if (game.time.now > player.nextFire && player.ammo > 0) {
+        knockback(player, 400, player.rotation);
+        player.nextFire = game.time.now + player.fireRate;
+        
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player);
+        
         player.ammo--;
     }
 }

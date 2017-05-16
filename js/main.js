@@ -40,6 +40,7 @@ Preloader.prototype = {
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     game.load.image('cityImage','Map.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
+		game.load.image('shotgunSprite', 'weapon_shotgun.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
@@ -143,7 +144,8 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player, 'Level2');
 
-       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', 100, player);
+       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
+       var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
 
        createHealthBar();
 
@@ -284,7 +286,7 @@ Level2.prototype = {
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
-   		var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', 100, player);
+   		var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
 
    		// Ammo indicator
         ammoText = createAmmoText(player);
