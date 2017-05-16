@@ -9,10 +9,12 @@ function MissileParticle(game, missile) {
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
 
+	var vel = 250;
+
 
 	//set additional properties
-	this.body.velocity.x = game.rnd.integerInRange(-75,75);
-	this.body.velocity.y = game.rnd.integerInRange(-75,75);
+	this.body.velocity.x = game.rnd.integerInRange(-vel,vel);
+	this.body.velocity.y = game.rnd.integerInRange(-vel,vel);
 	this.startTime = game.time.now;
 	this.scale.setTo(.5);
 }
