@@ -38,6 +38,7 @@ Preloader.prototype = {
 		game.load.image('enemyFastCharger','enemyFastCharger.png');
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
+    game.load.image('cityImage','Map.png'); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
@@ -105,6 +106,7 @@ Play.prototype = {
 
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
+        map.addTilesetImage('City','cityImage');
         layerMain = map.createLayer('worldMain'); //main world layer
         map.addTilesetImage('Collision','collisionImage');
         layerCollision = map.createLayer('CollisionBounds'); //main world layer
