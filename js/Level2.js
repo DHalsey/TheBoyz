@@ -1,113 +1,6 @@
-//main.js
-var game;
-var map, layerCollision;
+//Level2.js
 
-//global groups
-var playerBullets;
-var enemyBullets;
-var enemyGroup;
-var enemyMissiles;
-
-//Global variables
-var player;
-var world_width;
-var world_height;
-var room_width;
-var room_height;
-
-window.onload = function(){
-    game = new Phaser.Game(1280,768, Phaser.AUTO);
-    game.state.add('Boot', Boot);
-    game.state.add('Preloader', Preloader);
-    game.state.add('Menu', Menu);
-    game.state.add('Play', Play);
-    game.state.add('Level2', Level2);
-    game.state.add('Lose', Lose);
-    game.state.start('Boot');
-};
-
-var Boot = function(game) {};
-Boot.prototype = {
-    preload: function() {
-        game.load.path = 'assets/img/';
-        game.load.image('loadBackground', 'loadBackground.png');
-        game.load.image('loadbar', 'loadbar.png');
-    },
-    create: function() {
-        game.state.start('Preloader');
-    }
-};
-
-var Preloader = function(game) {};
-Preloader.prototype = {
-	preload: function(){
-        //add loading screen background
-        game.add.image(0, 0, 'loadBackground');
-
-        //display text
-        game.add.text(20, 20, 'Loading...', {fontSize: '32px', fill: 'white'});
-
-       // add preloader bar and set as preloader sprite (auto-crops sprite)
-        var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
-        game.load.setPreloadSprite(preloadBar);
-		//load images
-		game.load.path = 'assets/img/';
-		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
-		game.load.image('player','player.png');
-		game.load.image('enemyShooter','enemyShooter.png');
-		game.load.image('enemyTank','enemyTank.png');
-		game.load.image('enemyCharger','enemyCharger.png');
-		game.load.image('enemyFastCharger','enemyFastCharger.png');
-		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
-		game.load.image('mapImage','MapTiles.png'); //tilemap images
-    	game.load.image('cityImage','CityTiles.png'); //tilemap images
-		game.load.image('rifleSprite', 'weapon_rifle.png');
-		game.load.image('shotgunSprite', 'weapon_shotgun.png');
-		game.load.image('collisionImage','Collision.png'); //tilemap images
-		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
-		game.load.image('button', 'button.png');
-    	game.load.image('wall', 'wall2.png');
-    	game.load.image('healthOverlay', 'healthBarOverlay.png');
-   		game.load.image('barrier', 'barrier2.png');
-    	game.load.image('missileParticle4', 'missileParticle4.png');
-	},
-	create: function(){
-		game.state.start('Menu');
-	}
-};
-
-
-//starts the main menu state
-var Menu = function(game){};
-Menu.prototype =
-{
-	preload: function(){},
-
-	create: function()
-	{
-		//adds background
-		menuBG = game.add.image(0,0, 'menuBackgrnd');
-
-		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Fyre Fight',
-			{font: '50px Arial', fill: '#000000'});
-
-		//adds button to press
-		var button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this);
-        button.inputEnabled = true;
-        button.input.useHandCursor = false;
-
-	},
-	update: function(){},
-
-	actionOnClick: function()
-	{
-		game.state.start('Play');
-	},
-};
-
-var Play = function(game) {
+var Level2 = function(game) {
   var roomOneSpawner, roomTwoSpawner, roomThreeSpawner, roomFourSpawner, escape, healthBar;
   var roomOneBarriersCreated;
   var roomTwoBarriersCreated;
@@ -115,7 +8,7 @@ var Play = function(game) {
   var roomFourBarriersCreated;
   var barrierDelay;
 };
-Play.prototype = {
+Level2.prototype = {
     preload: function(){
 	},
 	create: function(){
@@ -185,6 +78,8 @@ Play.prototype = {
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
        barrierDelay = 500;
+
+       game.add.text(80, 80, 'Level 2',{font: '100px Arial', fill: '#000000'});
 	},
 
 	update: function(){
@@ -278,35 +173,3 @@ Play.prototype = {
         
     }
 };
-
-
-//Lose state
-var Lose = function(game){};
-Lose.prototype =
-{
-	preload: function(){},
-
-	create: function()
-	{
-		//adds background
-		loseBG = game.add.image(0,0, 'menuBackgrnd');
-
-		//adds menu text
-		var loseTitle = game.add.text(80, 80, 'You Lost',
-			{font: '50px Arial', fill: '#ffffff'});
-		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
-			{font: '25px Arial', fill: '#ffffff'});
-
-		//adds keypress
-		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
-
-	},
-	update: function()
-	{
-		//sends the game back to the play state
-		if(this.rkey.justPressed())
-			game.state.start('Play');
-	},
-};
-
-

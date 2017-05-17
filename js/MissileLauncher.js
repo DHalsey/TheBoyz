@@ -84,9 +84,10 @@ function bulletsMissileLauncherCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
 
-    this.knockedBack = true;
-    knockback(this, bullet.knockbackValue, enemy.rotation);
-
+    if(!this.knockedBack) {
+        this.knockedBack = true;
+        knockback(this, bullet.knockbackValue, enemy.rotation);
+    }
 }
 
 //this function is used to make an enemy shoot a missile at the player

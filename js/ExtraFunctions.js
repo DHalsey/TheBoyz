@@ -16,12 +16,12 @@ function distance(sprite1, sprite2) {
 //this function is used to make an enemy charge at the player based on their charegeRate property
 //currently only used for FastCharger
 function chargeAtPlayer(enemy) {
-      if(enemy.distanceToPlayer <= 300 && game.time.now > enemy.nextCharge) {
+      if(enemy.distanceToPlayer <= 400 && game.time.now > enemy.nextCharge) {
         enemy.nextCharge = game.time.now + enemy.chargeRate;
 
         //knockback the enemy towards the direction its facing
         enemy.knockedBack = true;
-        knockback(enemy, 800, enemy.rotation - Math.PI);
+        knockback(enemy, 700, enemy.rotation - Math.PI);
         enemy.body.drag.x = 1000;
         enemy.body.drag.y = 1000;
       }
