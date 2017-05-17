@@ -24,7 +24,8 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.nextShot = 0;
     this.fireRate = 3000;
     this.knockedBack = false;
-    this.tweening = false;
+    this.knockBackTimer = 500;
+    this.nextKnockBack = 0;
 
     //knockback properties
     this.knockedBack = true;
@@ -43,13 +44,8 @@ MissileLauncher.prototype.constructor = MissileLauncher;
 //override MissileLauncher's update
 MissileLauncher.prototype.update = function() {
 
-    //reset the knockback if necessary
-    if(this.body.velocity.x == 0 && this.body.velocity.y == 0 && this.knockedBack) {
-        this.knockedBack = false;
-    }
-
-    if(!this.knockedBack && this.body.x != this.originalX && this.body.y != this.originalY) {
-        restoreLocation(this);
+    if(this.knockedBack && this.body.x != this.originalX && this.body.y != this.originalY) {
+        game.time.events.add(Phaser.Timer.SECOND * .05, this.restoreLocation, this);
     }
 
     //missile attack
@@ -86,10 +82,7 @@ function bulletsMissileLauncherCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
     
-    if(player.currentWeapon != 'SHOTGUN') {
-        enemy.knockedBack = true;
-        knockback(enemy, bullet.knockbackValue, enemy.rotation);
-    }
+    knockbackMissileLauncher(enemy, bullet);
 }
 
 //this function is used to make an enemy shoot a missile at the player
@@ -101,13 +94,20 @@ function shootMissile(enemy) {
     }
 }
 
-//this function restores the coordinates of the missile launcher back to its original location
-function restoreLocation(enemy) {
-    enemy.tweening = true;
-    var tween = game.add.tween(enemy).to( { x: enemy.originalX, y: enemy.originalY }, 300, Phaser.Easing.Linear.None, true);
-    tween.onComplete.add(enemy.onTweenComplete, this);
+MissileLauncher.prototype.restoreLocation = function() {
+    var tween = game.add.tween(this).to( { x: this.originalX, y: this.originalY }, 300, Phaser.Easing.Linear.None, true);
+    this.knockedBack = false;
 }
 
-MissileLauncher.prototype.onTweenComplete = function() {
-    this.tweening = false;
+
+function knockbackMissileLauncher(enemy, bullet) {
+    console.log('here');
+    if(game.time.now > enemy.nextKnockBack) {
+        enemy.nextKnockBack = game.time.now + enemy.knockBackTimer;
+
+        console.log('here2');
+
+        enemy.knockedBack = true;
+        knockback(enemy, bullet.knockbackValue, enemy.rotation);
+    }
 }
