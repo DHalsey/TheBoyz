@@ -24,8 +24,9 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.nextShot = 0;
     this.fireRate = 3000;
     this.knockedBack = false;
-    this.knockBackTimer = 700;
+    this.knockBackTimer = 300;
     this.nextKnockBack = 0;
+    this.shotgunTimer = 1200;
 
     //knockback properties
     this.knockedBack = true;
@@ -102,7 +103,11 @@ MissileLauncher.prototype.restoreLocation = function() {
 
 function knockbackMissileLauncher(enemy, bullet) {
     if(game.time.now > enemy.nextKnockBack) {
-        enemy.nextKnockBack = game.time.now + enemy.knockBackTimer;
+        
+        if(player.currentWeapon != "SHOTGUN") 
+            enemy.nextKnockBack = game.time.now + enemy.knockBackTimer;
+        else
+            enemy.nextKnockBack = game.time.now + enemy.shotgunTimer;
 
         enemy.knockedBack = true;
         knockback(enemy, bullet.knockbackValue, enemy.rotation);
