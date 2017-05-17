@@ -25,6 +25,13 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.fireRate = 3000;
     this.knockedBack = false;
 
+    //knockback properties
+    this.knockedBack = true;
+    this.body.drag.x = 1000;
+    this.body.drag.y = 1000;
+    this.originalX = x;
+    this.originalY = y;
+
     this.body.immovable = true;
 }
 
@@ -34,6 +41,16 @@ MissileLauncher.prototype.constructor = MissileLauncher;
 //override MissileLauncher's update
 MissileLauncher.prototype.update = function() {
 
+    //reset the knockback if necessary
+    if(this.body.velocity.x == 0 && this.body.velocity.y == 0 && this.knockedBack) {
+        this.knockedBack = false;
+    }
+
+    if(!this.knockedBack && this.body.x != this.originalX && this.body.y != this.originalY) {
+        restoreLocation(this);
+    }
+
+    //missile attack
     shootMissile(this);
 
     //make enemy face the player
@@ -66,6 +83,10 @@ function playerMissileLauncherCollision(enemy, player) {
 function bulletsMissileLauncherCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
+
+    this.knockedBack = true;
+    knockback(this, bullet.knockbackValue, enemy.rotation);
+
 }
 
 //this function is used to make an enemy shoot a missile at the player
@@ -75,4 +96,9 @@ function shootMissile(enemy) {
         enemy.nextShot = game.time.now + enemy.fireRate;
         new EnemyMissile(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 2, enemy.playerSprite);
     }
+}
+
+//this function restores the coordinates of the missile launcher back to its original location
+function restoreLocation(enemy) {
+    game.add.tween(enemy).to( { x: enemy.originalX, y: enemy.originalY }, 300, Phaser.Easing.Linear.None, true);
 }
