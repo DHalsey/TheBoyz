@@ -166,7 +166,7 @@ Play.prototype = {
 	},
 
 	update: function(){
-
+		//debug() //uncomment to draw debug information
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

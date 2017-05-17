@@ -12,6 +12,7 @@ function Player(game, x, y, atlas, frame, health) {
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.body.collideWorldBounds = false;
 	this.anchor.set(0.5);
+	this.body.setSize(40,40,12,4); //centers the player's hitbox
 
 	//Player properties
     this.hp = health;
