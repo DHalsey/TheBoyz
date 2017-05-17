@@ -110,5 +110,4 @@ function restoreLocation(enemy) {
 
 MissileLauncher.prototype.onTweenComplete = function() {
     this.tweening = false;
-    console.log('here');
 }
