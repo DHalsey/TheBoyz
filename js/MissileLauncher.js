@@ -24,6 +24,7 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.nextShot = 0;
     this.fireRate = 3000;
     this.knockedBack = false;
+    this.tweening = false;
 
     //knockback properties
     this.knockedBack = true;
@@ -37,6 +38,7 @@ function MissileLauncher(game, x, y, player, spawner) {
 
 MissileLauncher.prototype = Object.create(Phaser.Sprite.prototype);
 MissileLauncher.prototype.constructor = MissileLauncher;
+
 
 //override MissileLauncher's update
 MissileLauncher.prototype.update = function() {
@@ -83,10 +85,10 @@ function playerMissileLauncherCollision(enemy, player) {
 function bulletsMissileLauncherCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
-
-    if(!this.knockedBack) {
-        this.knockedBack = true;
-        knockback(this, bullet.knockbackValue, enemy.rotation);
+    
+    if(player.currentWeapon != 'SHOTGUN') {
+        enemy.knockedBack = true;
+        knockback(enemy, bullet.knockbackValue, enemy.rotation);
     }
 }
 
@@ -101,5 +103,12 @@ function shootMissile(enemy) {
 
 //this function restores the coordinates of the missile launcher back to its original location
 function restoreLocation(enemy) {
-    game.add.tween(enemy).to( { x: enemy.originalX, y: enemy.originalY }, 300, Phaser.Easing.Linear.None, true);
+    enemy.tweening = true;
+    var tween = game.add.tween(enemy).to( { x: enemy.originalX, y: enemy.originalY }, 300, Phaser.Easing.Linear.None, true);
+    tween.onComplete.add(enemy.onTweenComplete, this);
+}
+
+MissileLauncher.prototype.onTweenComplete = function() {
+    this.tweening = false;
+    console.log('here');
 }
