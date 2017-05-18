@@ -31,6 +31,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.movingRight = false;
     this.body.drag.x = 800; //TESTCODE
     this.body.drag.y = 800; //TESTCODE
+    this.canDash = false;
 
     //Player weapon properties
     this.pistolFireRate = 500;
@@ -39,6 +40,9 @@ function Player(game, x, y, atlas, frame, health) {
     this.currentWeapon = 'PISTOL';
     this.secondWeapon = '';
     this.ammo = 0;
+    this.pistolUpgraded = false;
+    this.shotgunPellets = 10;
+    this.rifleROF = 100;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);

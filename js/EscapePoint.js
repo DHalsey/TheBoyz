@@ -4,7 +4,7 @@
 //Usage: new EscapePoint(game, [array of possible spawn points], player, the name of the state that staerts when player collides with it)
 //The escape point will start the next level when the player collides with it ONLY IF all enemies in the room are dead
 //in order to make this work only when all enemies are dead in a specific room, EscapePoints have to work together with enemySpawners
-function EscapePoint(game, points, player, state) {
+function EscapePoint(game, points, player) {
     shuffleArray(points);
     var point = points[0];
 	Phaser.Sprite.call(this, game, point.xCoord, point.yCoord, 'wall');
@@ -18,7 +18,6 @@ function EscapePoint(game, points, player, state) {
     this.playerSprite = player;
     this.gameReference = game;
     this.possibleSpawns = points;
-    this.stateToStart = state;
     this.enemySpawners = new Array(0);
     this.spawnerStatus = new Array(0);
 
@@ -64,6 +63,6 @@ function checkEscapeStatus(statusArray) {
 }
 
 function startNewState(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start(escapePoint.stateToStart);
+	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start('Upgrade');
 }
 

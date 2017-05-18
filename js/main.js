@@ -14,6 +14,15 @@ var world_width;
 var world_height;
 var room_width;
 var room_height;
+var nextLevel;
+
+//upgrader global variables
+var healthUpgraded = false;
+var pistolUpgraded = false;
+var rifleUpgraded = false;
+var shotgunUpgraded = false;
+var dashEnabled = false;
+var statChanger;
 
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
@@ -23,6 +32,7 @@ window.onload = function(){
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Lose', Lose);
+    game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
 };
 
@@ -103,6 +113,9 @@ Menu.prototype =
         button.inputEnabled = true;
         button.input.useHandCursor = false;
 
+
+    //initialize the stat changer
+    statChanger = new PlayerStatChanger();
 	},
 	update: function(){},
 
@@ -128,6 +141,9 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
+
+        //what level is next
+        nextLevel = 'Level2';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -182,7 +198,7 @@ Play.prototype = {
        //Create the escape point
        //It will spawn randomly at one of the 3 points that I provided it
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
-       escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player, 'Level2');
+       escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
        var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
