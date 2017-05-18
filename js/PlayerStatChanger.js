@@ -28,3 +28,12 @@ PlayerStatChanger.prototype.changeDash = function() {
 PlayerStatChanger.prototype.changePistol = function() {
 	this.pistolUpgraded = true;
 }
+
+function updateStats(player, statChanger) {
+	player.hp = statChanger.hp;
+    player.maxHP = statChanger.maxHP;
+    player.pistolUpgraded = statChanger.pistolUpgraded;
+    player.shotgunPellets = statChanger.shotgunPellets;
+    player.canDash = statChanger.canDash;
+    player.rifleROF = statChanger.rifleROF;
+}

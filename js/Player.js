@@ -234,6 +234,38 @@ function dash(player) {
     if(game.time.now > player.nextDash) {
         player.nextDash = game.time.now + player.dashTimer;
 
-        knockback(player, player.dashValue, player.rotation - Math.PI);
+        if(!player.movingUp && !player.movingDown && !player.movingRight && !player.movingLeft)
+            knockback(player, player.dashValue, player.rotation - Math.PI);
+
+        //dash up
+        else if(player.movingUp && !player.movingDown && !player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, Math.PI/2);
+
+        //dash down
+        else if(!player.movingUp && player.movingDown && !player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (3*Math.PI)/2);
+
+        //dash left
+        else if(!player.movingUp && !player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, 0);
+
+        //dash right
+        else if(!player.movingUp && !player.movingDown && !player.movingLeft && player.movingRight)
+            knockback(player, player.dashValue, Math.PI);
+
+        //dash up and right
+        else if(player.movingUp && !player.movingDown && !player.movingLeft && player.movingRight)
+            knockback(player, player.dashValue, (3*Math.PI)/4);
+
+        //dash up left
+        else if(player.movingUp && !player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (Math.PI)/4);
+
+        //dash down left
+        else if(!player.movingUp && player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (7*Math.PI)/4);
+
+        else //dash down right
+            knockback(player, player.dashValue, (5*Math.PI)/4);
     }
 }
