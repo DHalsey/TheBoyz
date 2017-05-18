@@ -93,6 +93,7 @@ function playerFastChargerCollision(enemy, player) {
 function bulletsFastChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    hitMarker.play();
 
     //knock back the enemy
     if(!enemy.knockedBack) {

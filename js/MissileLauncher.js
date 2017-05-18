@@ -82,6 +82,7 @@ function playerMissileLauncherCollision(enemy, player) {
 function bulletsMissileLauncherCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    hitMarker.play();
     
     knockbackMissileLauncher(enemy, bullet);
 }

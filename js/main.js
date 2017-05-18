@@ -70,6 +70,11 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
+    	game.load.path = 'assets/audio/';
+    	game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
+    	game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
+    	game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
+    	game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
 	},
 	create: function(){
 		game.state.start('Menu');
@@ -142,6 +147,15 @@ Play.prototype = {
         layerCollision.visible = false;
         layerCollision.debug = true;
         game.physics.arcade.enable(map);
+
+        //add audio
+        pistolAud = game.add.audio('pistolAud');
+        pistolAud.volume -= .8;
+        rifleAud = game.add.audio('rifleAud');
+        rifleAud.volume -= .8;
+        shotgunAud = game.add.audio('shotgunAud');
+        shotgunAud.volume -= .8;
+        hitMarker = game.add.audio('hitMarker');
 
         //create groups
         playerBullets = game.add.physicsGroup();

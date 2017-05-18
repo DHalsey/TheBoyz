@@ -32,6 +32,7 @@ function chargeAtPlayer(enemy) {
 //currently only used for BasicShooter
 function shootPlayer(enemy) {
     if(game.time.now > enemy.nextShot) {
+        pistolAud.play();
     	enemy.nextShot = game.time.now + enemy.fireRate;
 
     	//knock back the enemy

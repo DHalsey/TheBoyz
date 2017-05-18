@@ -79,6 +79,7 @@ function playerBasicChargerCollision(enemy, player) {
 function bulletsBasicChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    hitMarker.play();
 
     //knock back the enemy
     if(!enemy.knockedBack) {
