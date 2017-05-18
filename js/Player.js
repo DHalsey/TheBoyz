@@ -186,16 +186,9 @@ function shootShotgun(player) {
         game.camera.shake(0.015, 100);
         shotgunAud.play();
         
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        for(var i=0; i< player.shotgunPellets; i++) {
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        }
         
         player.ammo--;
     }

@@ -40,7 +40,7 @@ Weapon.prototype.update = function() {
 		// Rifle
 		if (this.type == 'RIFLE') {
 			player.ammo = 50;
-			player.fireRate = 100;
+			player.fireRate = player.rifleROF;
 		}
 		
 		// Shotgun
