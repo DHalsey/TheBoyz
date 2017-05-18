@@ -155,6 +155,7 @@ function shootWeapon(player) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         pistolAud.play();
         player.nextFire = game.time.now + player.pistolFireRate;
+        game.camera.shake(0.008, 100);
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
     }
 
@@ -167,6 +168,7 @@ function shootRifle(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
         knockback(player, 150, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
+        game.camera.shake(0.01, 100);
         rifleAud.play();
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 200);
         player.ammo--;
@@ -177,6 +179,7 @@ function shootShotgun(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
         knockback(player, 400, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
+        game.camera.shake(0.015, 100);
         shotgunAud.play();
         
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
