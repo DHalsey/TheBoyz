@@ -151,26 +151,28 @@ function swap(player) {
 }
 
 function shootWeapon(player) {
-    if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
+    if (player.currentWeapon === 'PISTOL' && game.time.now > player.nextFire) {
     	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
         pistolAud.play();
         player.nextFire = game.time.now + player.pistolFireRate;
         game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 200);
     }
 
-    if (player.currentWeapon == 'RIFLE') shootRifle(player);
+    if (player.currentWeapon === 'RIFLE') shootRifle(player);
 
-    if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
+    if (player.currentWeapon === 'SHOTGUN') shootShotgun(player);
+
+    if (player.currentWeapon === 'SMG') shootSMG(player);
 }
 
 function shootRifle(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
-        knockback(player, 150, player.rotation);
+        knockback(player, 200, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.01, 100);
         rifleAud.play();
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 200);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200);
         player.ammo--;
     }
 }
@@ -193,6 +195,16 @@ function shootShotgun(player) {
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
         
+        player.ammo--;
+    }
+}
+
+function shootSMG(player) {
+    if (game.time.now > player.nextFire && player.ammo > 0) {
+        knockback(player, 100, player.rotation);
+        player.nextFire = game.time.now + player.fireRate;
+        game.camera.shake(0.008, 100);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 100);
         player.ammo--;
     }
 }

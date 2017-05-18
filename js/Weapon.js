@@ -38,15 +38,20 @@ Weapon.prototype.update = function() {
 		player.secondWeapon = 'PISTOL';
 		
 		// Rifle
-		if (this.type == 'RIFLE') {
-			player.ammo = 50;
-			player.fireRate = 100;
+		if (this.type === 'RIFLE') {
+			player.ammo = 30;
+			player.fireRate = 125;
 		}
 		
 		// Shotgun
-		else if (this.type == 'SHOTGUN') {
+		else if (this.type === 'SHOTGUN') {
 			player.ammo = 12;
 			player.fireRate = 1000;
+		}
+
+		else if (this.type === 'SMG') {
+			player.ammo = 50;
+			player.fireRate = 50;
 		}
 		
 		this.destroy();

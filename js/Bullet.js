@@ -26,7 +26,8 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback) {
 	playerBullets.add(this);
 
 	//make the bullet fire at the pointer
-	if (player.currentWeapon == 'SHOTGUN') toPointer(this, this.movementSpeed, undefined, undefined, 0.15);
+	if (player.currentWeapon === 'SHOTGUN') toPointer(this, this.movementSpeed, undefined, undefined, 0.15);
+	else if (player.currentWeapon === 'SMG') toPointer(this, this.movementSpeed, undefined, undefined, 0.03);
 	else toPointer(this, this.movementSpeed, undefined, undefined, 0);
 
 	//temporarily scale the bullet sprite

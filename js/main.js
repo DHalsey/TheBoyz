@@ -94,7 +94,7 @@ Menu.prototype =
 		menuBG = game.add.image(0,0, 'menuBackgrnd');
 
 		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Fyre Fight',
+		var menuTitle = game.add.text(80, 80, 'Soccer Dragon',
 			{font: '50px Arial', fill: '#000000'});
 
 		//adds button to press
@@ -133,7 +133,7 @@ Play.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Set world size and adjust color to white
-        game.stage.setBackgroundColor('#ffffff');
+        game.stage.setBackgroundColor('#FFFFFF');
         game.world.setBounds(0,0,world_width,world_height);
 
 		map = game.add.tilemap('maptile');
@@ -186,6 +186,7 @@ Play.prototype = {
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
        var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
+       var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
 
        createHealthBar();
 

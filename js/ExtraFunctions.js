@@ -178,16 +178,20 @@ function updateAmmoText(ammoText, player) {
 // Enemies' weapon drop function
 function dropWeapon(enemy, player) {
     
+    var weapons = ['RIFLE', 'SHOTGUN', 'SMG'];
     var randomNumber = game.rnd.realInRange(0,1);
+    var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
+    var randomSprite;
 
+    // 2/3 Chance of dropping a weapon
     if (randomNumber <= 0.33) {
-        this.weapon = new Weapon(game, enemy.x, enemy.y, 
-        'shotgunSprite', 'SHOTGUN', player);
+
+        if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
+        else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
+        else if (randomWeap === 'SMG') randomSprite = 'wall';
+        
+        this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
     }
 
-    else if (randomNumber > 0.33 && randomNumber <= 0.66) {
-        this.weapon = new Weapon(game, enemy.x, enemy.y, 
-        'rifleSprite', 'RIFLE', player);
-    }
     
 }
