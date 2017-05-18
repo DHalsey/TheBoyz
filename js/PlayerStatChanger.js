@@ -1,6 +1,7 @@
 //PlayerStatChanger.js
 function PlayerStatChanger() {
 	this.hp = 10;
+	this.maxHP = 15;
 	this.shotgunPellets = 10;
 	this.rifleROF = 100;
 	this.canDash = false;
@@ -9,6 +10,7 @@ function PlayerStatChanger() {
 
 PlayerStatChanger.prototype.changeHealth = function() {
 	this.hp = 15;
+	this.maxHP = 15;
 }
 
 PlayerStatChanger.prototype.changeShotgun = function() {

@@ -45,6 +45,7 @@ Level2.prototype = {
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         //update the player's stats
         player.hp = statChanger.hp;
+        player.maxHP = statChanger.maxHP;
         player.pistolUpgraded = statChanger.pistolUpgraded;
         player.shotgunPellets = statChanger.shotgunPellets;
         player.canDash = statChanger.canDash;
