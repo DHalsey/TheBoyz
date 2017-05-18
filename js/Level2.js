@@ -48,7 +48,7 @@ Level2.prototype = {
         player.pistolUpgraded = statChanger.pistolUpgraded;
         player.shotgunPellets = statChanger.shotgunPellets;
         player.canDash = statChanger.canDash;
-        player.rifleROF = statChanger.rofleROF;
+        player.rifleROF = statChanger.rifleROF;
 
        //this spawner will spawn one of each enemy type at the four passed in spawn points.
        roomOneSpawner = new EnemySpawner(["BasicCharger", "MissileLauncher"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);

@@ -32,6 +32,9 @@ function Player(game, x, y, atlas, frame, health) {
     this.body.drag.x = 800; //TESTCODE
     this.body.drag.y = 800; //TESTCODE
     this.canDash = false;
+    this.dashTimer = 2000;
+    this.nextDash = 0;
+    this.dashValue = 700;
 
     //Player weapon properties
     this.pistolFireRate = 500;
@@ -60,6 +63,9 @@ Player.prototype.update = function() {
     if(game.input.keyboard.isDown(Phaser.Keyboard.A)) moveLeft(this);
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
+
+    //dash ability
+    if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
 
     //Swap weapon
     if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
@@ -161,11 +167,19 @@ function shootWeapon(player) {
         player.nextFire = game.time.now + player.pistolFireRate;
         game.camera.shake(0.008, 100);
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+        if(player.pistolUpgraded) {
+            game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
+        }
     }
 
     if (player.currentWeapon == 'RIFLE') shootRifle(player);
 
     if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
+}
+
+function twoRoundBurst(player) {
+    new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+    pistolAud.play();
 }
 
 function shootRifle(player) {
@@ -216,3 +230,10 @@ function missilesPlayerCollision(player, missile) {
     destroyMissile(missile);
 }
 
+function dash(player) {
+    if(game.time.now > player.nextDash) {
+        player.nextDash = game.time.now + player.dashTimer;
+
+        knockback(player, player.dashValue, player.rotation - Math.PI);
+    }
+}

@@ -11,37 +11,42 @@ Upgrade.prototype = {
 
 		//upgrade health
 		if(!healthUpgraded) {
-			var healthButton = game.add.button(500, 200, 'button', upgradeHealth, this);
+			var healthButton = game.add.button(500, 200, 'genericButton', upgradeHealth, this);
 			healthButton.inputEnabled = true;
 			healthButton.useHandCursor = false;
+			game.add.text(510, 225, '+ Max HP', {fontSize: '12px', fill: '#000000'});
 		}
 
 		//upgrade pistol
 		if(!pistolUpgraded) {
-			var pistolButton = game.add.button(500, 300, 'button', upgradePistol, this);
+			var pistolButton = game.add.button(500, 300, 'genericButton', upgradePistol, this);
 			pistolButton.inputEnabled = true;
 			pistolButton.useHandCursor = false;
+			game.add.text(510, 325, 'Pistol 2 Round Burst', {fontSize: '12px', fill: '#000000'});
 		}
 
 		//upgrade rifle
 		if(!rifleUpgraded) {
-			var rifleButton = game.add.button(500, 400, 'button', upgradeRifle, this);
+			var rifleButton = game.add.button(500, 400, 'genericButton', upgradeRifle, this);
 			rifleButton.inputEnabled = true;
 			rifleButton.useHandCursor = false;
+			game.add.text(510, 425, '+ Rifle Fire Rate', {fontSize: '12px', fill: '#000000'});
 		}
 
 		//upgrade shotgun
 		if(!shotgunUpgraded) {
-			var shotgunButton = game.add.button(500, 500, 'button', upgradeShotgun, this);
+			var shotgunButton = game.add.button(500, 500, 'genericButton', upgradeShotgun, this);
 			shotgunButton.inputEnabled = true;
 			shotgunButton.useHandCursor = false;
+			game.add.text(510, 525, '+ Shotgun Damage', {fontSize: '12px', fill: '#000000'});
 		}
 
 		//enable dash ability
 		if(!dashEnabled) {
-			var dashButton = game.add.button(500, 600, 'button', enableDash, this);
+			var dashButton = game.add.button(500, 600, 'genericButton', enableDash, this);
 			dashButton.inputEnabled = true;
 			dashButton.useHandCursor = false;
+			game.add.text(510, 625, 'Acquire Dash Ability', {fontSize: '12px', fill: '#000000'});
 		}
 	},
 	update: function() {

@@ -80,6 +80,7 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
+        game.load.image('genericButton', 'genericButton.png');
     	game.load.path = 'assets/audio/';
     	game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
     	game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);

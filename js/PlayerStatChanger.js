@@ -2,7 +2,7 @@
 function PlayerStatChanger() {
 	this.hp = 10;
 	this.shotgunPellets = 10;
-	this.rifeROF = 100;
+	this.rifleROF = 100;
 	this.canDash = false;
 	this.pistolUpgraded = false;
 }
