@@ -24,7 +24,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.timeSwitched = 0;
     this.roomsVisited = new Array(0);
     this.shootingStalled = false;
-    this.lastRoom = 0;
+    this.lastRoom = 1;
 
     //Player movement properties
     this.movingUp = false;
@@ -56,7 +56,10 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
     //if the player just switched rooms, stall shooting for 1 second
-    if(this.lastRoom != this.currentRoom) stallShooting(this);
+    if(this.lastRoom != this.currentRoom) {
+        stallShooting(this);
+        roomSwitchAud.play();
+    }
 
     //record the last room
     this.lastRoom = this.currentRoom;

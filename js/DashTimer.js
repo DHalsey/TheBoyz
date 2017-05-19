@@ -10,12 +10,12 @@ function createDashText(player) {
 }
 
 function startDashCooldown() {
-	dashText.text = 'Dash:  2';
+	dashText.text = 'Dash:  2s';
 	game.time.events.add(Phaser.Timer.SECOND * 1, changeToOne, this);
 }
 
 function changeToOne() {
-	dashText.text = 'Dash:  1';
+	dashText.text = 'Dash:  1s';
 	dashTimer1Aud.play();
 	game.time.events.add(Phaser.Timer.SECOND * 1, changeToReady, this);
 }
