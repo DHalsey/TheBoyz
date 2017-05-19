@@ -81,20 +81,21 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
+        game.load.image('genericButton', 'genericButton.png');
+        game.load.path = 'assets/audio/';
+        game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
+        game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
+        game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
+        game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
+      game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
       game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
       game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
       game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
       game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
       game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
+
     },
     create: function(){
-        game.load.image('genericButton', 'genericButton.png');
-    	game.load.path = 'assets/audio/';
-    	game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
-    	game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
-    	game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
-    	game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
-      game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
 		game.state.start('Menu');
 	}
 };

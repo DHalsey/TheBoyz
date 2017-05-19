@@ -188,9 +188,11 @@ function shootWeapon(player) {
             }
         }   
 
-        if (player.currentWeapon == 'RIFLE') shootRifle(player);
+        if (player.currentWeapon === 'RIFLE') shootRifle(player);
 
-        if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
+        if (player.currentWeapon === 'SHOTGUN') shootShotgun(player);
+
+        if(player.currentWeapon === 'SMG') shootSMG(player); 
     }
 }
 
