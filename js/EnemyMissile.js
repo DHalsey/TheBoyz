@@ -43,7 +43,7 @@ EnemyMissile.prototype.update = function() {
 		} 
 		game.physics.arcade.velocityFromRotation(this.rotation,this.movementSpeed,this.body.velocity); //moves the bullet the direction its facing
 
-		//manually check collision between this missile and all allive playerBullets
+		//manually check collision between this missile and all allive playerBullets 
 		for(var i=0; i< playerBullets.children.length;i++) {
 			bullet = playerBullets.children[i];
 			if(Phaser.Rectangle.intersects(bullet.getBounds(), this.getBounds())) {

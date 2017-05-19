@@ -18,7 +18,7 @@ PlayerStatChanger.prototype.changeShotgun = function() {
 }
 
 PlayerStatChanger.prototype.changeRifle = function() {
-	this.rifleROF = 75;
+	this.rifleROF = 100;
 }
 
 PlayerStatChanger.prototype.changeDash = function() {
