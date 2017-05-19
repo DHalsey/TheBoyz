@@ -183,7 +183,6 @@ Play.prototype = {
         dashTimer2Aud = game.add.audio('dashTimer2');
         dashTimer2Aud.volume -= .7;
         roomSwitchAud = game.add.audio('woosh');
-        roomSwitchAud.volume += .6;
 
 
         //create groups
