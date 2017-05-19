@@ -87,6 +87,10 @@ Preloader.prototype = {
     	game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
     	game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
     	game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
+      game.load.audio('dash', ['dash.mp3', 'dash.ogg']);
+      game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
+      game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
+
 	},
 	create: function(){
 		game.state.start('Menu');
@@ -166,6 +170,12 @@ Play.prototype = {
         shotgunAud = game.add.audio('shotgunAud');
         shotgunAud.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
+        dashAud = game.add.audio('dash');
+        dashAud.volume -= .8;
+        shootMissileAud = game.add.audio('shootMissile');
+        shootMissileAud.volume -= .8;
+        missileExplosionAud = game.add.audio('missileExplosion');
+        missileExplosionAud.volume -= .8;
 
         //create groups
         playerBullets = game.add.physicsGroup();

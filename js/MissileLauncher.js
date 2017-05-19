@@ -95,6 +95,7 @@ function shootMissile(enemy) {
     if(game.time.now > enemy.nextShot) {
         enemy.nextShot = game.time.now + enemy.fireRate;
         new EnemyMissile(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 2, enemy.playerSprite);
+        shootMissileAud.play();
     }
 }
 

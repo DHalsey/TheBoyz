@@ -282,6 +282,7 @@ function dash(player) {
         else //dash down right
             knockback(player, player.dashValue, (5*Math.PI)/4);
 
+        dashAud.play();
         startDashCooldown();
     }
 }

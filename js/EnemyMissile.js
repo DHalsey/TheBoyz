@@ -41,6 +41,7 @@ EnemyMissile.prototype.update = function() {
 
 function destroyMissile(missile) {
    missileParticleExplosion(missile)
+   missileExplosionAud.play();
    missile.destroy();
 }
 
