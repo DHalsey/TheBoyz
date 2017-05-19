@@ -23,6 +23,8 @@ function Player(game, x, y, atlas, frame, health) {
     this.currentRoom = 1;
     this.timeSwitched = 0;
     this.roomsVisited = new Array(0);
+    this.shootingStalled = false;
+    this.lastRoom = 0;
 
     //Player movement properties
     this.movingUp = false;
@@ -53,6 +55,12 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+    //if the player just switched rooms, stall shooting for 1 second
+    if(this.lastRoom != this.currentRoom) stallShooting(this);
+
+    //record the last room
+    this.lastRoom = this.currentRoom;
+
 	//update the player movement
     resetMovement(this);
 
@@ -165,20 +173,22 @@ function swap(player) {
 }
 
 function shootWeapon(player) {
-    if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
-    	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
-        pistolAud.play();
-        player.nextFire = game.time.now + player.pistolFireRate;
-        game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
-        if(player.pistolUpgraded) {
-            game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
-        }
+    if(!player.shootingStalled) {
+        if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
+            knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
+            pistolAud.play();
+            player.nextFire = game.time.now + player.pistolFireRate;
+            game.camera.shake(0.008, 100);
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+            if(player.pistolUpgraded) {
+                game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
+            }
+        }   
+
+        if (player.currentWeapon == 'RIFLE') shootRifle(player);
+
+        if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
     }
-
-    if (player.currentWeapon == 'RIFLE') shootRifle(player);
-
-    if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
 }
 
 function twoRoundBurst(player) {
@@ -274,4 +284,13 @@ function dash(player) {
 
         startDashCooldown();
     }
+}
+
+function stallShooting(player) {
+    player.shootingStalled = true;
+    game.time.events.add(Phaser.Timer.SECOND * 1.5, resumeShooting, this, player);
+}
+
+function resumeShooting(player) {
+    player.shootingStalled = false;
 }

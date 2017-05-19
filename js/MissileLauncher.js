@@ -27,6 +27,7 @@ function MissileLauncher(game, x, y, player, spawner) {
     this.knockBackTimer = 300;
     this.nextKnockBack = 0;
     this.shotgunTimer = 1200;
+    this.docile = true;
 
     //knockback properties
     this.knockedBack = true;
@@ -41,30 +42,31 @@ function MissileLauncher(game, x, y, player, spawner) {
 MissileLauncher.prototype = Object.create(Phaser.Sprite.prototype);
 MissileLauncher.prototype.constructor = MissileLauncher;
 
-
 //override MissileLauncher's update
 MissileLauncher.prototype.update = function() {
+    if(this.docile) game.time.events.add(Phaser.Timer.SECOND * 1, makeAggro, this, this);
+    else {
+        if(this.knockedBack && this.body.x != this.originalX && this.body.y != this.originalY) {
+            game.time.events.add(Phaser.Timer.SECOND * .05, this.restoreLocation, this);
+        }
 
-    if(this.knockedBack && this.body.x != this.originalX && this.body.y != this.originalY) {
-        game.time.events.add(Phaser.Timer.SECOND * .05, this.restoreLocation, this);
-    }
+        //missile attack
+        shootMissile(this);
 
-    //missile attack
-    shootMissile(this);
+        //make enemy face the player
+        this.rotation = angleToSprite(this, this.playerSprite);
 
-    //make enemy face the player
-    this.rotation = angleToSprite(this, this.playerSprite);
+        //handle collision between player and enemy
+        game.physics.arcade.collide(this, this.playerSprite, playerMissileLauncherCollision, null, this);
 
-    //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerMissileLauncherCollision, null, this);
+        //handle collision between bullets and enemy
+        game.physics.arcade.overlap(this, playerBullets, bulletsMissileLauncherCollision, null, this);
 
-    //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, playerBullets, bulletsMissileLauncherCollision, null, this);
-
-    //check if enemy is dead
-    if(this.hp <= 0) {
-        this.enemySpawner.enemiesAlive--;
-        this.destroy();
+        //check if enemy is dead
+        if(this.hp <= 0) {
+            this.enemySpawner.enemiesAlive--;
+            this.destroy();
+        }
     } 
 }
 

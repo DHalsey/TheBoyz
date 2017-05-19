@@ -191,3 +191,8 @@ function dropWeapon(enemy, player) {
     }
     
 }
+
+//makes an enemy aggro
+function makeAggro(enemy) {
+    enemy.docile = false;
+}
