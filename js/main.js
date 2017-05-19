@@ -14,6 +14,15 @@ var world_width;
 var world_height;
 var room_width;
 var room_height;
+var nextLevel;
+
+//upgrader global variables
+var healthUpgraded = false;
+var pistolUpgraded = false;
+var rifleUpgraded = false;
+var shotgunUpgraded = false;
+var dashEnabled = false;
+var statChanger;
 
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
@@ -23,6 +32,7 @@ window.onload = function(){
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Lose', Lose);
+    game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
 };
 
@@ -71,6 +81,7 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
+        game.load.image('genericButton', 'genericButton.png');
     	game.load.path = 'assets/audio/';
     	game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
     	game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
@@ -104,6 +115,9 @@ Menu.prototype =
         button.inputEnabled = true;
         button.input.useHandCursor = false;
 
+
+    //initialize the stat changer
+    statChanger = new PlayerStatChanger();
 	},
 	update: function(){},
 
@@ -114,8 +128,7 @@ Menu.prototype =
 };
 
 var Play = function(game) {
-  var roomOneSpawner, roomTwoSpawner, roomThreeSpawner, roomFourSpawner, escape, healthBar;
-  var roomOneBarriersCreated;
+  var roomTwoFast, roomTwoCharger, roomThreeCharger, roomThreeFast, roomThreeTanky, roomFourCharger,roomFourTanky, escape, healthBar;
   var roomTwoBarriersCreated;
   var roomThreeBarriersCreated;
   var roomFourBarriersCreated;
@@ -129,6 +142,9 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
+
+        //what level is next
+        nextLevel = 'Level2';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -159,11 +175,20 @@ Play.prototype = {
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
-       //this spawner will spawn one of each enemy type at the four passed in spawn points.
-       roomOneSpawner = new EnemySpawner(["BasicCharger", "MissileLauncher"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);
-       roomTwoSpawner = new EnemySpawner(['BasicShooter'], [new SpawnPoint(30,5)], player);
-       roomThreeSpawner = new EnemySpawner(['BasicCharger'], [new SpawnPoint(8, 16)], player);
-       roomFourSpawner = new EnemySpawner(['FastCharger'], [new SpawnPoint(29, 16)], player);
+       //room 2 spawners
+       roomTwoFast = new EnemySpawner(['FastCharger'], [new SpawnPoint(29,6)], player);
+       roomTwoCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(37,2)], player);
+
+       //room 3 spawners
+       roomThreeFast = new EnemySpawner(['FastCharger'], [new SpawnPoint(2,14)], player);
+       roomThreeTanky = new EnemySpawner(['TankyCharger'], [new SpawnPoint(2,21)], player);
+       roomThreeCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(18,21)], player);
+
+       //room 4 spawners
+       roomFourCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(23,15)], player);
+       roomFourTanky = new EnemySpawner(['TankyCharger'], [new SpawnPoint(36,21)], player);
+
+      
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
        //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
@@ -176,7 +201,7 @@ Play.prototype = {
        //Create the escape point
        //It will spawn randomly at one of the 3 points that I provided it
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
-       escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player, 'Level2');
+       escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
        var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
@@ -207,75 +232,68 @@ Play.prototype = {
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
         if(player.currentRoom == 1 && game.time.now > player.timeSwitched+barrierDelay) {
-          roomOneSpawner.spawn();
-          escape.trackSpawner(roomOneSpawner);
-          if(!roomOneBarriersCreated) {  //if the room one barriers haven't been created yet, create them
-
-            //create barriers on the right side of room 1
-            new RoomBarrier(game, 20, 6, player, roomOneSpawner);
-            new RoomBarrier(game, 20, 5, player, roomOneSpawner);
-
-            //create barriers on the bottom of room 1
-            new RoomBarrier(game, 8, 12, player, roomOneSpawner);
-            new RoomBarrier(game, 9, 12, player, roomOneSpawner);
-            new RoomBarrier(game, 10, 12, player, roomOneSpawner);
-            new RoomBarrier(game, 11, 12, player, roomOneSpawner);
-
-            roomOneBarriersCreated = true;
-          }
+          
         } 
         else if(player.currentRoom == 2 && game.time.now > player.timeSwitched+barrierDelay) { 
-          roomTwoSpawner.spawn();
-          escape.trackSpawner(roomTwoSpawner);
+          roomTwoCharger.spawn();
+          roomTwoFast.spawn()
+          escape.trackSpawner(roomTwoCharger);
+          escape.trackSpawner(roomTwoFast);
           if(!roomTwoBarriersCreated) { //if room 2 barriers haven't been created yet, create them
             
             //barriers on the left side of room 2
-            new RoomBarrier(game, 19, 6, player, roomTwoSpawner);
-            new RoomBarrier(game, 19, 5, player, roomTwoSpawner);
+            new RoomBarrier(game, 19, 6, player, roomTwoCharger, roomTwoFast);
+            new RoomBarrier(game, 19, 5, player, roomTwoCharger, roomTwoFast);
 
             //barriers on the bottom of room 2
-            new RoomBarrier(game, 38, 12, player, roomTwoSpawner);
-            new RoomBarrier(game, 37, 12, player, roomTwoSpawner);
-            new RoomBarrier(game, 36, 12, player, roomTwoSpawner);
-            new RoomBarrier(game, 35, 12, player, roomTwoSpawner);
+            new RoomBarrier(game, 38, 12, player, roomTwoCharger, roomTwoFast);
+            new RoomBarrier(game, 37, 12, player, roomTwoCharger, roomTwoFast);
+            new RoomBarrier(game, 36, 12, player, roomTwoCharger, roomTwoFast);
+            new RoomBarrier(game, 35, 12, player, roomTwoCharger, roomTwoFast);
 
             roomTwoBarriersCreated = true;
           }
         } 
         else if(player.currentRoom == 3 && game.time.now > player.timeSwitched+barrierDelay) {
-          roomThreeSpawner.spawn();
-          escape.trackSpawner(roomThreeSpawner);
+          roomThreeCharger.spawn();
+          roomThreeFast.spawn();
+          roomThreeTanky.spawn();
+          escape.trackSpawner(roomThreeCharger);
+          escape.trackSpawner(roomThreeFast);
+          escape.trackSpawner(roomThreeTanky);
           if(!roomThreeBarriersCreated) {
 
             //barriers on the top of room 3
-            new RoomBarrier(game, 8, 11, player, roomThreeSpawner);
-            new RoomBarrier(game, 9, 11, player, roomThreeSpawner);
-            new RoomBarrier(game, 10, 11, player, roomThreeSpawner);
-            new RoomBarrier(game, 11, 11, player, roomThreeSpawner);
+            new RoomBarrier(game, 8, 11, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
+            new RoomBarrier(game, 9, 11, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
+            new RoomBarrier(game, 10, 11, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
+            new RoomBarrier(game, 11, 11, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
 
             //barriers on the right side of room 3
-            new RoomBarrier(game, 20, 19, player, roomThreeSpawner);
-            new RoomBarrier(game, 20, 20, player, roomThreeSpawner);
-            new RoomBarrier(game, 20, 21, player, roomThreeSpawner);
+            new RoomBarrier(game, 20, 19, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
+            new RoomBarrier(game, 20, 20, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
+            new RoomBarrier(game, 20, 21, player, roomThreeCharger, roomThreeFast, roomThreeTanky);
 
             roomThreeBarriersCreated = true;
           }
         } 
         else if(player.currentRoom == 4 && game.time.now > player.timeSwitched+barrierDelay) {
-          roomFourSpawner.spawn();
-          escape.trackSpawner(roomFourSpawner);
+          roomFourCharger.spawn();
+          roomFourTanky.spawn();
+          escape.trackSpawner(roomFourCharger);
+          escape.trackSpawner(roomFourTanky);
           if(!roomFourBarriersCreated) {
 
             //barriers on the left side of room 4
-            new RoomBarrier(game, 19, 19, player, roomFourSpawner);
-            new RoomBarrier(game, 19, 20, player, roomFourSpawner);
-            new RoomBarrier(game, 19, 21, player, roomFourSpawner);
+            new RoomBarrier(game, 19, 19, player, roomFourCharger, roomFourTanky);
+            new RoomBarrier(game, 19, 20, player, roomFourCharger, roomFourTanky);
+            new RoomBarrier(game, 19, 21, player, roomFourCharger, roomFourTanky);
 
             //barriers on the top of room 4
-            new RoomBarrier(game, 38, 11, player, roomFourSpawner);
-            new RoomBarrier(game, 37, 11, player, roomFourSpawner);
-            new RoomBarrier(game, 36, 11, player, roomFourSpawner);
-            new RoomBarrier(game, 35, 11, player, roomFourSpawner);
+            new RoomBarrier(game, 38, 11, player, roomFourCharger, roomFourTanky);
+            new RoomBarrier(game, 37, 11, player, roomFourCharger, roomFourTanky);
+            new RoomBarrier(game, 36, 11, player, roomFourCharger, roomFourTanky);
+            new RoomBarrier(game, 35, 11, player, roomFourCharger, roomFourTanky);
 
             roomFourBarriersCreated = true;
           }

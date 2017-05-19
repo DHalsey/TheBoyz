@@ -18,6 +18,7 @@ function TankyCharger(game, x, y, player, spawner) {
     this.playerSprite = player;
     this.enemySpawner = spawner;
     this.movementSpeed = 75;
+    this.docile = true;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
@@ -30,33 +31,36 @@ TankyCharger.prototype.constructor = TankyCharger;
 
 //override TankyCharger's update
 TankyCharger.prototype.update = function() {
-    //make enemy move towards the player unless it is in the process of being knocked back
-    if(!this.knockedBack) {
-        game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
-    }
-    else {  
+    if(this.docile) game.time.events.add(Phaser.Timer.SECOND * 1, makeAggro, this, this);
+    else {
+        //make enemy move towards the player unless it is in the process of being knocked back
+        if(!this.knockedBack) {
+            game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
+        }
+        else {  
             //if the enemy is currently being knocked back, wait until the knockback is finished, then restore normal movement
             if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
                 this.knockedBack = false;
                 this.body.drag.x = 0;
                 this.body.drag.y = 0;
             }
-    }
+        }
 
-    //make enemy face the player
-    this.rotation = angleToSprite(this, this.playerSprite);
+        //make enemy face the player
+        this.rotation = angleToSprite(this, this.playerSprite);
 
-    //handle collision between player and enemy
-    game.physics.arcade.collide(this, this.playerSprite, playerTankyChargerCollision, null, this);
+        //handle collision between player and enemy
+        game.physics.arcade.collide(this, this.playerSprite, playerTankyChargerCollision, null, this);
 
-    //handle collision between bullets and enemy
-    game.physics.arcade.overlap(this, playerBullets, bulletsTankyChargerCollision, null, this);
+        //handle collision between bullets and enemy
+        game.physics.arcade.overlap(this, playerBullets, bulletsTankyChargerCollision, null, this);
 
-    //check if enemy is dead
-    if(this.hp <= 0) {
-        this.enemySpawner.enemiesAlive--;
-        dropWeapon(this, player);
-        this.destroy();
+        //check if enemy is dead
+        if(this.hp <= 0) {
+            this.enemySpawner.enemiesAlive--;
+            dropWeapon(this, player);
+            this.destroy();
+        }
     } 
 }
 
@@ -78,7 +82,7 @@ function playerTankyChargerCollision(enemy, player) {
 function bulletsTankyChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
-    hitMarker.play(0);
+    hitMarker.play();
 
     //knock back the enemy
     if(!enemy.knockedBack) {

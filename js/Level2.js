@@ -33,6 +33,8 @@ Level2.prototype = {
         enemyMissiles = game.add.physicsGroup();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
+        //update the player's stats
+        updateStats(player, statChanger);
 
        //this spawner will spawn one of each enemy type at the four passed in spawn points.
        roomOneSpawner = new EnemySpawner(["BasicCharger", "MissileLauncher"], [new SpawnPoint(1,1), new SpawnPoint(9, 5), new SpawnPoint(3, 10), new SpawnPoint(18,2)], player);

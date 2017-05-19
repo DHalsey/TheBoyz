@@ -23,6 +23,8 @@ function Player(game, x, y, atlas, frame, health) {
     this.currentRoom = 1;
     this.timeSwitched = 0;
     this.roomsVisited = new Array(0);
+    this.shootingStalled = false;
+    this.lastRoom = 0;
 
     //Player movement properties
     this.movingUp = false;
@@ -31,6 +33,11 @@ function Player(game, x, y, atlas, frame, health) {
     this.movingRight = false;
     this.body.drag.x = 800; //TESTCODE
     this.body.drag.y = 800; //TESTCODE
+    this.canDash = false;
+    this.dashTimer = 2000;
+    this.nextDash = 0;
+    this.dashValue = 700;
+    this.dashTextCreated = false;
 
     //Player weapon properties
     this.pistolFireRate = 500;
@@ -39,12 +46,21 @@ function Player(game, x, y, atlas, frame, health) {
     this.currentWeapon = 'PISTOL';
     this.secondWeapon = '';
     this.ammo = 0;
+    this.pistolUpgraded = false;
+    this.shotgunPellets = 10;
+    this.rifleROF = 100;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+    //if the player just switched rooms, stall shooting for 1 second
+    if(this.lastRoom != this.currentRoom) stallShooting(this);
+
+    //record the last room
+    this.lastRoom = this.currentRoom;
+
 	//update the player movement
     resetMovement(this);
 
@@ -56,6 +72,12 @@ Player.prototype.update = function() {
     if(game.input.keyboard.isDown(Phaser.Keyboard.A)) moveLeft(this);
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
+
+    //create dash text
+    if(this.canDash && !this.dashTextCreated) createDashText(this);
+
+    //dash ability
+    if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
 
     //Swap weapon
     if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
@@ -151,17 +173,27 @@ function swap(player) {
 }
 
 function shootWeapon(player) {
-    if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
-    	knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
-        pistolAud.play();
-        player.nextFire = game.time.now + player.pistolFireRate;
-        game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+    if(!player.shootingStalled) {
+        if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
+            knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
+            pistolAud.play();
+            player.nextFire = game.time.now + player.pistolFireRate;
+            game.camera.shake(0.008, 100);
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+            if(player.pistolUpgraded) {
+                game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
+            }
+        }   
+
+        if (player.currentWeapon == 'RIFLE') shootRifle(player);
+
+        if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
     }
+}
 
-    if (player.currentWeapon == 'RIFLE') shootRifle(player);
-
-    if (player.currentWeapon == 'SHOTGUN') shootShotgun(player);
+function twoRoundBurst(player) {
+    new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+    pistolAud.play();
 }
 
 function shootRifle(player) {
@@ -182,16 +214,9 @@ function shootShotgun(player) {
         game.camera.shake(0.015, 100);
         shotgunAud.play();
         
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        for(var i=0; i< player.shotgunPellets; i++) {
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+        }
         
         player.ammo--;
     }
@@ -219,3 +244,53 @@ function missilesPlayerCollision(player, missile) {
     destroyMissile(missile);
 }
 
+function dash(player) {
+    if(game.time.now > player.nextDash) {
+        player.nextDash = game.time.now + player.dashTimer;
+
+        if(!player.movingUp && !player.movingDown && !player.movingRight && !player.movingLeft)
+            knockback(player, player.dashValue, player.rotation - Math.PI);
+
+        //dash up
+        else if(player.movingUp && !player.movingDown && !player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, Math.PI/2);
+
+        //dash down
+        else if(!player.movingUp && player.movingDown && !player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (3*Math.PI)/2);
+
+        //dash left
+        else if(!player.movingUp && !player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, 0);
+
+        //dash right
+        else if(!player.movingUp && !player.movingDown && !player.movingLeft && player.movingRight)
+            knockback(player, player.dashValue, Math.PI);
+
+        //dash up and right
+        else if(player.movingUp && !player.movingDown && !player.movingLeft && player.movingRight)
+            knockback(player, player.dashValue, (3*Math.PI)/4);
+
+        //dash up left
+        else if(player.movingUp && !player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (Math.PI)/4);
+
+        //dash down left
+        else if(!player.movingUp && player.movingDown && player.movingLeft && !player.movingRight)
+            knockback(player, player.dashValue, (7*Math.PI)/4);
+
+        else //dash down right
+            knockback(player, player.dashValue, (5*Math.PI)/4);
+
+        startDashCooldown();
+    }
+}
+
+function stallShooting(player) {
+    player.shootingStalled = true;
+    game.time.events.add(Phaser.Timer.SECOND * 1.5, resumeShooting, this, player);
+}
+
+function resumeShooting(player) {
+    player.shootingStalled = false;
+}
