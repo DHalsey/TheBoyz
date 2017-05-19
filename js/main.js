@@ -180,9 +180,9 @@ Play.prototype = {
         missileExplosionAud = game.add.audio('missileExplosion');
         missileExplosionAud.volume -= .8;
         dashTimer1Aud = game.add.audio('dashTimer1');
-        dashTimer1Aud.volume -= .9;
+        dashTimer1Aud.volume -= .7;
         dashTimer2Aud = game.add.audio('dashTimer2');
-        dashTimer2Aud.volume -= .9;
+        dashTimer2Aud.volume -= .7;
 
 
         //create groups
