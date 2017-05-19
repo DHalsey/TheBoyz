@@ -35,6 +35,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.dashTimer = 2000;
     this.nextDash = 0;
     this.dashValue = 700;
+    this.dashTextCreated = false;
 
     //Player weapon properties
     this.pistolFireRate = 500;
@@ -63,6 +64,9 @@ Player.prototype.update = function() {
     if(game.input.keyboard.isDown(Phaser.Keyboard.A)) moveLeft(this);
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
+
+    //create dash text
+    if(this.canDash && !this.dashTextCreated) createDashText(this);
 
     //dash ability
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
@@ -267,5 +271,7 @@ function dash(player) {
 
         else //dash down right
             knockback(player, player.dashValue, (5*Math.PI)/4);
+
+        startDashCooldown();
     }
 }
