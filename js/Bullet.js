@@ -38,8 +38,6 @@ Bullet.prototype.constructor = Bullet;
 
 
 Bullet.prototype.update = function() {
-	game.physics.arcade.collide(enemyMissiles, this, missileBulletCollision, null, this);
-
 	if(this.currentWeapon === 'SHOTGUN') {
 		if(game.time.now > this.startTime + 500) {
 			this.destroy();
@@ -53,10 +51,6 @@ function destroyBullet(bullet) {
    bullet.destroy();
 }
 
-function missileBulletCollision(missile, bullet) {
-	destroyMissile(missile);
-	bullet.destroy();
-}
 
 function fadeBullet(bullet) {
 	if(!bullet.fading){
