@@ -172,6 +172,7 @@ Play.prototype = {
         shotgunAud.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
+        dashAud.volume -= .5
         shootMissileAud = game.add.audio('shootMissile');
         shootMissileAud.volume -= .8;
         missileExplosionAud = game.add.audio('missileExplosion');
