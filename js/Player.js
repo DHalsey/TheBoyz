@@ -48,7 +48,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.ammo = 0;
     this.pistolUpgraded = false;
     this.shotgunPellets = 10;
-    this.rifleROF = 100;
+    this.rifleROF = 125;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -201,11 +201,11 @@ function twoRoundBurst(player) {
 
 function shootRifle(player) {
     if (game.time.now > player.nextFire && player.ammo > 0) {
-        knockback(player, 150, player.rotation);
+        knockback(player, 200, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.01, 100);
         rifleAud.play();
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 200);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200);
         player.ammo--;
     }
 }
@@ -221,6 +221,16 @@ function shootShotgun(player) {
             new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
         }
         
+        player.ammo--;
+    }
+}
+
+function shootSMG(player) {
+    if (game.time.now > player.nextFire && player.ammo > 0) {
+        knockback(player, 100, player.rotation);
+        player.nextFire = game.time.now + player.fireRate;
+        game.camera.shake(0.008, 100);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 100);
         player.ammo--;
     }
 }

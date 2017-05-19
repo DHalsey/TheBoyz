@@ -81,6 +81,13 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
+      game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
+      game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
+      game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
+      game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
+      game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
+    },
+    create: function(){
         game.load.image('genericButton', 'genericButton.png');
     	game.load.path = 'assets/audio/';
     	game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
@@ -88,13 +95,6 @@ Preloader.prototype = {
     	game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
     	game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
       game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
-      game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
-      game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
-      game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
-      game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
-      game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
-	},
-	create: function(){
 		game.state.start('Menu');
 	}
 };
@@ -112,7 +112,7 @@ Menu.prototype =
 		menuBG = game.add.image(0,0, 'menuBackgrnd');
 
 		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Fyre Fight',
+		var menuTitle = game.add.text(80, 80, 'Soccer Dragon',
 			{font: '50px Arial', fill: '#000000'});
 
 		//adds button to press
@@ -157,7 +157,7 @@ Play.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Set world size and adjust color to white
-        game.stage.setBackgroundColor('#ffffff');
+        game.stage.setBackgroundColor('#FFFFFF');
         game.world.setBounds(0,0,world_width,world_height);
 
 		
@@ -224,6 +224,7 @@ Play.prototype = {
 
        var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
        var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
+       var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
 
        createHealthBar();
 
