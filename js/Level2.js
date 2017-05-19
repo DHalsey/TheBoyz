@@ -24,17 +24,7 @@ Level2.prototype = {
         game.stage.setBackgroundColor('#ffffff');
         game.world.setBounds(0,0,world_width,world_height);
 
-		map = game.add.tilemap('maptile');
-        map.addTilesetImage('Map','mapImage');
-        map.addTilesetImage('City','cityImage');
-        layerMain = map.createLayer('worldMain'); //main world layer
-        map.addTilesetImage('Collision','collisionImage');
-        layerCollision = map.createLayer('CollisionBounds'); //main world layer
-        map.setCollisionBetween(6, 9,true,'CollisionBounds');
-        layerMain.resizeWorld();
-        layerCollision.visible = false;
-        layerCollision.debug = true;
-        game.physics.arcade.enable(map);
+		    levelSelect(1);
 
         //create groups
         playerBullets = game.add.physicsGroup();

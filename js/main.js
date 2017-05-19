@@ -61,6 +61,7 @@ Preloader.prototype = {
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('cityImage','CityTiles.png'); //tilemap images
+    	game.load.image('mapMAINImage',"TileMAIN"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('shotgunSprite', 'weapon_shotgun.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
@@ -136,17 +137,10 @@ Play.prototype = {
         game.stage.setBackgroundColor('#ffffff');
         game.world.setBounds(0,0,world_width,world_height);
 
-		map = game.add.tilemap('maptile');
-        map.addTilesetImage('Map','mapImage');
-        map.addTilesetImage('City','cityImage');
-        layerMain = map.createLayer('worldMain'); //main world layer
-        map.addTilesetImage('Collision','collisionImage');
-        layerCollision = map.createLayer('CollisionBounds'); //main world layer
-        map.setCollisionBetween(6, 9,true,'CollisionBounds');
-        layerMain.resizeWorld();
-        layerCollision.visible = false;
-        layerCollision.debug = true;
-        game.physics.arcade.enable(map);
+		
+
+
+        levelSelect(1);
 
         //add audio
         pistolAud = game.add.audio('pistolAud');
