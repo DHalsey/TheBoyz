@@ -144,6 +144,7 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
+		
         world_width = 2560; //The world has been set to be 2x2 rooms big
         world_height= 1536;
         room_width = 1280;
@@ -236,10 +237,13 @@ Play.prototype = {
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
        barrierDelay = 500;
+
+       debugCreate();
 	},
 
 	update: function(){
-		//debug() //uncomment to draw debug information
+		//debugUpdate() //uncomment to draw debug information
+
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

@@ -15,12 +15,12 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
     this.body.onWorldBounds.add(destroyMissile, this, emitter);
 
 	//set additional properties
-	this.movementSpeed = 450;
+	this.movementSpeed = 300;
 	this.damage = damage;
 	this.targetingTimer = 200;
 	this.nextTarget = 0;
 	this.playerSprite = player;
-
+	this.rotation = angleToSprite(this, this.playerSprite);
 	//add to the bullets group
 	enemyMissiles.add(this);
 
@@ -32,11 +32,16 @@ EnemyMissile.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyMissile.prototype.constructor = EnemyMissile;
 
 EnemyMissile.prototype.update = function() {
-	if(game.time.now > this.nextTarget) {
-		this.nextTarget = game.time.now + this.targetingTimer;
-		game.physics.arcade.moveToObject(this, this.playerSprite, this.movementSpeed);
-		this.rotation = angleToSprite(this, this.playerSprite);  
-	}
+		bulletAngle = angleToSprite(this, this.playerSprite); //the angle to the player from the bullet
+		//The math system i created for it is convoluted as fuck. good luck understanding it =)
+		//essentially changes the angle detection to work from 0-360 instead of 0-180
+		if (this.rotation - bulletAngle >3.15 || this.rotation - bulletAngle <-3.15) bulletAngle=-bulletAngle*2; //makes it always positive
+		if (this.rotation - bulletAngle > 0 ) {//if the bullet needs to turn right
+			this.angle-=2;
+		} else if (this.rotation - bulletAngle <0 ){ //if the bullet needs to turn left
+			this.angle+=2;
+		} 
+		game.physics.arcade.velocityFromRotation(this.rotation,this.movementSpeed,this.body.velocity); //moves the bullet the direction its facing
 }
 
 function destroyMissile(missile) {
