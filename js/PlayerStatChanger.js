@@ -30,7 +30,7 @@ PlayerStatChanger.prototype.changePistol = function() {
 }
 
 function updateStats(player, statChanger) {
-	player.hp = statChanger.hp;
+	player.hp = statChanger.maxHP;
     player.maxHP = statChanger.maxHP;
     player.pistolUpgraded = statChanger.pistolUpgraded;
     player.shotgunPellets = statChanger.shotgunPellets;

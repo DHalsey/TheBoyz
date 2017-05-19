@@ -82,7 +82,7 @@ function playerTankyChargerCollision(enemy, player) {
 function bulletsTankyChargerCollision(enemy, bullet) {
     bullet.destroy();
     enemy.hp -= bullet.damage;
-    hitMarker.play(0);
+    hitMarker.play();
 
     //knock back the enemy
     if(!enemy.knockedBack) {
