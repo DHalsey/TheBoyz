@@ -91,6 +91,8 @@ Preloader.prototype = {
       game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
       game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
       game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
+      game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
+      game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
 
 	},
 	create: function(){
@@ -177,6 +179,11 @@ Play.prototype = {
         shootMissileAud.volume -= .8;
         missileExplosionAud = game.add.audio('missileExplosion');
         missileExplosionAud.volume -= .8;
+        dashTimer1Aud = game.add.audio('dashTimer1');
+        dashTimer1Aud.volume -= .9;
+        dashTimer2Aud = game.add.audio('dashTimer2');
+        dashTimer2Aud.volume -= .9;
+
 
         //create groups
         playerBullets = game.add.physicsGroup();

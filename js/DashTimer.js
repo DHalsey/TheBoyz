@@ -16,9 +16,11 @@ function startDashCooldown() {
 
 function changeToOne() {
 	dashText.text = 'Dash:  1';
+	dashTimer1Aud.play();
 	game.time.events.add(Phaser.Timer.SECOND * 1, changeToReady, this);
 }
 
 function changeToReady() {
 	dashText.text = 'Dash:  READY!';
+	dashTimer2Aud.play();
 }
