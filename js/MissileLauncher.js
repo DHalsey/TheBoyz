@@ -94,7 +94,7 @@ function bulletsMissileLauncherCollision(enemy, bullet) {
 function shootMissile(enemy) {
     if(game.time.now > enemy.nextShot) {
         enemy.nextShot = game.time.now + enemy.fireRate;
-        new EnemyMissile(game, enemy.x, enemy.y, 'atlas', 'bullet0001', 2, enemy.playerSprite);
+        new EnemyMissile(game, enemy.x, enemy.y, 'enemyMissile', 0, 2, enemy.playerSprite);
         shootMissileAud.play();
     }
 }
