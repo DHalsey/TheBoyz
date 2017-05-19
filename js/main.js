@@ -200,6 +200,8 @@ Play.prototype = {
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
        barrierDelay = 500;
+
+       new HealthPack(game, 500, 500);
 	},
 
 	update: function(){
