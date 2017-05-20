@@ -232,7 +232,7 @@ function shootSMG(player) {
         knockback(player, 100, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 100);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .75, player, 100);
         player.ammo--;
     }
 }

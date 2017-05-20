@@ -27,7 +27,7 @@ function chargeAtPlayer(enemy) {
       }
 }
 
-//this function is used to make an enemy shoot at the player
+//this function is used to make an enemy shoot at the playerw a
 //requires nextShot and fireRate properties
 //currently only used for BasicShooter
 function shootPlayer(enemy) {
