@@ -2,7 +2,6 @@ function levelSelect(level){
 	if(level==1){
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
-        map.addTilesetImage('City','cityImage');
         map.addTilesetImage('MAIN','mapMAINImage');
         layerMain = map.createLayer('1-Base'); //main world layer
         layerDetail = map.createLayer('1-Detail'); //main world layer

@@ -8,7 +8,7 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	//enable physics and set some properties
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
-
+	this.body.setSize(16,16,8,4); //centers the player's hitbox
     //properties that allow bullets to be destroyed at world bounds
     this.body.collideWorldBounds = true;
     this.body.onWorldBounds = new Phaser.Signal();
@@ -49,6 +49,7 @@ EnemyMissile.prototype.update = function() {
 				break;
 			}
 		}
+
 }
 
 function destroyMissile(missile) {

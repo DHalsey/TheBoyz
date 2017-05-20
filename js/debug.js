@@ -7,8 +7,11 @@ function debugCreate(){
 }
 
 function debugUpdate(){
+	/*
 	game.debug.body(player);
+	//game.debug.body(EscapePoint);
 	groupBodyDebug(enemyMissiles);
+	*/
 
 }
 

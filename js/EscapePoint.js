@@ -7,7 +7,7 @@
 function EscapePoint(game, points, player) {
     shuffleArray(points);
     var point = points[0];
-	Phaser.Sprite.call(this, game, point.xCoord, point.yCoord, 'wall');
+	Phaser.Sprite.call(this, game, point.xCoord, point.yCoord, 'escapeImage');
 
 	//add to the game
 	game.add.existing(this);
@@ -23,7 +23,6 @@ function EscapePoint(game, points, player) {
 
     //properties
     this.body.immovable = true;
-
 }
 
 EscapePoint.prototype = Object.create(Phaser.Sprite.prototype);

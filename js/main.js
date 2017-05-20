@@ -71,7 +71,6 @@ Preloader.prototype = {
 		game.load.image('enemyFastCharger','enemyFastCharger.png');
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
-    	game.load.image('cityImage','CityTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('shotgunSprite', 'weapon_shotgun.png');
@@ -79,6 +78,7 @@ Preloader.prototype = {
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
     	game.load.image('wall', 'wall2.png');
+    	game.load.image('escapeImage','escapePoint.png');
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle4', 'missileParticle4.png');
