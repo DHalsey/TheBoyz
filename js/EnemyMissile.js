@@ -24,8 +24,6 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	//add to the bullets group
 	enemyMissiles.add(this);
 
-	//temporarily scale the bullet sprite
-	this.scale.setTo(4,4);
 }
 
 EnemyMissile.prototype = Object.create(Phaser.Sprite.prototype);

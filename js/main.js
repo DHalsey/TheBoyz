@@ -63,6 +63,7 @@ Preloader.prototype = {
 		//load images
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+		game.load.image('enemyMissile','enemyMissile.png');
 		game.load.image('player','player.png');
 		game.load.image('enemyShooter','enemyShooter.png');
 		game.load.image('enemyTank','enemyTank.png');
@@ -244,7 +245,7 @@ Play.prototype = {
 	},
 
 	update: function(){
-		//debugUpdate() //uncomment to draw debug information
+		debugUpdate() //uncomment to draw debug information
 
         game.physics.arcade.collide(player, layerCollision);
 
