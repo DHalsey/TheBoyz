@@ -8,7 +8,7 @@ function levelSelect(level){
         map.addTilesetImage('Collision','collisionImage');
         layerCollision = map.createLayer('1-Collision'); //main world layer
 
-        map.setCollisionBetween(6, 9,true,'1-Collision');
+        map.setCollisionBetween(0, 100,true,'1-Collision');
         layerMain.resizeWorld();
         layerCollision.visible = false;
         layerCollision.debug = true;
