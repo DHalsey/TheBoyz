@@ -94,6 +94,7 @@ Preloader.prototype = {
       game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
       game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
       game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
+      game.load.audio('playMusic', ['reallyBadSong.mp3', 'reallyBadSong.ogg']);
 
     },
     create: function(){
@@ -168,6 +169,9 @@ Play.prototype = {
         levelSelect(1);
 
         //add audio
+        playMusic = game.add.audio('playMusic');
+        playMusic.volume -= .5;
+        playMusic.loopFull(); 
         pistolAud = game.add.audio('pistolAud');
         pistolAud.volume -= .8;
         rifleAud = game.add.audio('rifleAud');
