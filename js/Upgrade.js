@@ -52,6 +52,7 @@ function upgradeHealth() {
 	statChanger.changeHealth();
 	var index = possibleUpgrades.indexOf('hp');
 	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
 	game.state.start(nextLevel);
 }
 
@@ -59,6 +60,7 @@ function upgradePistol() {
 	statChanger.changePistol();
 	var index = possibleUpgrades.indexOf('pistol');
 	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
 	game.state.start(nextLevel);
 }
 
@@ -66,6 +68,7 @@ function upgradeRifle() {
 	statChanger.changeRifle();
 	var index = possibleUpgrades.indexOf('rifle');
 	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
 	game.state.start(nextLevel);
 }
 
@@ -73,6 +76,7 @@ function upgradeShotgun() {
 	statChanger.changeShotgun();
 	var index = possibleUpgrades.indexOf('shotgun');
 	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
 	game.state.start(nextLevel);
 }
 
@@ -81,9 +85,11 @@ function enableDash() {
 	statChanger.changeDash();
 	var index = possibleUpgrades.indexOf('dash');
 	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
 	game.state.start(nextLevel);
 }
 
 function skipUpgrade() {
+	roomSwitchAud.play();
 	game.state.start(nextLevel);
 }

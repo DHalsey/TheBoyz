@@ -96,6 +96,9 @@ Preloader.prototype = {
       game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
       game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
       game.load.audio('playMusic', ['reallyBadSong.mp3', 'reallyBadSong.ogg']);
+      game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
+      game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
+      game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
 
     },
     create: function(){
@@ -191,6 +194,12 @@ Play.prototype = {
         dashTimer2Aud = game.add.audio('dashTimer2');
         dashTimer2Aud.volume -= .7;
         roomSwitchAud = game.add.audio('woosh');
+        hpPickupAud = game.add.audio('hpPickup');
+        hpPickupAud.volume = .8;
+        escapeAud = game.add.audio('escape');
+        escapeAud.volume = .8;
+        chooseUpgradeAud = game.add.audio('chooseUpgrade');
+        chooseUpgradeAud.volume = .8;
 
 
         //create groups

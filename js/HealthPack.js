@@ -27,5 +27,6 @@ HealthPack.prototype.update = function() {
 function playerHealthPackCollision(pack, player) {
 	player.hp += pack.restoreValue;
 	if(player.hp > player.maxHP) player.hp = player.maxHP;
+	hpPickupAud.play();
 	pack.destroy();
 }
