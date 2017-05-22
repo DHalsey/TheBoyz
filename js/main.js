@@ -7,6 +7,7 @@ var playerBullets;
 var enemyBullets;
 var enemyGroup;
 var enemyMissiles;
+var barriers;
 
 //Global variables
 var player;
@@ -145,7 +146,6 @@ var Play = function(game) {
   var roomTwoBarriersCreated;
   var roomThreeBarriersCreated;
   var roomFourBarriersCreated;
-  var barrierDelay;
 };
 Play.prototype = {
     preload: function(){
@@ -207,6 +207,7 @@ Play.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        barriers = game.add.group();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
@@ -253,7 +254,6 @@ Play.prototype = {
        roomTwoBarriersCreated = false;
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
-       barrierDelay = 500;
 
        debugCreate();
 	},
@@ -270,10 +270,10 @@ Play.prototype = {
 
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
-        if(player.currentRoom == 1 && game.time.now > player.timeSwitched+barrierDelay) {
+        if(player.currentRoom == 1) {
           
         } 
-        else if(player.currentRoom == 2 && game.time.now > player.timeSwitched+barrierDelay) { 
+        else if(player.currentRoom == 2) { 
           roomTwoCharger.spawn();
           roomTwoFast.spawn()
           escape.trackSpawner(roomTwoCharger);
@@ -292,8 +292,9 @@ Play.prototype = {
 
             roomTwoBarriersCreated = true;
           }
+
         } 
-        else if(player.currentRoom == 3 && game.time.now > player.timeSwitched+barrierDelay) {
+        else if(player.currentRoom == 3) {
           roomThreeCharger.spawn();
           roomThreeFast.spawn();
           roomThreeTanky.spawn();
@@ -316,7 +317,7 @@ Play.prototype = {
             roomThreeBarriersCreated = true;
           }
         } 
-        else if(player.currentRoom == 4 && game.time.now > player.timeSwitched+barrierDelay) {
+        else if(player.currentRoom == 4) {
           roomFourCharger.spawn();
           roomFourTanky.spawn();
           escape.trackSpawner(roomFourCharger);
