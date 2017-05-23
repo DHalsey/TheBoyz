@@ -12,6 +12,8 @@ function debugUpdate(){
 	//game.debug.body(EscapePoint);
 	groupBodyDebug(enemyMissiles);
 	*/
+	var keyEnter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
+if(keyEnter.justPressed()) game.state.start('Upgrade');
 
 }
 
