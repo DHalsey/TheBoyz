@@ -72,7 +72,13 @@ Preloader.prototype = {
 		game.load.image('enemyTank','enemyTank.png');
 		game.load.image('enemyCharger','enemyCharger.png');
 		game.load.image('enemyFastCharger','enemyFastCharger.png');
+
+    //level 1 tilemap
 		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
+
+    //level 2 tilemap
+    game.load.tilemap('maptile2', 'AustinMap.json', null, Phaser.Tilemap.TILED_JSON);
+
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
