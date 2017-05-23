@@ -42,6 +42,9 @@ Level2.prototype = {
 
        // Ammo indicator
       ammoText = createAmmoText(player);
+
+      reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+      reticle.anchor.setTo(0.5);
 	},
 
 	update: function(){
@@ -55,6 +58,9 @@ Level2.prototype = {
 
        //Update ammoText
        updateAmmoText(ammoText, player);
+
+       reticle.x = game.input.activePointer.x + game.camera.x;
+       reticle.y = game.input.activePointer.y + game.camera.y;
         
     }
 };

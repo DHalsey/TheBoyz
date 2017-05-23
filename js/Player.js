@@ -259,7 +259,7 @@ function shootSMG(player) {
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100, player.spread);
         player.ammo--;
         if (player.spread < 0.1) player.spread += 0.01;
-        if (player.reticleSpread < 4) player.reticleSpread += 0.4;
+        if (player.reticleSpread < 3.5) player.reticleSpread += 0.4;
     }
 }
 
