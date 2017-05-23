@@ -16,10 +16,8 @@ function Weapon(game, x, y, sprite, type, player) {
 	this.type = type;
 }
 
-
-
 Weapon.prototype = Object.create(Phaser.Sprite.prototype);
-Weapon.constructor = Weapon;
+Weapon.prototype.constructor = Weapon;
 
 Weapon.prototype.update = function() {
 	//WEAPON BOB PHYSICS
@@ -51,6 +49,7 @@ Weapon.prototype.update = function() {
 			player.fireRate = 1000;
 		}
 
+		// SMG
 		else if (this.type === 'SMG') {
 			player.ammo = 50;
 			player.fireRate = 50;

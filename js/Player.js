@@ -177,7 +177,7 @@ function swap(player) {
 
 function shootWeapon(player) {
     if(!player.shootingStalled) {
-        if (player.currentWeapon == 'PISTOL' && game.time.now > player.nextFire) {
+        if (player.currentWeapon === 'PISTOL' && game.time.now > player.nextFire) {
             knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
             pistolAud.play();
             player.nextFire = game.time.now + player.pistolFireRate;
@@ -220,7 +220,7 @@ function shootShotgun(player) {
         shotgunAud.play();
         
         for(var i=0; i< player.shotgunPellets; i++) {
-            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .5, player, 800);
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800);
         }
         
         player.ammo--;
@@ -232,7 +232,7 @@ function shootSMG(player) {
         knockback(player, 100, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', .75, player, 100);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100);
         player.ammo--;
     }
 }
