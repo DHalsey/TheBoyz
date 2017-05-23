@@ -81,6 +81,23 @@ function roomTransition(player, room_width, room_height) {
     }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
         game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
         player.logRoomSwitch(4);
+    }
+}
+
+function level2RoomTransition(player, room_width, room_height) {
+    //Switch Rooms depending where the player is
+    if(player.position.x < room_width && player.position.y < room_height) {
+        game.camera.follow(Room1 , Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(1);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height) {
+        game.camera.follow(Room2, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(2);
+    }else if(player.position.x < room_width && player.position.y < room_height*2) {
+        game.camera.follow(Room3, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(3);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
+        game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(4);
     }else if(player.position.x < room_width && player.position.y < room_height*3) {
         game.camera.follow(Room5, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
         player.logRoomSwitch(5);

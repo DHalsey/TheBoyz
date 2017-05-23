@@ -50,7 +50,7 @@ Level2.prototype = {
 
         game.physics.arcade.collide(enemyGroup, layerCollision);
 
-        roomTransition(player, room_width, room_height);
+        level2RoomTransition(player, room_width, room_height);
         updateHealthBar();
 
        //Update ammoText
