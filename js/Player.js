@@ -59,6 +59,11 @@ Player.prototype.update = function() {
     if(this.lastRoom != this.currentRoom) {
         stallShooting(this);
         roomSwitchAud.play();
+
+        if(this.body.velocity.x > 0) knockback(this, 200, Math.PI);
+        if(this.body.velocity.x < 0) knockback(this, 200, 0);
+        if(this.body.velocity.y > 0) knockback(this, 200, (3*Math.PI)/2);
+        if(this.body.velocity.y < 0) knockback(this, 200, Math.PI/2);
     }
 
     //record the last room

@@ -7,6 +7,7 @@ var playerBullets;
 var enemyBullets;
 var enemyGroup;
 var enemyMissiles;
+var barriers;
 
 //Global variables
 var player;
@@ -81,7 +82,8 @@ Preloader.prototype = {
     	game.load.image('escapeImage','escapePoint.png');
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
-    	game.load.image('missileParticle4', 'missileParticle4.png');
+    	game.load.image('missileParticle1', 'missileParticle3.png');
+      game.load.image('missileParticle2', 'missileParticle5.png');
         game.load.image('genericButton', 'genericButton.png');
         game.load.path = 'assets/audio/';
         game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
@@ -94,6 +96,10 @@ Preloader.prototype = {
       game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
       game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
       game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
+      game.load.audio('playMusic', ['reallyBadSong.mp3', 'reallyBadSong.ogg']);
+      game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
+      game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
+      game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
 
     },
     create: function(){
@@ -140,7 +146,6 @@ var Play = function(game) {
   var roomTwoBarriersCreated;
   var roomThreeBarriersCreated;
   var roomFourBarriersCreated;
-  var barrierDelay;
 };
 Play.prototype = {
     preload: function(){
@@ -168,6 +173,9 @@ Play.prototype = {
         levelSelect(1);
 
         //add audio
+        playMusic = game.add.audio('playMusic');
+        playMusic.volume -= .5;
+        playMusic.loopFull(); 
         pistolAud = game.add.audio('pistolAud');
         pistolAud.volume -= .8;
         rifleAud = game.add.audio('rifleAud');
@@ -186,6 +194,12 @@ Play.prototype = {
         dashTimer2Aud = game.add.audio('dashTimer2');
         dashTimer2Aud.volume -= .7;
         roomSwitchAud = game.add.audio('woosh');
+        hpPickupAud = game.add.audio('hpPickup');
+        hpPickupAud.volume = .8;
+        escapeAud = game.add.audio('escape');
+        escapeAud.volume = .8;
+        chooseUpgradeAud = game.add.audio('chooseUpgrade');
+        chooseUpgradeAud.volume = .8;
 
 
         //create groups
@@ -193,6 +207,7 @@ Play.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        barriers = game.add.group();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
 
@@ -239,7 +254,6 @@ Play.prototype = {
        roomTwoBarriersCreated = false;
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
-       barrierDelay = 500;
 
        debugCreate();
 	},
@@ -256,10 +270,10 @@ Play.prototype = {
 
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
-        if(player.currentRoom == 1 && game.time.now > player.timeSwitched+barrierDelay) {
+        if(player.currentRoom == 1) {
           
         } 
-        else if(player.currentRoom == 2 && game.time.now > player.timeSwitched+barrierDelay) { 
+        else if(player.currentRoom == 2) { 
           roomTwoCharger.spawn();
           roomTwoFast.spawn()
           escape.trackSpawner(roomTwoCharger);
@@ -278,8 +292,9 @@ Play.prototype = {
 
             roomTwoBarriersCreated = true;
           }
+
         } 
-        else if(player.currentRoom == 3 && game.time.now > player.timeSwitched+barrierDelay) {
+        else if(player.currentRoom == 3) {
           roomThreeCharger.spawn();
           roomThreeFast.spawn();
           roomThreeTanky.spawn();
@@ -302,7 +317,7 @@ Play.prototype = {
             roomThreeBarriersCreated = true;
           }
         } 
-        else if(player.currentRoom == 4 && game.time.now > player.timeSwitched+barrierDelay) {
+        else if(player.currentRoom == 4) {
           roomFourCharger.spawn();
           roomFourTanky.spawn();
           escape.trackSpawner(roomFourCharger);

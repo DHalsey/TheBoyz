@@ -17,7 +17,7 @@ function TankyCharger(game, x, y, player, spawner) {
     this.hp = 10;
     this.playerSprite = player;
     this.enemySpawner = spawner;
-    this.movementSpeed = 75;
+    this.movementSpeed = 125;
     this.docile = true;
 
     //These are to allow damage to the player and knockback effects

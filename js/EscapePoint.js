@@ -62,6 +62,9 @@ function checkEscapeStatus(statusArray) {
 }
 
 function startNewState(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus)) game.state.start('Upgrade');
+	if(checkEscapeStatus(escapePoint.spawnerStatus)) {
+		escapeAud.play();
+		game.state.start('Upgrade');
+	}
 }
 
