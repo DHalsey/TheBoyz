@@ -49,6 +49,9 @@ function Player(game, x, y, atlas, frame, health) {
     this.pistolUpgraded = false;
     this.shotgunPellets = 10;
     this.rifleROF = 125;
+    this.spread = 0;
+    this.reticleSpread = 1;
+    this.isFiring = false;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -94,7 +97,10 @@ Player.prototype.update = function() {
     this.rotation = game.physics.arcade.angleToPointer(this);
 
     //shoot on mouse click
-    if(game.input.activePointer.isDown) shootWeapon(this);
+    if(game.input.activePointer.isDown) {
+        shootWeapon(this);
+        this.isFiring = true;
+    } else this.isFiring = false;
 
     //handle collision between bullets and player
     game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
@@ -104,6 +110,15 @@ Player.prototype.update = function() {
 
     if(this.hp <= 0)
         game.state.start('Lose');
+
+    // Spread cooldown
+    if (player.spread > 0 && this.isFiring === false) player.spread -= 0.003;
+    if (player.spread < 0) player.spread = 0;
+
+    if (this.reticleSpread > 1) this.reticleSpread -= 0.05;
+
+    reticle.scale.setTo(this.reticleSpread, this.reticleSpread);
+
 }
 
 Player.prototype.logRoomSwitch = function(room) {
@@ -183,11 +198,12 @@ function swap(player) {
 function shootWeapon(player) {
     if(!player.shootingStalled) {
         if (player.currentWeapon === 'PISTOL' && game.time.now > player.nextFire) {
-            knockback(player,150,player.rotation);//TEST CODE FOR KNOCK BACK
+            knockback(player,150,player.rotation);
             pistolAud.play();
             player.nextFire = game.time.now + player.pistolFireRate;
             game.camera.shake(0.008, 100);
-            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+            player.reticleSpread += 1;
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400, 0);
             if(player.pistolUpgraded) {
                 game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
             }
@@ -202,7 +218,7 @@ function shootWeapon(player) {
 }
 
 function twoRoundBurst(player) {
-    new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400);
+    new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400, 0);
     pistolAud.play();
 }
 
@@ -212,8 +228,10 @@ function shootRifle(player) {
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.01, 100);
         rifleAud.play();
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200, player.spread);
         player.ammo--;
+        if (player.spread < 0.05) player.spread += 0.007;
+        player.reticleSpread += 0.5;
     }
 }
 
@@ -225,10 +243,11 @@ function shootShotgun(player) {
         shotgunAud.play();
         
         for(var i=0; i< player.shotgunPellets; i++) {
-            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800);
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800, 0.15);
         }
         
         player.ammo--;
+        player.reticleSpread += 2.5;
     }
 }
 
@@ -237,8 +256,10 @@ function shootSMG(player) {
         knockback(player, 100, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.008, 100);
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100);
+        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100, player.spread);
         player.ammo--;
+        if (player.spread < 0.1) player.spread += 0.01;
+        if (player.reticleSpread < 4) player.reticleSpread += 0.4;
     }
 }
 

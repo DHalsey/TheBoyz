@@ -24,6 +24,7 @@ var rifleUpgraded = false;
 var shotgunUpgraded = false;
 var dashEnabled = false;
 var statChanger;
+var reticle;
 
 window.onload = function(){
     game = new Phaser.Game(1280,768, Phaser.AUTO);
@@ -61,7 +62,8 @@ Preloader.prototype = {
        // add preloader bar and set as preloader sprite (auto-crops sprite)
         var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
         game.load.setPreloadSprite(preloadBar);
-		//load images
+		
+		// Load Images ----------------------------------------------------------------------------------------------------
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
 		game.load.image('enemyMissile','enemyMissile.png');
@@ -83,23 +85,26 @@ Preloader.prototype = {
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle1', 'missileParticle3.png');
-      game.load.image('missileParticle2', 'missileParticle5.png');
+      	game.load.image('missileParticle2', 'missileParticle5.png');
         game.load.image('genericButton', 'genericButton.png');
+        game.load.image('reticle', 'reticle.png');
+        
+        // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
         game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
         game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
         game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
         game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
-      game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
-      game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
-      game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
-      game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
-      game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
-      game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
-      game.load.audio('playMusic', ['reallyBadSong.mp3', 'reallyBadSong.ogg']);
-      game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
-      game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
-      game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
+	    game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
+	    game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
+	    game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
+	    game.load.audio('dashTimer1', ['dashTimer1.mp3', 'dashTimer1.ogg']);
+	    game.load.audio('dashTimer2', ['dashTimer2.mp3', 'dashTimer2.ogg']);
+	    game.load.audio('woosh', ['woosh.mp3', 'woosh.ogg']);
+	    game.load.audio('playMusic', ['reallyBadSong.mp3', 'reallyBadSong.ogg']);
+	    game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
+	    game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
+	    game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
 
     },
     create: function(){
@@ -124,16 +129,23 @@ Menu.prototype =
 			{font: '50px Arial', fill: '#000000'});
 
 		//adds button to press
-		var button = game.add.button(game.world.centerX, game.world.centerY,
+		this.button = game.add.button(game.world.centerX, game.world.centerY,
 			'button', this.actionOnClick, this);
-        button.inputEnabled = true;
-        button.input.useHandCursor = false;
+        this.button.inputEnabled = true;
+        this.button.input.useHandCursor = false;
 
+        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+        reticle.anchor.setTo(0.5);
 
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
 	},
-	update: function(){},
+	update: function(){
+		reticle.x = game.input.activePointer.x;
+        reticle.y = game.input.activePointer.y;
+        if (reticle.overlap(this.button)) reticle.scale.setTo(1.5, 1.5);
+        else reticle.scale.setTo(1, 1);
+	},
 
 	actionOnClick: function()
 	{
@@ -248,12 +260,15 @@ Play.prototype = {
        roomAnchors();
 
        // Ammo indicator
-      ammoText = createAmmoText(player);
+       ammoText = createAmmoText(player);
 
        roomOneBarriersCreated = false;
        roomTwoBarriersCreated = false;
        roomThreeBarriersCreated = false;
        roomFourBarriersCreated = false;
+
+       reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+       reticle.anchor.setTo(0.5);
 
        debugCreate();
 	},
@@ -267,6 +282,9 @@ Play.prototype = {
 
         roomTransition(player, room_width, room_height);
         updateHealthBar();
+
+        reticle.x = game.input.activePointer.x + game.camera.x;
+        reticle.y = game.input.activePointer.y + game.camera.y;
 
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
