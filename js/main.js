@@ -192,7 +192,7 @@ Play.prototype = {
 
 
 
-        levelSelect(3);
+        levelSelect(1);
 
         //add audio
         playMusic = game.add.audio('playMusic');
