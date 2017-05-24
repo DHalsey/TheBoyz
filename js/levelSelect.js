@@ -28,10 +28,22 @@ function levelSelect(level){
         layerCollision.debug = true;
         game.physics.arcade.enable(map);
     } else if (level==3){
-    	
+    	map = game.add.tilemap('maptile3');
+		map.addTilesetImage('Map', 'mapImage');
+		map.addTilesetImage('MAIN', 'mapMAINImage');
+		layerMain = map.createLayer('3-Base');
+		layerDetail = map.createLayer('3-Detail');
+		map.addTilesetImage('Collision', 'collisionImage');
+		layerCollision = map.createLayer('3-Collision');
+
+		map.setCollisionBetween(0, 100, true,'3-Collision');
+		layerMain.resizeWorld();
+		layerCollision.visible = false;
+		layerCollision.debug = true;
+		game.physics.arcade.enable(map);
     } else if (level==4){
-    	
+
     } else if (level==5){
-    	
+
     }
 }

@@ -33,6 +33,7 @@ window.onload = function(){
     game.state.add('Menu', Menu);
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
+    game.state.add('Level3', Level3);
     game.state.add('Lose', Lose);
     game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
@@ -62,7 +63,7 @@ Preloader.prototype = {
        // add preloader bar and set as preloader sprite (auto-crops sprite)
         var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
         game.load.setPreloadSprite(preloadBar);
-		
+
 		// Load Images ----------------------------------------------------------------------------------------------------
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
@@ -79,6 +80,9 @@ Preloader.prototype = {
     //level 2 tilemap
     game.load.tilemap('maptile2', 'AustinMap.json', null, Phaser.Tilemap.TILED_JSON);
 
+    //level 3 tilemap
+    game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
+
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
@@ -94,7 +98,7 @@ Preloader.prototype = {
       	game.load.image('missileParticle2', 'missileParticle5.png');
         game.load.image('genericButton', 'genericButton.png');
         game.load.image('reticle', 'reticle.png');
-        
+
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
         game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
@@ -169,7 +173,7 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
-		
+
         world_width = 2560; //The world has been set to be 2x2 rooms big
         world_height= 1536;
         room_width = 1280;
@@ -185,15 +189,15 @@ Play.prototype = {
         game.stage.setBackgroundColor('#FFFFFF');
         game.world.setBounds(0,0,world_width,world_height);
 
-		
 
 
-        levelSelect(1);
+
+        levelSelect(3);
 
         //add audio
         playMusic = game.add.audio('playMusic');
         playMusic.volume -= .5;
-        playMusic.loopFull(); 
+        playMusic.loopFull();
         pistolAud = game.add.audio('pistolAud');
         pistolAud.volume -= .8;
         rifleAud = game.add.audio('rifleAud');
@@ -242,7 +246,7 @@ Play.prototype = {
        roomFourCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(23,15)], player);
        roomFourTanky = new EnemySpawner(['TankyCharger'], [new SpawnPoint(36,21)], player);
 
-      
+
 
        //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
        //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
@@ -295,15 +299,15 @@ Play.prototype = {
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
         if(player.currentRoom == 1) {
-          
-        } 
-        else if(player.currentRoom == 2) { 
+
+        }
+        else if(player.currentRoom == 2) {
           roomTwoCharger.spawn();
           roomTwoFast.spawn()
           escape.trackSpawner(roomTwoCharger);
           escape.trackSpawner(roomTwoFast);
           if(!roomTwoBarriersCreated) { //if room 2 barriers haven't been created yet, create them
-            
+
             //barriers on the left side of room 2
             new RoomBarrier(game, 19, 6, player, roomTwoCharger, roomTwoFast);
             new RoomBarrier(game, 19, 5, player, roomTwoCharger, roomTwoFast);
@@ -317,7 +321,7 @@ Play.prototype = {
             roomTwoBarriersCreated = true;
           }
 
-        } 
+        }
         else if(player.currentRoom == 3) {
           roomThreeCharger.spawn();
           roomThreeFast.spawn();
@@ -340,7 +344,7 @@ Play.prototype = {
 
             roomThreeBarriersCreated = true;
           }
-        } 
+        }
         else if(player.currentRoom == 4) {
           roomFourCharger.spawn();
           roomFourTanky.spawn();
@@ -365,7 +369,7 @@ Play.prototype = {
 
        //Update ammoText
        updateAmmoText(ammoText, player);
-        
+
     }
 };
 
@@ -398,5 +402,3 @@ Lose.prototype =
 			game.state.start('Play');
 	},
 };
-
-
