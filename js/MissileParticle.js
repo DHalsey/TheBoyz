@@ -1,6 +1,12 @@
 //MissileParticle prefab
 function MissileParticle(game, missile) {
-	Phaser.Sprite.call(this, game, missile.body.x, missile.body.y, 'missileParticle4');
+	var rand = game.rnd.integerInRange(1,2);
+	var sprite = '';
+
+	if(rand == 1) sprite = 'missileParticle1';
+	else sprite = 'missileParticle2';
+
+	Phaser.Sprite.call(this, game, missile.body.x, missile.body.y, sprite);
 
 	//add to the game
 	game.add.existing(this);
@@ -16,7 +22,10 @@ function MissileParticle(game, missile) {
 	this.body.velocity.x = game.rnd.integerInRange(-vel,vel);
 	this.body.velocity.y = game.rnd.integerInRange(-vel,vel);
 	this.startTime = game.time.now;
-	this.scale.setTo(.5);
+
+	//set random scale
+	rand = game.rnd.realInRange(0.5, 1.2);
+	this.scale.setTo(rand);
 }
 
 MissileParticle.prototype = Object.create(Phaser.Sprite.prototype);

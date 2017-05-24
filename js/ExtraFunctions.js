@@ -55,6 +55,18 @@ function roomAnchors() {
     game.camera.follow(Room1);
 }
 
+function level2RoomAnchors() {
+    //Create RoomAnchors for the camera to follow
+    Room1 = new RoomAnchor(game,room_width/2, room_height/2);
+    Room2 = new RoomAnchor(game,room_width*1.5, room_height/2);
+    Room3 = new RoomAnchor(game,room_width/2, room_height*1.5);
+    Room4 = new RoomAnchor(game,room_width*1.5, room_height*1.5);
+    Room5 = new RoomAnchor(game,room_width/2, (room_height*1.5)+room_height);
+    Room6 = new RoomAnchor(game,room_width*1.5, (room_height*1.5)+room_height);
+    Room7 = new RoomAnchor(game,room_width/2, (room_height*1.5)+room_height*2);
+    Room8 = new RoomAnchor(game,room_width*1.5, (room_height*1.5)+room_height*2);
+}
+
 function roomTransition(player, room_width, room_height) {
     //Switch Rooms depending where the player is
     if(player.position.x < room_width && player.position.y < room_height) {
@@ -69,6 +81,35 @@ function roomTransition(player, room_width, room_height) {
     }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
         game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
         player.logRoomSwitch(4);
+    }
+}
+
+function level2RoomTransition(player, room_width, room_height) {
+    //Switch Rooms depending where the player is
+    if(player.position.x < room_width && player.position.y < room_height) {
+        game.camera.follow(Room1 , Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(1);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height) {
+        game.camera.follow(Room2, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(2);
+    }else if(player.position.x < room_width && player.position.y < room_height*2) {
+        game.camera.follow(Room3, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(3);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height*2) {
+        game.camera.follow(Room4, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(4);
+    }else if(player.position.x < room_width && player.position.y < room_height*3) {
+        game.camera.follow(Room5, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(5);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height*3) {
+        game.camera.follow(Room6, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(6);
+    }else if(player.position.x < room_width && player.position.y < room_height*4) {
+        game.camera.follow(Room7, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(7);
+    }else if(player.position.x < room_width*2 && player.position.y < room_height*4) {
+        game.camera.follow(Room8, Phaser.Camera.FOLLOW_LOCKON, .2, .2);
+        player.logRoomSwitch(8);
     }
 }
 function toPointer (displayObject, speed, pointer, maxTime, spread) {
