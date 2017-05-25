@@ -8,7 +8,7 @@ var Level3 = function(game) {
   var roomFourBarriersCreated;
   var barrierDelay;
 };
-Level2.prototype = {
+Level3.prototype = {
     preload: function(){
 	},
 	create: function(){
@@ -16,7 +16,6 @@ Level2.prototype = {
         world_height= 3072;
         room_width = 1280;
         room_height= 768;
-        console.log('State: Level3');//temp
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);

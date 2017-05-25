@@ -30,7 +30,6 @@ Level2.prototype = {
         game.stage.setBackgroundColor('#ffffff');
         game.world.setBounds(0,0,world_width,world_height);
 
-        console.log("in level2.js"); //temp
 		levelSelect(2);
 
         //create groups
