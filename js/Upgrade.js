@@ -44,7 +44,8 @@ Upgrade.prototype = {
 		}
 	},
 	update: function() {
-
+	   reticle.x = game.input.activePointer.x + game.camera.x;
+       reticle.y = game.input.activePointer.y + game.camera.y;
 	}
 };
 

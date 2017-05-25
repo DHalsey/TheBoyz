@@ -24,11 +24,9 @@ function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4,
 
     //properties
     this.body.immovable = true;
-    this.visible = false;
 
     //add to barriers group
     barriers.add(this);
-
 }
 
 RoomBarrier.prototype = Object.create(Phaser.Sprite.prototype);
