@@ -34,7 +34,7 @@ function levelSelect(level){
         currentLevel = 'Level2';
         //THIS IS TEMPORORILY SET TO LEVEL 2
         //CHANGE TO LEVEL 3 ONCE A LEVEL 3 STATE IS IN THE GAME
-        nextLevel = 'Level2';
+        nextLevel = 'Level3';
     } else if (level==3){
     	map = game.add.tilemap('maptile3');
 		map.addTilesetImage('Map', 'mapImage');
@@ -49,6 +49,10 @@ function levelSelect(level){
 		layerCollision.visible = false;
 		layerCollision.debug = true;
 		game.physics.arcade.enable(map);
+
+		currentLevel = 'Level3';
+		nextLevel = 'Level3';
+
     } else if (level==4){
 
     } else if (level==5){
