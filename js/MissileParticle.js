@@ -48,11 +48,11 @@ MissileParticle.prototype.update = function() {
 	for(var j=0; j<enemyGroup.children.length;j++) {
 			enemy = enemyGroup.children[j];
 			if(distance(enemy, this) <= 35) {
-				enemy.hp -= .15;
+				enemy.hp -= .05;
 				enemy.knockedBack = true;
 				enemy.body.drag.x = 1000;
 				enemy.body.drag.y = 1000;
-				knockback(enemy, 10, angleToSprite(this, enemy));
+				knockback(enemy, 5, angleToSprite(this, enemy));
 			}
 		}
 }
