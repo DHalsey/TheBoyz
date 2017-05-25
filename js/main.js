@@ -16,6 +16,7 @@ var world_height;
 var room_width;
 var room_height;
 var nextLevel;
+var currentLevel;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -174,9 +175,6 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
-
-        //what level is next
-        nextLevel = 'Level2';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -386,7 +384,7 @@ Lose.prototype =
 	{
 		//sends the game back to the play state
 		if(this.rkey.justPressed())
-			game.state.start('Play');
+			game.state.start(currentLevel);
 	},
 };
 

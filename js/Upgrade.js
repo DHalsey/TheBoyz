@@ -41,6 +41,9 @@ Upgrade.prototype = {
 			button.inputEnabled = true;
 			button.useHandCursor = false;
 			game.add.text(510, possibleY[i] + 25, buttonString, {fontSize: '12px', fill: '#000000'});
+
+			reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+      		reticle.anchor.setTo(0.5);
 		}
 	},
 	update: function() {
