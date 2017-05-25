@@ -45,7 +45,6 @@ RoomBarrier.prototype.update = function() {
     //destroy once all enemies are dead
 	if(checkSpawner(this.enemySpawner1) && checkSpawner(this.enemySpawner2) && checkSpawner(this.enemySpawner3) && checkSpawner(this.enemySpawner4) && checkSpawner(this.enemySpawner5)) {
         this.destroy();
-        console.log('here');
     } 
 }
 

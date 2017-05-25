@@ -37,6 +37,7 @@ Level2.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        barriers = game.add.group();
 
         player = new Player(game, (3*64)+32, (1*64)+32, 200, 'atlas', 'player0001', 15);
         //update the player's stats
@@ -71,7 +72,7 @@ Level2.prototype = {
         room5Wave2 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'TankyCharger', 'TankyCharger', 'BasicShooter'], [new SpawnPoint(3,27), new SpawnPoint(4,34), new SpawnPoint(7,31), new SpawnPoint(10,28), new SpawnPoint(14,30), new SpawnPoint(18,27), new SpawnPoint(18,33)], player);
 
         //room 6 spawners
-        room6Wave1 = new EnemySpawner(['FastCharger', 'FastCharger', 'BasicShooter', 'BasicShooter'], [new SpawnPoint(24,27), new SpawnPoint(25,32), new SpawnPoint(27.33), new SpawnPoint(30,33), new SpawnPoint(33,32), new SpawnPoint(36, 29)], player);
+        room6Wave1 = new EnemySpawner(['FastCharger', 'FastCharger', 'BasicShooter', 'BasicShooter'], [new SpawnPoint(24,27), new SpawnPoint(25,32), new SpawnPoint(27,33), new SpawnPoint(30,33), new SpawnPoint(33,32), new SpawnPoint(36, 29)], player);
         room6Wave2 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger'], [new SpawnPoint(24,26), new SpawnPoint(25,32), new SpawnPoint(30,25), new SpawnPoint(30,33), new SpawnPoint(35,27), new SpawnPoint(36,29)], player);
         room6Wave3 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger', 'TankyCharger', 'TankyCharger'], [new SpawnPoint(24,26), new SpawnPoint(25,32), new SpawnPoint(30,25), new SpawnPoint(30,33), new SpawnPoint(35,27), new SpawnPoint(36,29)], player);
 
