@@ -24,11 +24,9 @@ function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4,
 
     //properties
     this.body.immovable = true;
-    this.visible = false;
 
     //add to barriers group
     barriers.add(this);
-
 }
 
 RoomBarrier.prototype = Object.create(Phaser.Sprite.prototype);
@@ -47,6 +45,7 @@ RoomBarrier.prototype.update = function() {
     //destroy once all enemies are dead
 	if(checkSpawner(this.enemySpawner1) && checkSpawner(this.enemySpawner2) && checkSpawner(this.enemySpawner3) && checkSpawner(this.enemySpawner4) && checkSpawner(this.enemySpawner5)) {
         this.destroy();
+        console.log('here');
     } 
 }
 

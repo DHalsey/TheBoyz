@@ -227,7 +227,7 @@ Play.prototype = {
         enemyMissiles = game.add.physicsGroup();
         barriers = game.add.group();
 
-        player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
+        player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
 
        //room 2 spawners
        roomTwoFast = new EnemySpawner(['FastCharger'], [new SpawnPoint(29,6)], player);
@@ -242,15 +242,6 @@ Play.prototype = {
        roomFourCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(23,15)], player);
        roomFourTanky = new EnemySpawner(['TankyCharger'], [new SpawnPoint(36,21)], player);
 
-      
-
-       //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
-       //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
-       //I made this example to illustrate that you can set more poossible spawn points than enemies to spawn
-       //this could be a good way to add some extra randomness if we so choose
-       //note also that you can pass random integers as arguments to the SpawnPoint constructors
-       //i haven't called spawn() on this spawner, so the enemies won't actually show up in the game, but you get the point
-       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], [new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6), new SpawnPoint(10,10), new SpawnPoint(11,3)], player);
 
        //Create the escape point
        //It will spawn randomly at one of the 3 points that I provided it
