@@ -1,5 +1,6 @@
 function levelSelect(level){
 	if(level==1){
+        
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
         map.addTilesetImage('MAIN','mapMAINImage');

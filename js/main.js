@@ -145,6 +145,35 @@ Menu.prototype =
 
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
+
+    //add audio
+        playMusic = game.add.audio('playMusic');
+        playMusic.volume -= .5;
+        playMusic.loopFull(); 
+        pistolAud = game.add.audio('pistolAud');
+        pistolAud.volume -= .8;
+        rifleAud = game.add.audio('rifleAud');
+        rifleAud.volume -= .8;
+        shotgunAud = game.add.audio('shotgunAud');
+        shotgunAud.volume -= .8;
+        hitMarker = game.add.audio('hitMarker');
+        dashAud = game.add.audio('dash2');
+        dashAud.volume -= .5
+        shootMissileAud = game.add.audio('shootMissile');
+        shootMissileAud.volume -= .8;
+        missileExplosionAud = game.add.audio('missileExplosion');
+        missileExplosionAud.volume -= .8;
+        dashTimer1Aud = game.add.audio('dashTimer1');
+        dashTimer1Aud.volume -= .7;
+        dashTimer2Aud = game.add.audio('dashTimer2');
+        dashTimer2Aud.volume -= .7;
+        roomSwitchAud = game.add.audio('woosh');
+        hpPickupAud = game.add.audio('hpPickup');
+        hpPickupAud.volume = .8;
+        escapeAud = game.add.audio('escape');
+        escapeAud.volume = .8;
+        chooseUpgradeAud = game.add.audio('chooseUpgrade');
+        chooseUpgradeAud.volume = .8;
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
@@ -185,39 +214,9 @@ Play.prototype = {
         game.stage.setBackgroundColor('#FFFFFF');
         game.world.setBounds(0,0,world_width,world_height);
 
-		
-
-
         levelSelect(1);
 
-        //add audio
-        playMusic = game.add.audio('playMusic');
-        playMusic.volume -= .5;
-        playMusic.loopFull(); 
-        pistolAud = game.add.audio('pistolAud');
-        pistolAud.volume -= .8;
-        rifleAud = game.add.audio('rifleAud');
-        rifleAud.volume -= .8;
-        shotgunAud = game.add.audio('shotgunAud');
-        shotgunAud.volume -= .8;
-        hitMarker = game.add.audio('hitMarker');
-        dashAud = game.add.audio('dash2');
-        dashAud.volume -= .5
-        shootMissileAud = game.add.audio('shootMissile');
-        shootMissileAud.volume -= .8;
-        missileExplosionAud = game.add.audio('missileExplosion');
-        missileExplosionAud.volume -= .8;
-        dashTimer1Aud = game.add.audio('dashTimer1');
-        dashTimer1Aud.volume -= .7;
-        dashTimer2Aud = game.add.audio('dashTimer2');
-        dashTimer2Aud.volume -= .7;
-        roomSwitchAud = game.add.audio('woosh');
-        hpPickupAud = game.add.audio('hpPickup');
-        hpPickupAud.volume = .8;
-        escapeAud = game.add.audio('escape');
-        escapeAud.volume = .8;
-        chooseUpgradeAud = game.add.audio('chooseUpgrade');
-        chooseUpgradeAud.volume = .8;
+        
 
 
         //create groups
@@ -257,9 +256,7 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
-       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
-       var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
-       var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
+       
 
        createHealthBar();
 
