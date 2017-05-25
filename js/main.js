@@ -105,6 +105,7 @@ Preloader.prototype = {
         game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
         game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
         game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
+        game.load.audio('smgAud', ['smg.mp3', 'smg.ogg']);
         game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
 	    game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
 	    game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
@@ -202,6 +203,8 @@ Play.prototype = {
         rifleAud.volume -= .8;
         shotgunAud = game.add.audio('shotgunAud');
         shotgunAud.volume -= .8;
+        smgAud = game.add.audio('smgAud');
+        smgAud.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
         dashAud.volume -= .5

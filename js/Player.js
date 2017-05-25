@@ -256,6 +256,7 @@ function shootSMG(player) {
         knockback(player, 100, player.rotation);
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.008, 100);
+        smgAud.play();
         new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100, player.spread);
         player.ammo--;
         if (player.spread < 0.1) player.spread += 0.01;
