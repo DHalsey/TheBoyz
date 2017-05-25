@@ -36,11 +36,25 @@ MissileParticle.prototype.update = function() {
 		fadeParticle(this);
 	}
 
-	if(game.time.now > this.startTime + 2000) {
+	if(game.time.now > this.startTime + 260) {
 		this.destroy();
 	}
+
+	//manually check collision between this missileParticle and all allive enemyMissiles 
+		for(var i=0; i< enemyMissiles.children.length;i++) {
+			missile = enemyMissiles.children[i];
+			if(Phaser.Rectangle.intersects(missile.getBounds(), this.getBounds())) {
+				missileMissileParticleCollision(this, missile);
+				break;
+			}
+		}
 }
 
 function fadeParticle(particle) {
 	game.add.tween(particle).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true);
+}
+
+function missileMissileParticleCollision(particle, missile) {
+	destroyMissile(missile);
+	particle.destroy();
 }
