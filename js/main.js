@@ -8,6 +8,7 @@ var enemyBullets;
 var enemyGroup;
 var enemyMissiles;
 var barriers;
+var missileParticles;
 
 //Global variables
 var player;
@@ -230,6 +231,7 @@ Play.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        missileParticles = game.add.physicsGroup();
         barriers = game.add.group();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 15);

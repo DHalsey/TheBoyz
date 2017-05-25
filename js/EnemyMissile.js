@@ -8,7 +8,7 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	//enable physics and set some properties
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.set(0.5);
-	this.body.setSize(16,16,8,4); //centers the player's hitbox
+	this.body.setSize(16,16,8,4); //centers the missile's hitbox
     //properties that allow bullets to be destroyed at world bounds
     this.body.collideWorldBounds = true;
     this.body.onWorldBounds = new Phaser.Signal();
@@ -21,6 +21,7 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	this.nextTarget = 0;
 	this.playerSprite = player;
 	this.rotation = angleToSprite(this, this.playerSprite);
+	this.timeCreated = game.time.now;
 	//add to the bullets group
 	enemyMissiles.add(this);
 
@@ -49,7 +50,14 @@ EnemyMissile.prototype.update = function() {
 				break;
 			}
 		}
-
+		//manually check collision between this missile and all allive enemies 
+		for(var j=0; j< enemyGroup.children.length;j++) {
+			enemy = enemyGroup.children[j];
+			if(Phaser.Rectangle.intersects(enemy.getBounds(), this.getBounds())) {
+				if(game.time.now > this.timeCreated + 500) missileBulletCollision(this, enemy);
+				break;
+			}
+		}
 }
 
 function destroyMissile(missile) {
@@ -67,4 +75,8 @@ function missileParticleExplosion(missile) {
 function missileBulletCollision(missile, bullet) {
 	destroyMissile(missile);
 	bullet.destroy();
+}
+
+function missileEnemyCollision(missile, enemy) {
+	destroyMissile(missile);
 }

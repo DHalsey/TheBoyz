@@ -26,6 +26,9 @@ function MissileParticle(game, missile) {
 	//set random scale
 	rand = game.rnd.realInRange(0.5, 1.2);
 	this.scale.setTo(rand);
+
+	//add to particles group
+	missileParticles.add(this);
 }
 
 MissileParticle.prototype = Object.create(Phaser.Sprite.prototype);
@@ -40,21 +43,17 @@ MissileParticle.prototype.update = function() {
 		this.destroy();
 	}
 
-	//manually check collision between this missileParticle and all allive enemyMissiles 
-		for(var i=0; i< enemyMissiles.children.length;i++) {
-			missile = enemyMissiles.children[i];
-			if(Phaser.Rectangle.intersects(missile.getBounds(), this.getBounds())) {
-				missileMissileParticleCollision(this, missile);
-				break;
-			}
-		}
+	game.physics.arcade.overlap(this, enemyGroup, particleEnemyCollision, null, this);
 }
 
 function fadeParticle(particle) {
 	game.add.tween(particle).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true);
 }
 
-function missileMissileParticleCollision(particle, missile) {
-	destroyMissile(missile);
-	particle.destroy();
+function particleEnemyCollision(particle, enemy) {
+	enemy.hp -= .05;
+	enemy.knockedBack = true;
+	enemy.body.drag.x = 1000;
+	enemy.body.drag.y = 1000;
+	knockback(enemy, 10, angleToSprite(particle, enemy));
 }

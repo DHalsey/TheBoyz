@@ -37,6 +37,7 @@ Level2.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        missileParticles = game.add.physicsGroup();
         barriers = game.add.group();
 
         player = new Player(game, (3*64)+32, (1*64)+32, 200, 'atlas', 'player0001', 15);
