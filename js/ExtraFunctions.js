@@ -8,9 +8,11 @@ function angleToSprite(thisSprite, targetSprite) {
 
 //find the distance between two sprites
 function distance(sprite1, sprite2) {
-    var dx = sprite1.body.x - sprite2.body.x;
-    var dy = sprite1.body.y - sprite2.body.y;
-    return Math.sqrt(dx*dx + dy*dy);
+    if(sprite1.body != null && sprite2.body!= null) {
+        var dx = sprite1.body.x - sprite2.body.x;
+        var dy = sprite1.body.y - sprite2.body.y;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
 }
 
 //this function is used to make an enemy charge at the player based on their charegeRate property

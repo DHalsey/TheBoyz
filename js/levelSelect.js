@@ -32,8 +32,6 @@ function levelSelect(level){
         game.physics.arcade.enable(map);
 
         currentLevel = 'Level2';
-        //THIS IS TEMPORORILY SET TO LEVEL 2
-        //CHANGE TO LEVEL 3 ONCE A LEVEL 3 STATE IS IN THE GAME
         nextLevel = 'Level3';
     } else if (level==3){
     	map = game.add.tilemap('maptile3');

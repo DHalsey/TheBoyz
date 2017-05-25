@@ -50,12 +50,11 @@ EnemyMissile.prototype.update = function() {
 				break;
 			}
 		}
-		//manually check collision between this missile and all allive enemies 
-		for(var j=0; j< enemyGroup.children.length;j++) {
+		
+		for(var j=0; j<enemyGroup.children.length;j++) {
 			enemy = enemyGroup.children[j];
-			if(Phaser.Rectangle.intersects(enemy.getBounds(), this.getBounds())) {
-				if(game.time.now > this.timeCreated + 500) missileBulletCollision(this, enemy);
-				break;
+			if(distance(enemy, this) <= 35 && game.time.now > this.timeCreated + 500) {
+				destroyMissile(this);
 			}
 		}
 }
@@ -63,6 +62,15 @@ EnemyMissile.prototype.update = function() {
 function destroyMissile(missile) {
    missileParticleExplosion(missile)
    missileExplosionAud.play();
+
+   enemyMissiles.remove(missile);
+   for(var i=0; i<enemyMissiles.children.length; i++) {
+   		var missile2 = enemyMissiles.children[i];
+   		if(distance(missile, missile2) <= 75) {
+   			game.time.events.add(Phaser.Timer.SECOND * .3, destroyMissile, this, missile2);
+   		}
+   }
+
    missile.destroy();
 }
 
@@ -77,6 +85,3 @@ function missileBulletCollision(missile, bullet) {
 	bullet.destroy();
 }
 
-function missileEnemyCollision(missile, enemy) {
-	destroyMissile(missile);
-}
