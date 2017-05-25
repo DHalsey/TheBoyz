@@ -1,13 +1,13 @@
 //Level2.js
 
 var Level2 = function(game) {
-  var room1Wave1, room1Wave2; 
+  var room1Wave1, room1Wave2;
   var room2Wave1, room2Wave2, room2Wave3, room2RangedWave1, room2RangedWave3;
   var room3Wave1, room3Wave2, room3Wave3;
   var room4Wave1, room4Wave2, room4Wave3, room4PointArray;
   var escape, healthBar;
   var roomOneBarriersCreated, roomTwoBarriersCreated, roomThreeBarriersCreated, roomFourBarriersCreated
-      roomFiveBarriersCreated, roomSixBarriersCreated, roomSevenBarriersCreated, roomEightBarriersCreated;
+  var roomFiveBarriersCreated, roomSixBarriersCreated, roomSevenBarriersCreated, roomEightBarriersCreated;
   var barrierDelay;
 };
 Level2.prototype = {
@@ -26,6 +26,7 @@ Level2.prototype = {
         game.stage.setBackgroundColor('#ffffff');
         game.world.setBounds(0,0,world_width,world_height);
 
+        console.log("in level2.js"); //temp
 		levelSelect(2);
 
         //create groups
@@ -70,6 +71,8 @@ Level2.prototype = {
 
       reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       reticle.anchor.setTo(0.5);
+
+      nextLevel = 'Level3';//temp
 	},
 
 	update: function(){
@@ -86,6 +89,6 @@ Level2.prototype = {
 
        reticle.x = game.input.activePointer.x + game.camera.x;
        reticle.y = game.input.activePointer.y + game.camera.y;
-        
+
     }
 };

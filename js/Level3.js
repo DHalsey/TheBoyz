@@ -16,6 +16,7 @@ Level2.prototype = {
         world_height= 3072;
         room_width = 1280;
         room_height= 768;
+        console.log('State: Level3');//temp
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);

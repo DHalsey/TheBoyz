@@ -27,6 +27,7 @@ function levelSelect(level){
         layerCollision.visible = false;
         layerCollision.debug = true;
         game.physics.arcade.enable(map);
+		console.log("in level2");//temp 
     } else if (level==3){
     	map = game.add.tilemap('maptile3');
 		map.addTilesetImage('Map', 'mapImage');
@@ -41,6 +42,7 @@ function levelSelect(level){
 		layerCollision.visible = false;
 		layerCollision.debug = true;
 		game.physics.arcade.enable(map);
+		console.log("in Level 3");//temp
     } else if (level==4){
 
     } else if (level==5){
