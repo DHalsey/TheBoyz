@@ -23,6 +23,8 @@ function MissileParticle(game, missile) {
 		this.body.velocity.x = game.rnd.integerInRange(-vel,vel);
 		this.body.velocity.y = game.rnd.integerInRange(-vel,vel);
 		this.startTime = game.time.now;
+		this.missileRotation = missile.rotation;
+		this.missile = missile;
 
 		//set random scale
 		rand = game.rnd.realInRange(0.5, 1.2);
@@ -37,6 +39,8 @@ MissileParticle.prototype = Object.create(Phaser.Sprite.prototype);
 MissileParticle.prototype.constructor = MissileParticle;
 
 MissileParticle.prototype.update = function() {
+	if(this.missile.body != null) this.missileRotation = this.missile.rotation;
+
 	if(game.time.now > this.startTime + 200) {
 		fadeParticle(this);
 	}
@@ -52,9 +56,14 @@ MissileParticle.prototype.update = function() {
 				enemy.knockedBack = true;
 				enemy.body.drag.x = 1000;
 				enemy.body.drag.y = 1000;
-				knockback(enemy, 5, angleToSprite(this, enemy));
+				knockback(enemy, 5, this.missileRotation-Math.PI);
 			}
-		}
+	}
+
+	if(distance(player, this) <= 35) {
+		player.hp -= .05
+		knockback(player, 5, this.missileRotation-Math.PI);
+	}
 }
 
 function fadeParticle(particle) {
