@@ -52,6 +52,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.spread = 0;
     this.reticleSpread = 1;
     this.isFiring = false;
+    this.smgAmmoCap = 35;
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);

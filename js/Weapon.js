@@ -51,7 +51,7 @@ Weapon.prototype.update = function() {
 
 		// SMG
 		else if (this.type === 'SMG') {
-			player.ammo = 50;
+			player.ammo = player.smgAmmoCap;
 			player.fireRate = 50;
 			player.spread = 0;
 		}
