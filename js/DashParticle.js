@@ -51,7 +51,7 @@ function DashParticle(game, player) {
         this.rotation = (5*Math.PI)/4;
 
 	//set additional properties
-	this.rotation += game.rnd.realInRange(-(Math.PI/3), (Math.PI/3));
+	this.rotation += game.rnd.realInRange(-(Math.PI/4), (Math.PI/4));
 	this.timeCreated = game.time.now;
 
 	game.physics.arcade.velocityFromRotation(this.rotation, game.rnd.integerInRange(200,300), this.body.velocity);	
