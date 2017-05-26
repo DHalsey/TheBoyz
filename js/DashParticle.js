@@ -68,7 +68,7 @@ DashParticle.prototype = Object.create(Phaser.Sprite.prototype);
 DashParticle.prototype.constructor = DashParticle;
 
 DashParticle.prototype.update = function() {
-	if(game.time.now > this.timeCreated + 300) {
+	if(game.time.now > this.timeCreated + 200) {
 		this.destroy();
 	}
 }
