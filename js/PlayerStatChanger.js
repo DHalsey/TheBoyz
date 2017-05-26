@@ -2,7 +2,7 @@
 function PlayerStatChanger() {
 	this.hp = 15;
 	this.maxHP = 15;
-	this.shotgunPellets = 10;
+	this.shotgunPellets = 15;
 	this.rifleROF = 100;
 	this.smgAmmoCap = 35;
 	this.canDash = false;
@@ -15,7 +15,7 @@ PlayerStatChanger.prototype.changeHealth = function() {
 }
 
 PlayerStatChanger.prototype.changeShotgun = function() {
-	this.shotgunPellets = 13;
+	this.shotgunPellets = 20;
 }
 
 PlayerStatChanger.prototype.changeRifle = function() {

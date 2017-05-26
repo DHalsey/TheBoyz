@@ -1,6 +1,6 @@
 //enemy bullet prefab
 function EnemyBullet(game, x, y, atlas, frame, damage) {
-	Phaser.Sprite.call(this, game, x, y, atlas, frame);
+	Phaser.Sprite.call(this, game, x, y, 'bulletLine');
 
 	//add to the game
 	game.add.existing(this);
@@ -25,12 +25,12 @@ function EnemyBullet(game, x, y, atlas, frame, damage) {
 	game.physics.arcade.moveToObject(this, player, this.movementSpeed);
 
 	//set the bullet rotation so knockback works correctly
-	//make enemy face the player
+	//make bullet face the player
     this.rotation = angleToSprite(this, player);
 
-    //temporarily scale the bullet sprite
-	this.scale.setTo(2,2);
+    this.alpha = .5;
 }
+    
 
 EnemyBullet.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyBullet.prototype.constructor = EnemyBullet;

@@ -106,6 +106,8 @@ Preloader.prototype = {
         game.load.image('genericButton', 'genericButton.png');
         game.load.image('reticle', 'reticle.png');
         game.load.image('pressE', 'tempEKey.png');
+        game.load.image('bulletLine', 'bulletLine.png');
+        game.load.image('bulletLine2', 'bulletLine2.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';

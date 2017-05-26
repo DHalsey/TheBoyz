@@ -16,7 +16,7 @@ function FastCharger(game, x, y, player, spawner) {
 	this.anchor.set(0.5);
 
 	//FastCharger properties
-    this.hp = 2;
+    this.hp = 3;
     this.playerSprite = player;
     this.enemySpawner = spawner;
     this.movementSpeed = 200;

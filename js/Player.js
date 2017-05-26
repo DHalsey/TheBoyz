@@ -51,7 +51,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.secondWeapon = '';
     this.ammo = 0;
     this.pistolUpgraded = false;
-    this.shotgunPellets = 10;
+    this.shotgunPellets = 15;
     this.rifleROF = 125;
     this.spread = 0;
     this.reticleSpread = 1;
