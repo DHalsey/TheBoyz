@@ -42,6 +42,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.nextDash = 0;
     this.dashValue = 700;
     this.dashTextCreated = false;
+    this.isDashing = false;
 
     //Player weapon properties
     this.pistolFireRate = 500;
@@ -121,7 +122,11 @@ Player.prototype.update = function() {
 
     //dash ability
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
-
+    //dash particle effect
+    if(this.isDashing) {
+        new DashParticle(game, this);
+        if(game.rnd.integerInRange(1,2) == 1) new DashParticle(game, this);
+    }
     //Swap weapon
     if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
 
@@ -374,8 +379,14 @@ function dash(player) {
             knockback(player, player.dashValue, (5*Math.PI)/4);
 
         dashAud.play();
+        player.isDashing = true;
+        game.time.events.add(Phaser.Timer.SECOND * .5, notDashing, this, player);
         startDashCooldown();
     }
+}
+
+function notDashing(player) {
+    player.isDashing = false;
 }
 
 function stallShooting(player) {

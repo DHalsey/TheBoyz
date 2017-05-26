@@ -95,9 +95,6 @@ function MissileTail(game, missile) {
 		//set random scale
 		rand = game.rnd.realInRange(0.5, 1.3);
 		this.scale.setTo(rand);
-
-		//add to particles group
-		missileParticles.add(this);
 	}
 }
 
