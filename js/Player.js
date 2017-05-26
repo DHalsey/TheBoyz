@@ -66,7 +66,7 @@ function Player(game, x, y, atlas, frame, health) {
        barrierTween.loop(true);
        barrierTween.yoyo(true, 0);
 
-       switchText = game.add.text(this.x, this.y - 54, 'Press Q to Switch Weapons!', {font: '15px Arial', fill: '#ffffff'});
+       switchText = game.add.text(this.x, this.y - 54, '            Out of Ammo!\r\nPress Q to Switch Weapons!', {font: '15px Arial', fill: '#ffffff'});
        switchText.anchor.set(0.5);
        switchTween = game.add.tween(switchText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
        switchTween.loop(true);
