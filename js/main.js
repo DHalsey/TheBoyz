@@ -18,6 +18,8 @@ var room_width;
 var room_height;
 var nextLevel;
 var currentLevel;
+var barrierText;
+var barrierTween;
 
 //upgrader global variables
 var healthUpgraded = false;

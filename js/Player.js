@@ -25,6 +25,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.roomsVisited = new Array(0);
     this.shootingStalled = false;
     this.lastRoom = 1;
+    this.justSwitched = false;
 
     //Player movement properties
     this.movingUp = false;
@@ -53,6 +54,14 @@ function Player(game, x, y, atlas, frame, health) {
     this.reticleSpread = 1;
     this.isFiring = false;
     this.smgAmmoCap = 35;
+
+     barrierText = game.add.text(room_width/2, room_height/2, 'You must clear all enemies before leaving!',
+      {font: '25px Arial', fill: '#ffffff'});
+       barrierText.anchor.set(0.5);
+       barrierText.fixedToCamera = true;
+       barrierTween = game.add.tween(barrierText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
+       barrierTween.loop(true);
+       barrierTween.yoyo(true, 0);
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -68,6 +77,9 @@ Player.prototype.update = function() {
         if(this.body.velocity.x < 0) knockback(this, 200, 0);
         if(this.body.velocity.y > 0) knockback(this, 200, (3*Math.PI)/2);
         if(this.body.velocity.y < 0) knockback(this, 200, Math.PI/2);
+
+        this.justSwitched = true;
+        game.time.events.add(Phaser.Timer.SECOND * .5, setSwitched, this, this);
     }
 
     //record the last room
@@ -120,6 +132,14 @@ Player.prototype.update = function() {
 
     reticle.scale.setTo(this.reticleSpread, this.reticleSpread);
 
+    barrierText.visible = false;
+    for(var i=0; i<barriers.children.length;i++) {
+        var barrier = barriers.children[i];
+        if(distance(this, barrier) <= 100 && !this.justSwitched) {
+            barrierText.visible = true;
+            break;
+        } 
+    }
 }
 
 Player.prototype.logRoomSwitch = function(room) {
@@ -337,4 +357,8 @@ function stallShooting(player) {
 
 function resumeShooting(player) {
     player.shootingStalled = false;
+}
+
+function setSwitched(player) {
+    player.justSwitched = false;
 }
