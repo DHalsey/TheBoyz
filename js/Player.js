@@ -245,16 +245,21 @@ function shootWeapon(player) {
             game.camera.shake(0.008, 100);
             player.reticleSpread += 1;
             new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1, player, 400, 0);
+            muzzleParticleExplosion();
             if(player.pistolUpgraded) {
                 game.time.events.add(Phaser.Timer.SECOND * .1, twoRoundBurst, this, player);
             }
         }   
 
-        if (player.currentWeapon === 'RIFLE') shootRifle(player);
-
-        if (player.currentWeapon === 'SHOTGUN') shootShotgun(player);
-
-        if(player.currentWeapon === 'SMG') shootSMG(player); 
+        if (player.currentWeapon === 'RIFLE') {
+            shootRifle(player);
+        }
+        if (player.currentWeapon === 'SHOTGUN') {
+            shootShotgun(player);
+        }
+        if(player.currentWeapon === 'SMG') {
+            shootSMG(player); 
+        }
     }
 }
 
@@ -273,6 +278,7 @@ function shootRifle(player) {
         player.ammo--;
         if (player.spread < 0.05) player.spread += 0.007;
         player.reticleSpread += 0.5;
+        muzzleParticleExplosion();
     }
 }
 
@@ -282,9 +288,10 @@ function shootShotgun(player) {
         player.nextFire = game.time.now + player.fireRate;
         game.camera.shake(0.015, 100);
         shotgunAud.play();
-        
+
         for(var i=0; i< player.shotgunPellets; i++) {
             new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800, 0.15);
+            muzzleParticleExplosion();
         }
         
         player.ammo--;
@@ -302,6 +309,7 @@ function shootSMG(player) {
         player.ammo--;
         if (player.spread < 0.1) player.spread += 0.01;
         if (player.reticleSpread < 3.5) player.reticleSpread += 0.4;
+        muzzleParticleExplosion();
     }
 }
 

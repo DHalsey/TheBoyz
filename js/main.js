@@ -108,6 +108,8 @@ Preloader.prototype = {
         game.load.image('pressE', 'tempEKey.png');
         game.load.image('bulletLine', 'bulletLine.png');
         game.load.image('bulletLine2', 'bulletLine2.png');
+        game.load.image('muzzleParticle', 'muzzleParticle.png');
+        game.load.image('muzzleParticle2', 'muzzleParticle2.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';

@@ -3,7 +3,7 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 	var rand = game.rnd.integerInRange(1,2);
 	var sprite = 'bulletLine';
 	if(rand == 1) sprite = 'bulletLine2';
-	Phaser.Sprite.call(this, game, x, y, sprite);
+	Phaser.Sprite.call(this, game, player.x + (Math.cos(player.rotation)*32), player.y + (Math.sin(player.rotation)*32), sprite);
 
 	//add to the game
 	game.add.existing(this);
@@ -41,6 +41,8 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 	if(this.currentWeapon != 'SHOTGUN') {
 		if(sprite == 'bulletLine') this.alpha = .60;
 		else this.alpha = .75;
+		//create bullet shell
+		new BulletShell(game, player);
 	}
 }
 
