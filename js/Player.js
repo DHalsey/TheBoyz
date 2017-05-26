@@ -28,6 +28,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.justSwitched = false;
     this.pickedUpFirstWeapon = false;
     this.pickup = new PickupIndicator(game, this);
+    this.switchTextShown = false;
 
     //Player movement properties
     this.movingUp = false;
@@ -64,12 +65,28 @@ function Player(game, x, y, atlas, frame, health) {
        barrierTween = game.add.tween(barrierText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
        barrierTween.loop(true);
        barrierTween.yoyo(true, 0);
+
+       switchText = game.add.text(this.x, this.y - 54, 'Press Q to Switch Weapons!', {font: '15px Arial', fill: '#ffffff'});
+       switchText.anchor.set(0.5);
+       switchTween = game.add.tween(switchText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
+       switchTween.loop(true);
+       switchTween.yoyo(true, 0);
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+
+    //display switch weapon tutorial
+    if(this.ammo == 0 && this.pickedUpFirstWeapon && !this.switchTextShown) {
+        switchText.visible = true;
+        switchText.x = this.x;
+        switchText.y = this.y - 54;
+    } else {
+        switchText.visible = false;
+    }
+
     //if the player just switched rooms, stall shooting for 1 second
     if(this.lastRoom != this.currentRoom) {
         stallShooting(this);
@@ -213,6 +230,7 @@ function swap(player) {
 		var temp = player.currentWeapon;
 		player.currentWeapon = player.secondWeapon;
 		player.secondWeapon = temp;
+        player.switchTextShown = true;
 		console.log('Weapon: ' + player.currentWeapon);
 	}
 
@@ -364,3 +382,4 @@ function resumeShooting(player) {
 function setSwitched(player) {
     player.justSwitched = false;
 }
+

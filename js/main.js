@@ -21,6 +21,8 @@ var nextLevel;
 var currentLevel;
 var barrierText;
 var barrierTween;
+var switchText;
+var switchTween;
 
 //upgrader global variables
 var healthUpgraded = false;
