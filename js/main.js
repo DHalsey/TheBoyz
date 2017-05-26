@@ -9,6 +9,7 @@ var enemyGroup;
 var enemyMissiles;
 var barriers;
 var missileParticles;
+var weaponGroup;
 
 //Global variables
 var player;
@@ -102,6 +103,7 @@ Preloader.prototype = {
       	game.load.image('missileParticle2', 'missileParticle5.png');
         game.load.image('genericButton', 'genericButton.png');
         game.load.image('reticle', 'reticle.png');
+        game.load.image('pressE', 'tempEKey.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
@@ -235,6 +237,7 @@ Play.prototype = {
         enemyMissiles = game.add.physicsGroup();
         missileParticles = game.add.physicsGroup();
         barriers = game.add.group();
+        weaponGroup = game.add.group();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
 
@@ -258,9 +261,9 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
-       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
-       var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
-       var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
+      // var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
+       //var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
+       //var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
 
        createHealthBar();
 
@@ -277,7 +280,7 @@ Play.prototype = {
        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
        reticle.anchor.setTo(0.5);
 
-       debugCreate();
+       //debugCreate();
 	},
 
 	update: function(){

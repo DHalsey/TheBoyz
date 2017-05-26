@@ -31,6 +31,8 @@ Level3.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        barriers = game.add.group();
+        weaponGroup = game.add.group();
 
         player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
         //update the player's stats

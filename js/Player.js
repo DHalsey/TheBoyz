@@ -26,6 +26,8 @@ function Player(game, x, y, atlas, frame, health) {
     this.shootingStalled = false;
     this.lastRoom = 1;
     this.justSwitched = false;
+    this.pickedUpFirstWeapon = false;
+    this.pickup = new PickupIndicator(game, this);
 
     //Player movement properties
     this.movingUp = false;
