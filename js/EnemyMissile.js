@@ -7,8 +7,8 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 
 	//enable physics and set some properties
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.anchor.set(0.5);
 	this.body.setSize(16,16,8,4); //centers the missile's hitbox
+	this.anchor.set(0.5);
     //properties that allow bullets to be destroyed at world bounds
     this.body.collideWorldBounds = true;
     this.body.onWorldBounds = new Phaser.Signal();
@@ -31,6 +31,9 @@ EnemyMissile.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyMissile.prototype.constructor = EnemyMissile;
 
 EnemyMissile.prototype.update = function() {
+		//create particle tail
+		new MissileTail(game, this);
+
 		bulletAngle = angleToSprite(this, this.playerSprite); //the angle to the player from the bullet
 		//The math system i created for it is convoluted as fuck. good luck understanding it =)
 		//essentially changes the angle detection to work from 0-360 instead of 0-180
@@ -58,6 +61,55 @@ EnemyMissile.prototype.update = function() {
 			}
 		}
 }
+
+//missile particle trail
+//MissileTail prefab
+function MissileTail(game, missile) {
+	if(missile.body != null) {
+		var rand = game.rnd.integerInRange(1,10);
+		var sprite = '';
+
+		if(rand == 1) sprite = 'missileParticle1';
+		else if(rand == 2) sprite = 'missileParticle4';
+		else sprite = 'missileParticle3';
+
+		if(missile.body!=null)Phaser.Sprite.call(this, game, missile.x, missile.y, sprite);
+
+		//add to the game
+		game.add.existing(this);
+
+		//enable physics and set some properties
+		game.physics.enable(this, Phaser.Physics.ARCADE);
+		this.anchor.set(0.5);
+
+		//set additional properties
+		
+		this.missile = missile;
+		this.rotation = missile.rotation - Math.PI;
+		this.rotation += game.rnd.realInRange(-(Math.PI/8), (Math.PI/8));
+		this.timeCreated = game.time.now;
+		this.fading = false;
+
+		game.physics.arcade.velocityFromRotation(this.rotation, game.rnd.integerInRange(200,300), this.body.velocity);	
+
+		//set random scale
+		rand = game.rnd.realInRange(0.5, 1.3);
+		this.scale.setTo(rand);
+
+		//add to particles group
+		missileParticles.add(this);
+	}
+}
+
+MissileTail.prototype = Object.create(Phaser.Sprite.prototype);
+MissileTail.prototype.constructor = MissileTail;
+
+MissileTail.prototype.update = function() {
+	if(game.time.now > this.timeCreated + 400) {
+		this.destroy();
+	}
+}
+
 
 function destroyMissile(missile) {
    missileParticleExplosion(missile)

@@ -103,6 +103,8 @@ Preloader.prototype = {
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle1', 'missileParticle3.png');
       	game.load.image('missileParticle2', 'missileParticle5.png');
+        game.load.image('missileParticle3', 'missileParticle1.png');
+        game.load.image('missileParticle4', 'missileParticle2.png');
         game.load.image('genericButton', 'genericButton.png');
         game.load.image('reticle', 'reticle.png');
         game.load.image('pressE', 'tempEKey.png');
@@ -286,7 +288,7 @@ Play.prototype = {
        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
        reticle.anchor.setTo(0.5);
 
-       //debugCreate();
+       debugCreate();
 	},
 
 	update: function(){

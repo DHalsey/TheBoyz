@@ -11,7 +11,7 @@ function BulletShell(game, player) {
 
 	//set additional properties
 	this.rotation = player.rotation - (Math.PI/2);
-	this.rotation += game.rnd.integerInRange(-.05, .05);
+	this.rotation += game.rnd.realInRange(-Math.PI/8, Math.PI/8);
 	game.physics.arcade.velocityFromRotation(this.rotation, game.rnd.integerInRange(200,300), this.body.velocity);	
 	this.timeCreated = game.time.now;	
 
