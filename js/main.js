@@ -42,6 +42,7 @@ window.onload = function(){
     game.state.add('Level2', Level2);
     game.state.add('Level3', Level3);
     game.state.add('Lose', Lose);
+    game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
 };
@@ -412,5 +413,27 @@ Lose.prototype =
 		//sends the game back to the play state
 		if(this.rkey.justPressed())
 			game.state.start(currentLevel);
+	},
+};
+var Win = function(game){};
+Win.prototype = 
+{
+	preload: function(){},
+	create: function()
+	{
+		//adds background
+		winBG = game.add.image(0,0, 'menuBackgrnd');
+
+		//adds text
+		var winTitle = game.add.text(80,80, 'You Survived!!!',
+			{font: '50px Arial', fill: '#ffffff'});
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
+			{ffont: '25px Arial', fill: '#ffffff'});
+		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+	},
+	update: function()
+	{
+		if(this.rkey.justPressed())
+			game.state.start('Play');
 	},
 };
