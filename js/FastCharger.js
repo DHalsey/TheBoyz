@@ -84,7 +84,7 @@ function playerFastChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        knockback(player, 300, angleToSprite(player, enemy));
+        knockback(player, 150, angleToSprite(player, enemy));
         enemy.knockedBack = true;
         knockback(enemy, 600, enemy.rotation);
         enemy.body.drag.x = 1000;
