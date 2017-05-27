@@ -32,7 +32,7 @@ function levelSelect(level){
         game.physics.arcade.enable(map);
 
         currentLevel = 'Level2';
-        nextLevel = 'Win';
+        nextLevel = 'Level3';
     } else if (level==3){
     	map = game.add.tilemap('maptile3');
 		map.addTilesetImage('Map', 'mapImage');
@@ -52,7 +52,7 @@ function levelSelect(level){
 		nextLevel = 'Win';
 
     } else if (level==4){
-    
+
 
     } else if (level==5){
 
