@@ -179,7 +179,11 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     meters.add(healthBar);
 
     //add the overlay
-    var hpOverlay = game.add.sprite(positionX-26, positionY-4, 'healthOverlay');
+    var hpOverlay = game.add.sprite(positionX-15, positionY+8, 'healthOverlay');
+    hpOverlay.anchor.setTo(.5);
+    var hpTween = game.add.tween(hpOverlay.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
+    hpTween.loop(true);
+    hpTween.yoyo(true, 0);
     hpOverlay.fixedToCamera = true;
 
 }

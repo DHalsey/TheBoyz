@@ -62,7 +62,7 @@ function makeVisible(barrier) {
 }
 
 function createBarrierText() {
-      barrierText = game.add.text(room_width/2, room_height/2, 'You must clear all enemies before leaving!',
+      barrierText = game.add.text(room_width/2, room_height/4, 'You must clear all enemies before leaving!',
       {font: '25px Arial', fill: '#ffffff'});
        barrierText.anchor.set(0.5);
        barrierTween = game.add.tween(barrierText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
