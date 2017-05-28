@@ -5,7 +5,7 @@
 //You must tie each barrier with an enemy spawner object
 //The barriers will despawn once all enemies associeated with that spawner have been killed
 //NOTE: THIS OBJECT WILL TRACK THE ENEMIES FROM UP TO 5 SPAWNERS.
-function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4, spawner5) {
+function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4, spawner5, spawner6) {
 
 	Phaser.Sprite.call(this, game, x*64+32, y*64+32, 'barrier');
 
@@ -21,6 +21,8 @@ function RoomBarrier(game, x, y, player, spawner1, spawner2, spawner3, spawner4,
     this.enemySpawner3 = spawner3;
     this.enemySpawner4 = spawner4;
     this.enemySpawner5 = spawner5;
+    this.enemySpawner6 = spawner6;
+
 
     //properties
     this.body.immovable = true;
@@ -43,7 +45,7 @@ RoomBarrier.prototype.update = function() {
     game.physics.arcade.collide(this, enemyGroup);
 
     //destroy once all enemies are dead
-	if(checkSpawner(this.enemySpawner1) && checkSpawner(this.enemySpawner2) && checkSpawner(this.enemySpawner3) && checkSpawner(this.enemySpawner4) && checkSpawner(this.enemySpawner5)) {
+	if(checkSpawner(this.enemySpawner1) && checkSpawner(this.enemySpawner2) && checkSpawner(this.enemySpawner3) && checkSpawner(this.enemySpawner4) && checkSpawner(this.enemySpawner5) && checkSpawner(this.enemySpawner6)) {
         this.destroy();
     } 
 }
