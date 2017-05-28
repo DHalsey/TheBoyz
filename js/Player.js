@@ -274,47 +274,60 @@ function twoRoundBurst(player) {
 }
 
 function shootRifle(player) {
-    if (game.time.now > player.nextFire && player.ammo > 0) {
-        knockback(player, 200, player.rotation);
-        player.nextFire = game.time.now + player.fireRate;
-        game.camera.shake(0.01, 100);
-        rifleAud.play();
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200, player.spread);
-        player.ammo--;
-        if (player.spread < 0.05) player.spread += 0.007;
-        player.reticleSpread += 0.5;
-        muzzleParticleExplosion();
+    if (game.time.now > player.nextFire) {
+            if(player.ammo > 0){
+            knockback(player, 200, player.rotation);
+            player.nextFire = game.time.now + player.fireRate;
+            game.camera.shake(0.01, 100);
+            rifleAud.play();
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 1.5, player, 200, player.spread);
+            player.ammo--;
+            if (player.spread < 0.05) player.spread += 0.007;
+            player.reticleSpread += 0.5;
+            muzzleParticleExplosion();
+        }
+        else if(player.ammo <= 0)
+            noAmmo.play();
     }
+    
 }
 
 function shootShotgun(player) {
-    if (game.time.now > player.nextFire && player.ammo > 0) {
-        knockback(player, 400, player.rotation);
-        player.nextFire = game.time.now + player.fireRate;
-        game.camera.shake(0.015, 100);
-        shotgunAud.play();
+    if (game.time.now > player.nextFire) {
+        if(player.ammo > 0){
+            knockback(player, 400, player.rotation);
+            player.nextFire = game.time.now + player.fireRate;
+            game.camera.shake(0.015, 100);
+            shotgunAud.play();
 
-        for(var i=0; i< player.shotgunPellets; i++) {
-            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800, 0.15);
-            muzzleParticleExplosion();
+            for(var i=0; i< player.shotgunPellets; i++) {
+                new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 800, 0.15);
+                muzzleParticleExplosion();
+            }
+            
+            player.ammo--;
+            player.reticleSpread += 2.5;
         }
-        
-        player.ammo--;
-        player.reticleSpread += 2.5;
+        else if (player.ammo <= 0)
+            noAmmo.play();
     }
 }
 
 function shootSMG(player) {
-    if (game.time.now > player.nextFire && player.ammo > 0) {
-        knockback(player, 100, player.rotation);
-        player.nextFire = game.time.now + player.fireRate;
-        game.camera.shake(0.008, 100);
-        smgAud.play();
-        new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100, player.spread);
-        player.ammo--;
-        if (player.spread < 0.1) player.spread += 0.01;
-        if (player.reticleSpread < 3.5) player.reticleSpread += 0.4;
-        muzzleParticleExplosion();
+    if (game.time.now > player.nextFire) {
+        if(player.ammo > 0){
+            knockback(player, 100, player.rotation);
+            player.nextFire = game.time.now + player.fireRate;
+            game.camera.shake(0.008, 100);
+            smgAud.play();
+            new Bullet(game, player.x, player.y, 'atlas', 'bullet0001', 0.5, player, 100, player.spread);
+            player.ammo--;
+            if (player.spread < 0.1) player.spread += 0.01;
+            if (player.reticleSpread < 3.5) player.reticleSpread += 0.4;
+            muzzleParticleExplosion();
+        }
+        else
+            noAmmo.play();
     }
 }
 

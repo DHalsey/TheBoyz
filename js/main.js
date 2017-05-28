@@ -135,6 +135,9 @@ Preloader.prototype = {
 	    game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
 	    game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
 	    game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
+	    game.load.audio('playerHit', ['playerHit.ogg', 'playerHit.mp3']);
+	    game.load.audio('noAmmo', ['noAmmo.ogg', 'noAmmo.mp3']);
+	    game.load.audio('gunPickup', ['gunPickup.ogg', 'gunPickup.mp3']);
 
     },
     create: function(){
@@ -223,6 +226,12 @@ Play.prototype = {
         shotgunAud.volume -= .8;
         smgAud = game.add.audio('smgAud');
         smgAud.volume -= .8;
+        noAmmo = game.add.audio('noAmmo');
+        //noAmmo.volume -= .8;
+        gunPickup = game.add.audio('gunPickup');
+        //gunPickup.volume -= .8;
+        playerHit = game.add.audio('playerHit');
+        //playerHit.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
         dashAud.volume -= .5
@@ -274,9 +283,9 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
-      // var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
-       //var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
-       //var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
+       var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
+       var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
+       var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
 
        createHealthBar();
 
