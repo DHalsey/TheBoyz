@@ -41,6 +41,7 @@ window.onload = function(){
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Level3', Level3);
+    game.state.add('Level4', Level4);
     game.state.add('Lose', Lose);
     game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
@@ -90,6 +91,9 @@ Preloader.prototype = {
 
     //level 3 tilemap
     game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
+
+    //level 4 tilemap
+    game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
 
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
