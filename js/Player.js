@@ -335,6 +335,7 @@ function shootSMG(player) {
 function bulletsPlayerCollision(player, bullet) {
     bullet.destroy();
     player.hp -= bullet.damage;
+    playerHit.play();
 
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
@@ -345,6 +346,7 @@ function bulletsPlayerCollision(player, bullet) {
 //handle collision between bullets group and player
 function missilesPlayerCollision(player, missile) {
     player.hp -= missile.damage;
+    playerHit.play();
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
     knockback(player, 600, missile.rotation - Math.PI);
