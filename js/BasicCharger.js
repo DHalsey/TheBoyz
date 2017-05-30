@@ -70,6 +70,7 @@ function playerBasicChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
+        playerHit.play();
         knockback(player, 400, angleToSprite(player, enemy));
         enemy.knockedBack = true;
         knockback(enemy, 400, enemy.rotation);

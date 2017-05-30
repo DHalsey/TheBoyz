@@ -41,6 +41,7 @@ window.onload = function(){
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Level3', Level3);
+    game.state.add('Level4', Level4);
     game.state.add('Lose', Lose);
     game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
@@ -91,6 +92,9 @@ Preloader.prototype = {
     //level 3 tilemap
     game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
 
+    //level 4 tilemap
+    game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
+
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
@@ -136,6 +140,9 @@ Preloader.prototype = {
 	    game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
 	    game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
 	    game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
+	    game.load.audio('playerHit', ['playerHit.ogg', 'playerHit.mp3']);
+	    game.load.audio('noAmmo', ['noAmmo.ogg', 'noAmmo.mp3']);
+	    game.load.audio('gunPickup', ['gunPickup.ogg', 'gunPickup.mp3']);
 
     },
     create: function(){
@@ -171,33 +178,6 @@ Menu.prototype =
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
 
-    //add audio
-         pistolAud = game.add.audio('pistolAud');
-        pistolAud.volume -= .8;
-        rifleAud = game.add.audio('rifleAud');
-        rifleAud.volume -= .8;
-        shotgunAud = game.add.audio('shotgunAud');
-        shotgunAud.volume -= .8;
-        smgAud = game.add.audio('smgAud');
-        smgAud.volume -= .8;
-        hitMarker = game.add.audio('hitMarker');
-        dashAud = game.add.audio('dash2');
-        dashAud.volume -= .5
-        shootMissileAud = game.add.audio('shootMissile');
-        shootMissileAud.volume -= .8;
-        missileExplosionAud = game.add.audio('missileExplosion');
-        missileExplosionAud.volume -= .8;
-        dashTimer1Aud = game.add.audio('dashTimer1');
-        dashTimer1Aud.volume -= .7;
-        dashTimer2Aud = game.add.audio('dashTimer2');
-        dashTimer2Aud.volume -= .7;
-        roomSwitchAud = game.add.audio('woosh');
-        hpPickupAud = game.add.audio('hpPickup');
-        hpPickupAud.volume = .8;
-        escapeAud = game.add.audio('escape');
-        escapeAud.volume = .8;
-        chooseUpgradeAud = game.add.audio('chooseUpgrade');
-        chooseUpgradeAud.volume = .8;
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
@@ -241,7 +221,40 @@ Play.prototype = {
         playMusic = game.add.audio('playMusic');
         playMusic.volume -= .5;
         playMusic.loopFull();
-       
+
+        pistolAud = game.add.audio('pistolAud');
+        pistolAud.volume -= .8;
+        rifleAud = game.add.audio('rifleAud');
+        rifleAud.volume -= .8;
+        shotgunAud = game.add.audio('shotgunAud');
+        shotgunAud.volume -= .8;
+        smgAud = game.add.audio('smgAud');
+        smgAud.volume -= .8;
+        noAmmo = game.add.audio('noAmmo');
+        //noAmmo.volume -= .8;
+        gunPickup = game.add.audio('gunPickup');
+        //gunPickup.volume -= .8;
+        playerHit = game.add.audio('playerHit');
+        //playerHit.volume -= .8;
+        hitMarker = game.add.audio('hitMarker');
+        dashAud = game.add.audio('dash2');
+        dashAud.volume -= .5
+        shootMissileAud = game.add.audio('shootMissile');
+        shootMissileAud.volume -= .8;
+        missileExplosionAud = game.add.audio('missileExplosion');
+        missileExplosionAud.volume -= .8;
+        dashTimer1Aud = game.add.audio('dashTimer1');
+        dashTimer1Aud.volume -= .7;
+        dashTimer2Aud = game.add.audio('dashTimer2');
+        dashTimer2Aud.volume -= .7;
+        roomSwitchAud = game.add.audio('woosh');
+        hpPickupAud = game.add.audio('hpPickup');
+        hpPickupAud.volume = .8;
+        escapeAud = game.add.audio('escape');
+        escapeAud.volume = .8;
+        chooseUpgradeAud = game.add.audio('chooseUpgrade');
+        chooseUpgradeAud.volume = .8;
+
 
 
         //create groups
