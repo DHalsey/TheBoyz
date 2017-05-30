@@ -7,7 +7,7 @@ function debugCreate(){
 	testMissile.spawn();
 	var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
     var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
-    var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
+    var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'smgSprite', 'SMG', player);
 	
 
 }

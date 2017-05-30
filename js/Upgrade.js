@@ -1,6 +1,6 @@
 //create upgrades array
-var possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'dash', 'skip');
-var possibleY = new Array(175, 250, 325, 400, 475, 550);
+var possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'smg', 'dash','skip');
+var possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
 
 
 //Upgrade.js
@@ -28,6 +28,9 @@ Upgrade.prototype = {
 			} else if(possibleUpgrades[i] === 'shotgun') {
 				buttonString = '+ Shotgun Damage';
 				buttonFunction = upgradeShotgun;
+			} else if(possibleUpgrades[i] === 'smg') {
+				buttonString = '+ SMG Ammo Cap';
+				buttonFunction = upgradeSMG;
 			} else if(possibleUpgrades[i] === 'dash') {
 				buttonString = 'Dash Ability';
 				buttonFunction = enableDash;
@@ -41,10 +44,14 @@ Upgrade.prototype = {
 			button.inputEnabled = true;
 			button.useHandCursor = false;
 			game.add.text(510, possibleY[i] + 25, buttonString, {fontSize: '12px', fill: '#000000'});
+
+			reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+      		reticle.anchor.setTo(0.5);
 		}
 	},
 	update: function() {
-
+	   reticle.x = game.input.activePointer.x + game.camera.x;
+       reticle.y = game.input.activePointer.y + game.camera.y;
 	}
 };
 
@@ -75,6 +82,14 @@ function upgradeRifle() {
 function upgradeShotgun() {
 	statChanger.changeShotgun();
 	var index = possibleUpgrades.indexOf('shotgun');
+	if(index > -1) possibleUpgrades.splice(index, 1);
+	chooseUpgradeAud.play();
+	game.state.start(nextLevel);
+}
+
+function upgradeSMG() {
+	statChanger.changeSMG();
+	var index = possibleUpgrades.indexOf('smg');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
 	game.state.start(nextLevel);

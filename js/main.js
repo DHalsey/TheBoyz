@@ -8,6 +8,8 @@ var enemyBullets;
 var enemyGroup;
 var enemyMissiles;
 var barriers;
+var missileParticles;
+var weaponGroup;
 
 //Global variables
 var player;
@@ -16,6 +18,11 @@ var world_height;
 var room_width;
 var room_height;
 var nextLevel;
+var currentLevel;
+var barrierText;
+var barrierTween;
+var switchText;
+var switchTween;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -33,7 +40,9 @@ window.onload = function(){
     game.state.add('Menu', Menu);
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
+    game.state.add('Level3', Level3);
     game.state.add('Lose', Lose);
+    game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
 };
@@ -62,7 +71,7 @@ Preloader.prototype = {
        // add preloader bar and set as preloader sprite (auto-crops sprite)
         var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
         game.load.setPreloadSprite(preloadBar);
-		
+
 		// Load Images ----------------------------------------------------------------------------------------------------
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
@@ -79,10 +88,14 @@ Preloader.prototype = {
     //level 2 tilemap
     game.load.tilemap('maptile2', 'AustinMap.json', null, Phaser.Tilemap.TILED_JSON);
 
+    //level 3 tilemap
+    game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
+
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('shotgunSprite', 'weapon_shotgun.png');
+    game.load.image('smgSprite', 'weapon_smg.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
@@ -92,14 +105,26 @@ Preloader.prototype = {
    		game.load.image('barrier', 'barrier2.png');
     	game.load.image('missileParticle1', 'missileParticle3.png');
       	game.load.image('missileParticle2', 'missileParticle5.png');
+        game.load.image('missileParticle3', 'missileParticle1.png');
+        game.load.image('missileParticle4', 'missileParticle2.png');
         game.load.image('genericButton', 'genericButton.png');
         game.load.image('reticle', 'reticle.png');
-        
+        game.load.image('pressE', 'tempEKey.png');
+        game.load.image('bulletLine', 'bulletLine.png');
+        game.load.image('bulletLine2', 'bulletLine2.png');
+        game.load.image('muzzleParticle', 'muzzleParticle.png');
+        game.load.image('muzzleParticle2', 'muzzleParticle2.png');
+        game.load.image('dashParticle', 'dashParticle1.png');
+        game.load.image('dashParticle2', 'dashParticle2.png');
+        game.load.image('healthParticle', 'healthParticle.png');
+        game.load.image('healthParticle2', 'healthParticle2.png');
+        game.load.image('healthParticle3', 'healthParticle3.png');
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
         game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
         game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
         game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
+        game.load.audio('smgAud', ['smg.mp3', 'smg.ogg']);
         game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
 	    game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
 	    game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
@@ -147,15 +172,14 @@ Menu.prototype =
     statChanger = new PlayerStatChanger();
 
     //add audio
-        playMusic = game.add.audio('playMusic');
-        playMusic.volume -= .5;
-        playMusic.loopFull(); 
-        pistolAud = game.add.audio('pistolAud');
+         pistolAud = game.add.audio('pistolAud');
         pistolAud.volume -= .8;
         rifleAud = game.add.audio('rifleAud');
         rifleAud.volume -= .8;
         shotgunAud = game.add.audio('shotgunAud');
         shotgunAud.volume -= .8;
+        smgAud = game.add.audio('smgAud');
+        smgAud.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
         dashAud.volume -= .5
@@ -198,14 +222,11 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
-		
+
         world_width = 2560; //The world has been set to be 2x2 rooms big
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
-
-        //what level is next
-        nextLevel = 'Level2';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -216,7 +237,11 @@ Play.prototype = {
 
         levelSelect(1);
 
-        
+        //add audio
+        playMusic = game.add.audio('playMusic');
+        playMusic.volume -= .5;
+        playMusic.loopFull();
+       
 
 
         //create groups
@@ -224,9 +249,11 @@ Play.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+        missileParticles = game.add.physicsGroup();
         barriers = game.add.group();
+        weaponGroup = game.add.group();
 
-        player = new Player(game, 200, 200, 'atlas', 'player0001', 10);
+        player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
 
        //room 2 spawners
        roomTwoFast = new EnemySpawner(['FastCharger'], [new SpawnPoint(29,6)], player);
@@ -241,22 +268,13 @@ Play.prototype = {
        roomFourCharger = new EnemySpawner(['BasicCharger'], [new SpawnPoint(23,15)], player);
        roomFourTanky = new EnemySpawner(['TankyCharger'], [new SpawnPoint(36,21)], player);
 
-      
 
-       //HERE IS ANOTHER EXAMPLE FOR HOW THE SPAWNER CAN BE USED
-       //this one will spawn in 2 shooting enemies and one fast charer in a random order at THREE of the given FIVE spawn points
-       //I made this example to illustrate that you can set more poossible spawn points than enemies to spawn
-       //this could be a good way to add some extra randomness if we so choose
-       //note also that you can pass random integers as arguments to the SpawnPoint constructors
-       //i haven't called spawn() on this spawner, so the enemies won't actually show up in the game, but you get the point
-       var exampleSpawner = new EnemySpawner(["BasicShooter", "BasicShooter", "FastCharger"], [new SpawnPoint(1,4), new SpawnPoint(15, 1), new SpawnPoint(5, 6), new SpawnPoint(10,10), new SpawnPoint(11,3)], player);
 
        //Create the escape point
        //It will spawn randomly at one of the 3 points that I provided it
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
-       
 
        createHealthBar();
 
@@ -292,15 +310,15 @@ Play.prototype = {
         //if the player switches rooms, update the escape point so that it tracks that room's spawners
         //also spawn that room's enemies
         if(player.currentRoom == 1) {
-          
-        } 
-        else if(player.currentRoom == 2) { 
+
+        }
+        else if(player.currentRoom == 2) {
           roomTwoCharger.spawn();
           roomTwoFast.spawn()
           escape.trackSpawner(roomTwoCharger);
           escape.trackSpawner(roomTwoFast);
           if(!roomTwoBarriersCreated) { //if room 2 barriers haven't been created yet, create them
-            
+
             //barriers on the left side of room 2
             new RoomBarrier(game, 19, 6, player, roomTwoCharger, roomTwoFast);
             new RoomBarrier(game, 19, 5, player, roomTwoCharger, roomTwoFast);
@@ -314,7 +332,7 @@ Play.prototype = {
             roomTwoBarriersCreated = true;
           }
 
-        } 
+        }
         else if(player.currentRoom == 3) {
           roomThreeCharger.spawn();
           roomThreeFast.spawn();
@@ -337,7 +355,7 @@ Play.prototype = {
 
             roomThreeBarriersCreated = true;
           }
-        } 
+        }
         else if(player.currentRoom == 4) {
           roomFourCharger.spawn();
           roomFourTanky.spawn();
@@ -362,7 +380,7 @@ Play.prototype = {
 
        //Update ammoText
        updateAmmoText(ammoText, player);
-        
+
     }
 };
 
@@ -392,8 +410,28 @@ Lose.prototype =
 	{
 		//sends the game back to the play state
 		if(this.rkey.justPressed())
+			game.state.start(currentLevel);
+	},
+};
+var Win = function(game){};
+Win.prototype = 
+{
+	preload: function(){},
+	create: function()
+	{
+		//adds background
+		winBG = game.add.image(0,0, 'menuBackgrnd');
+
+		//adds text
+		var winTitle = game.add.text(80,80, 'You Survived!!!',
+			{font: '50px Arial', fill: '#ffffff'});
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
+			{ffont: '25px Arial', fill: '#ffffff'});
+		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+	},
+	update: function()
+	{
+		if(this.rkey.justPressed())
 			game.state.start('Play');
 	},
 };
-
-

@@ -14,6 +14,9 @@ function levelSelect(level){
         layerCollision.visible = false;
         layerCollision.debug = true;
         game.physics.arcade.enable(map);
+
+        currentLevel = 'Play';
+        nextLevel = 'Level2';
     } else if (level==2){
         map = game.add.tilemap('maptile2');
         map.addTilesetImage('Map','mapImage');
@@ -28,11 +31,31 @@ function levelSelect(level){
         layerCollision.visible = false;
         layerCollision.debug = true;
         game.physics.arcade.enable(map);
+
+        currentLevel = 'Level2';
+        nextLevel = 'Level3';
     } else if (level==3){
-    	
+    	map = game.add.tilemap('maptile3');
+		map.addTilesetImage('Map', 'mapImage');
+		map.addTilesetImage('MAIN', 'mapMAINImage');
+		layerMain = map.createLayer('3-Base');
+		layerDetail = map.createLayer('3-Detail');
+		map.addTilesetImage('Collision', 'collisionImage');
+		layerCollision = map.createLayer('3-Collision');
+
+		map.setCollisionBetween(0, 100, true,'3-Collision');
+		layerMain.resizeWorld();
+		layerCollision.visible = false;
+		layerCollision.debug = true;
+		game.physics.arcade.enable(map);
+
+		currentLevel = 'Level3';
+		nextLevel = 'Win';
+
     } else if (level==4){
-    	
+
+
     } else if (level==5){
-    	
+
     }
 }

@@ -16,7 +16,7 @@ function FastCharger(game, x, y, player, spawner) {
 	this.anchor.set(0.5);
 
 	//FastCharger properties
-    this.hp = 2;
+    this.hp = 3;
     this.playerSprite = player;
     this.enemySpawner = spawner;
     this.movementSpeed = 200;
@@ -84,7 +84,7 @@ function playerFastChargerCollision(enemy, player) {
     if(game.time.now > enemy.nextAttack) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
-        knockback(player, 300, angleToSprite(player, enemy));
+        knockback(player, 150, angleToSprite(player, enemy));
         enemy.knockedBack = true;
         knockback(enemy, 600, enemy.rotation);
         enemy.body.drag.x = 1000;

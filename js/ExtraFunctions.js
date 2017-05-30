@@ -8,9 +8,11 @@ function angleToSprite(thisSprite, targetSprite) {
 
 //find the distance between two sprites
 function distance(sprite1, sprite2) {
-    var dx = sprite1.body.x - sprite2.body.x;
-    var dy = sprite1.body.y - sprite2.body.y;
-    return Math.sqrt(dx*dx + dy*dy);
+    if(sprite1.body != null && sprite2.body!= null) {
+        var dx = sprite1.body.x - sprite2.body.x;
+        var dy = sprite1.body.y - sprite2.body.y;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
 }
 
 //this function is used to make an enemy charge at the player based on their charegeRate property
@@ -177,7 +179,11 @@ function createHealthBar(positionX, positionY, widthHP, heightHP) {
     meters.add(healthBar);
 
     //add the overlay
-    var hpOverlay = game.add.sprite(positionX-26, positionY-4, 'healthOverlay');
+    var hpOverlay = game.add.sprite(positionX-15, positionY+8, 'healthOverlay');
+    hpOverlay.anchor.setTo(.5);
+    var hpTween = game.add.tween(hpOverlay.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
+    hpTween.loop(true);
+    hpTween.yoyo(true, 0);
     hpOverlay.fixedToCamera = true;
 
 }
@@ -229,7 +235,7 @@ function dropWeapon(enemy, player) {
 
         if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
         else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
-        else if (randomWeap === 'SMG') randomSprite = 'wall';
+        else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
         else {
             new HealthPack(game, enemy.x, enemy.y);
         }

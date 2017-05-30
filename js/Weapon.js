@@ -14,6 +14,7 @@ function Weapon(game, x, y, sprite, type, player) {
 	this.anchor.set(0.5);
 	this.direction = 1;
 	this.type = type;
+	weaponGroup.add(this);
 }
 
 Weapon.prototype = Object.create(Phaser.Sprite.prototype);
@@ -34,6 +35,11 @@ Weapon.prototype.update = function() {
 	if (distance(player, this) < 50 && game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
 		player.currentWeapon = this.type;
 		player.secondWeapon = 'PISTOL';
+
+		if(!player.pickedUpFirstWeapon) {
+			player.pickedUpFirstWeapon = true;
+			destroyIndicator(player.pickup);
+		}
 		
 		// Rifle
 		if (this.type === 'RIFLE') {
@@ -51,7 +57,7 @@ Weapon.prototype.update = function() {
 
 		// SMG
 		else if (this.type === 'SMG') {
-			player.ammo = 50;
+			player.ammo = player.smgAmmoCap;
 			player.fireRate = 50;
 			player.spread = 0;
 		}
