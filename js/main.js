@@ -42,7 +42,9 @@ window.onload = function(){
     game.state.add('Play', Play);
     game.state.add('Level2', Level2);
     game.state.add('Level3', Level3);
+    game.state.add('Level4', Level4);
     game.state.add('Lose', Lose);
+    game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
     game.state.start('Boot');
 };
@@ -91,10 +93,14 @@ Preloader.prototype = {
     //level 3 tilemap
     game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
 
+    //level 4 tilemap
+    game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
+
 		game.load.image('mapImage','MapTiles.png'); //tilemap images
     	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		game.load.image('rifleSprite', 'weapon_rifle.png');
 		game.load.image('shotgunSprite', 'weapon_shotgun.png');
+    game.load.image('smgSprite', 'weapon_smg.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
 		game.load.image('button', 'button.png');
@@ -114,7 +120,11 @@ Preloader.prototype = {
         game.load.image('muzzleParticle', 'muzzleParticle.png');
         game.load.image('muzzleParticle2', 'muzzleParticle2.png');
         game.load.image('bloodParticle', 'bloodParticle.png');
-
+        game.load.image('dashParticle', 'dashParticle1.png');
+        game.load.image('dashParticle2', 'dashParticle2.png');
+        game.load.image('healthParticle', 'healthParticle.png');
+        game.load.image('healthParticle2', 'healthParticle2.png');
+        game.load.image('healthParticle3', 'healthParticle3.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
@@ -133,6 +143,9 @@ Preloader.prototype = {
 	    game.load.audio('hpPickup', ['hpPickup.mp3', 'hpPickup.ogg']);
 	    game.load.audio('escape', ['escape2.mp3', 'escape2.ogg']);
 	    game.load.audio('chooseUpgrade', ['chooseUpgrade.mp3', 'chooseUpgrade.ogg']);
+	    game.load.audio('playerHit', ['playerHit.ogg', 'playerHit.mp3']);
+	    game.load.audio('noAmmo', ['noAmmo.ogg', 'noAmmo.mp3']);
+	    game.load.audio('gunPickup', ['gunPickup.ogg', 'gunPickup.mp3']);
 
     },
     create: function(){
@@ -172,6 +185,7 @@ Menu.prototype =
     game.canvas.oncontextmenu = function (e) { 
       e.preventDefault(); 
     }
+
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
@@ -209,15 +223,13 @@ Play.prototype = {
         game.stage.setBackgroundColor('#FFFFFF');
         game.world.setBounds(0,0,world_width,world_height);
 
-
-
-
         levelSelect(1);
 
         //add audio
         playMusic = game.add.audio('playMusic');
         playMusic.volume -= .5;
         playMusic.loopFull();
+
         pistolAud = game.add.audio('pistolAud');
         pistolAud.volume -= .8;
         rifleAud = game.add.audio('rifleAud');
@@ -226,6 +238,12 @@ Play.prototype = {
         shotgunAud.volume -= .8;
         smgAud = game.add.audio('smgAud');
         smgAud.volume -= .8;
+        noAmmo = game.add.audio('noAmmo');
+        //noAmmo.volume -= .8;
+        gunPickup = game.add.audio('gunPickup');
+        //gunPickup.volume -= .8;
+        playerHit = game.add.audio('playerHit');
+        //playerHit.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
         dashAud.volume -= .5
@@ -244,6 +262,7 @@ Play.prototype = {
         escapeAud.volume = .8;
         chooseUpgradeAud = game.add.audio('chooseUpgrade');
         chooseUpgradeAud.volume = .8;
+
 
 
         //create groups
@@ -279,9 +298,6 @@ Play.prototype = {
        //the 'Level2' in the last argument is so that the EscapePoint knows what state to start when the player collides with it
        escape = new EscapePoint(game, [new SpawnPoint(38,22), new SpawnPoint(1,13), new SpawnPoint(29, 2)], player);
 
-      // var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
-       //var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);
-       //var smg = new Weapon(game, room_width/2 + 200, room_height/2, 'wall', 'SMG', player);
 
        createHealthBar();
 
@@ -418,5 +434,27 @@ Lose.prototype =
 		//sends the game back to the play state
 		if(this.rkey.justPressed())
 			game.state.start(currentLevel);
+	},
+};
+var Win = function(game){};
+Win.prototype = 
+{
+	preload: function(){},
+	create: function()
+	{
+		//adds background
+		winBG = game.add.image(0,0, 'menuBackgrnd');
+
+		//adds text
+		var winTitle = game.add.text(80,80, 'You Survived!!!',
+			{font: '50px Arial', fill: '#ffffff'});
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
+			{ffont: '25px Arial', fill: '#ffffff'});
+		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+	},
+	update: function()
+	{
+		if(this.rkey.justPressed())
+			game.state.start('Play');
 	},
 };

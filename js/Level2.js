@@ -33,15 +33,18 @@ Level2.prototype = {
 		levelSelect(2);
 
         //create groups
+        
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
         enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
+
         missileParticles = game.add.physicsGroup();
         barriers = game.add.group();
         weaponGroup = game.add.group();
 
         player = new Player(game, (3*64)+32, (1*64)+32, 200, 'atlas', 'player0001', 15);
+
         //update the player's stats
         updateStats(player, statChanger);
 
@@ -117,7 +120,7 @@ Level2.prototype = {
 	},
 
 	update: function(){
-
+    debugUpdate();
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

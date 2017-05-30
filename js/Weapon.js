@@ -35,6 +35,7 @@ Weapon.prototype.update = function() {
 	if (distance(player, this) < 50 && game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
 		player.currentWeapon = this.type;
 		player.secondWeapon = 'PISTOL';
+		gunPickup.play();
 
 		if(!player.pickedUpFirstWeapon) {
 			player.pickedUpFirstWeapon = true;

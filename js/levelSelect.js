@@ -1,5 +1,6 @@
 function levelSelect(level){
 	if(level==1){
+        
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
         map.addTilesetImage('MAIN','mapMAINImage');
@@ -49,10 +50,25 @@ function levelSelect(level){
 		game.physics.arcade.enable(map);
 
 		currentLevel = 'Level3';
-		nextLevel = 'Level3';
+		nextLevel = 'Level4';
 
     } else if (level==4){
+        map = game.add.tilemap('maptile4');
+        map.addTilesetImage('Map', 'mapImage');
+        map.addTilesetImage('MAIN', 'mapMAINImage');
+        layerMain = map.createLayer('4-Base');
+        layerDetail = map.createLayer('4-Detail');
+        map.addTilesetImage('Collision', 'collisionImage');
+        layerCollision = map.createLayer('4-Collision');
 
+        map.setCollisionBetween(0, 100, true,'4-Collision');
+        layerMain.resizeWorld();
+        layerCollision.visible = false;
+        layerCollision.debug = true;
+        game.physics.arcade.enable(map);
+
+        currentLevel = 'Level4';
+        nextLevel = 'Win';
     } else if (level==5){
 
     }
