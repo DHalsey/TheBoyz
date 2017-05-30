@@ -249,9 +249,9 @@ function updateHealthBar(widthHP, heightHP) {
 
 function createAmmoText(player) {
     
-    this.ammoText = game.add.text(1050, 30, player.currentWeapon,
+    this.ammoText = game.add.text(1133, 120, player.currentWeapon, 
         {font: '20px Arial', fill: '#ffffff'});
-    
+    this.ammoText.anchor.setTo(0.5);
     this.ammoText.fixedToCamera = true;
     return this.ammoText;
 }
@@ -264,6 +264,18 @@ function updateAmmoText(ammoText, player) {
     } else {
         ammoText.text = player.currentWeapon;
         ammoText.fill = '#ffffff';
+    }
+}
+
+function displayWeapon(player) {
+    if (player.currentWeapon == 'PISTOL') {
+        player.weaponGUI.loadTexture('wall');
+    } else if (player.currentWeapon == 'RIFLE') {
+        player.weaponGUI.loadTexture('rifleSprite');
+    } else if (player.currentWeapon == 'SHOTGUN') {
+        player.weaponGUI.loadTexture('shotgunSprite');
+    } else if (player.currentWeapon == 'SMG') {
+        player.weaponGUI.loadTexture('smgSprite');
     }
 }
 

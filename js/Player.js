@@ -58,6 +58,12 @@ function Player(game, x, y, atlas, frame, health) {
     this.reticleSpread = 1;
     this.isFiring = false;
     this.smgAmmoCap = 35;
+    this.weaponWindow = game.add.sprite(1133, 62, 'weaponWindow');
+    this.weaponWindow.fixedToCamera = true;
+    this.weaponWindow.anchor.setTo(0.5);
+    this.weaponGUI = game.add.sprite(1133, 62, 'wall');
+    this.weaponGUI.anchor.setTo(0.5);
+    this.weaponGUI.fixedToCamera = true;
 
      barrierText = game.add.text(room_width/2, room_height/2, 'You must clear all enemies before leaving!',
       {font: '25px Arial', fill: '#ffffff'});
@@ -165,6 +171,8 @@ Player.prototype.update = function() {
         } 
     }
     this.bringToTop();
+
+    displayWeapon(this);
 }
 
 Player.prototype.logRoomSwitch = function(room) {

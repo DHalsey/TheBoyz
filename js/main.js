@@ -125,6 +125,7 @@ Preloader.prototype = {
         game.load.image('healthParticle', 'healthParticle.png');
         game.load.image('healthParticle2', 'healthParticle2.png');
         game.load.image('healthParticle3', 'healthParticle3.png');
+        game.load.image('weaponWindow', 'weaponWindow.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
