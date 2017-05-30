@@ -206,6 +206,8 @@ Level2.prototype = {
             new RoomBarrier(game, 20, 18, player, room3Wave1, room3Wave2, room3Wave3);
             new RoomBarrier(game, 20, 19, player, room3Wave1, room3Wave2, room3Wave3);
             new RoomBarrier(game, 20, 20, player, room3Wave1, room3Wave2, room3Wave3);
+
+            roomThreeBarriersCreated = true;
           }
         }
         else if(player.currentRoom == 4) {
