@@ -33,15 +33,15 @@ Level2.prototype = {
 		levelSelect(2);
 
         //create groups
-        
+        bloodParticles = game.add.physicsGroup();
+        weaponGroup = game.add.group();
+        enemyGroup = game.add.physicsGroup();
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
-        enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
-
         missileParticles = game.add.physicsGroup();
+        
         barriers = game.add.group();
-        weaponGroup = game.add.group();
 
         player = new Player(game, (3*64)+32, (1*64)+32, 200, 'atlas', 'player0001', 15);
 
