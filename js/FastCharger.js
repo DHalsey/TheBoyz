@@ -77,6 +77,7 @@ FastCharger.prototype.update = function() {
             this.destroy();
         } 
     }
+    
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
@@ -95,6 +96,7 @@ function playerFastChargerCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsFastChargerCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();

@@ -63,6 +63,7 @@ BasicCharger.prototype.update = function() {
             this.destroy();
         }
    } 
+   
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
@@ -81,6 +82,7 @@ function playerBasicChargerCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsBasicChargerCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();

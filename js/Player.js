@@ -159,6 +159,7 @@ Player.prototype.update = function() {
             break;
         } 
     }
+    this.bringToTop();
 }
 
 Player.prototype.logRoomSwitch = function(room) {

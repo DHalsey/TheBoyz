@@ -10,6 +10,7 @@ var enemyMissiles;
 var barriers;
 var missileParticles;
 var weaponGroup;
+var bloodParticles;
 
 //Global variables
 var player;
@@ -112,6 +113,8 @@ Preloader.prototype = {
         game.load.image('bulletLine2', 'bulletLine2.png');
         game.load.image('muzzleParticle', 'muzzleParticle.png');
         game.load.image('muzzleParticle2', 'muzzleParticle2.png');
+        game.load.image('bloodParticle', 'bloodParticle.png');
+
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
@@ -119,7 +122,7 @@ Preloader.prototype = {
         game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
         game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
         game.load.audio('smgAud', ['smg.mp3', 'smg.ogg']);
-        game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
+      game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
 	    game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
 	    game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
 	    game.load.audio('shootMissile', ['shootMissile.mp3', 'shootMissile.ogg']);
@@ -164,6 +167,11 @@ Menu.prototype =
 
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
+
+    // Disable context menu on right click
+    game.canvas.oncontextmenu = function (e) { 
+      e.preventDefault(); 
+    }
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
@@ -239,14 +247,16 @@ Play.prototype = {
 
 
         //create groups
+        bloodParticles = game.add.physicsGroup();
+        weaponGroup = game.add.group();
+        enemyGroup = game.add.physicsGroup();
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
-        enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
         missileParticles = game.add.physicsGroup();
+        
         barriers = game.add.group();
-        weaponGroup = game.add.group();
-
+        
         player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
 
        //room 2 spawners

@@ -67,7 +67,8 @@ MissileLauncher.prototype.update = function() {
             this.enemySpawner.enemiesAlive--;
             this.destroy();
         }
-    } 
+    }
+ 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
@@ -82,6 +83,7 @@ function playerMissileLauncherCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsMissileLauncherCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();
@@ -117,3 +119,4 @@ function knockbackMissileLauncher(enemy, bullet) {
         knockback(enemy, bullet.knockbackValue, enemy.rotation);
     }
 }
+

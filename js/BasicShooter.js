@@ -68,7 +68,8 @@ BasicShooter.prototype.update = function() {
             dropWeapon(this, player);
             this.destroy();
         }
-    } 
+    }
+     
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
@@ -87,6 +88,7 @@ function playerBasicShooterCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsBasicShooterCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();
