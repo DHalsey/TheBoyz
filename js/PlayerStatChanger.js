@@ -4,7 +4,7 @@ function PlayerStatChanger() {
 	this.maxHP = 15;
 	this.shotgunPellets = 15;
 	this.rifleROF = 100;
-	this.smgAmmoCap = 35;
+	this.smgAmmoCap = 50;
 	this.canDash = false;
 	this.pistolUpgraded = false;
 }
@@ -31,7 +31,7 @@ PlayerStatChanger.prototype.changePistol = function() {
 }
 
 PlayerStatChanger.prototype.changeSMG = function() {
-	this.smgAmmoCap = 45
+	this.smgAmmoCap = 65;
 }
 
 function updateStats(player, statChanger) {
