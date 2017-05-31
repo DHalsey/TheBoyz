@@ -50,7 +50,7 @@ TankyCharger.prototype.update = function() {
         this.rotation = angleToSprite(this, this.playerSprite);
 
         //handle collision between player and enemy
-        game.physics.arcade.collide(this, this.playerSprite, playerTankyChargerCollision, null, this);
+        if(!this.playerSprite.isDashing) game.physics.arcade.collide(this, this.playerSprite, playerTankyChargerCollision, null, this);
 
         //handle collision between bullets and enemy
         game.physics.arcade.overlap(this, playerBullets, bulletsTankyChargerCollision, null, this);
@@ -67,7 +67,7 @@ TankyCharger.prototype.update = function() {
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerTankyChargerCollision(enemy, player) {
-    if(game.time.now > enemy.nextAttack) {
+    if(game.time.now > enemy.nextAttack && !player.isDashing) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         playerHit.play();

@@ -3,7 +3,7 @@ function PlayerStatChanger() {
 	this.hp = 15;
 	this.maxHP = 15;
 	this.shotgunPellets = 15;
-	this.rifleROF = 100;
+	this.rifleROF = 125;
 	this.smgAmmoCap = 50;
 	this.canDash = false;
 	this.pistolUpgraded = false;
@@ -15,11 +15,11 @@ PlayerStatChanger.prototype.changeHealth = function() {
 }
 
 PlayerStatChanger.prototype.changeShotgun = function() {
-	this.shotgunPellets = 20;
+	this.shotgunPellets = 25;
 }
 
 PlayerStatChanger.prototype.changeRifle = function() {
-	this.rifleROF = 100;
+	this.rifleROF = 85;
 }
 
 PlayerStatChanger.prototype.changeDash = function() {

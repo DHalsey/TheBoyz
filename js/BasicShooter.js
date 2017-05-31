@@ -57,7 +57,7 @@ BasicShooter.prototype.update = function() {
         this.rotation = angleToSprite(this, this.playerSprite);
 
         //handle collision between player and enemy
-        game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
+        if(!this.playerSprite.isDashing) game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
 
         //handle collision between bullets and enemy
         game.physics.arcade.overlap(this, playerBullets, bulletsBasicShooterCollision, null, this);
@@ -74,7 +74,7 @@ BasicShooter.prototype.update = function() {
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerBasicShooterCollision(enemy, player) {
-    if(game.time.now > enemy.nextAttack) {
+    if(game.time.now > enemy.nextAttack && !player.isDashing) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         playerHit.play();
