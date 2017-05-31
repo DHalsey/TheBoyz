@@ -29,6 +29,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.pickedUpFirstWeapon = false;
     this.pickup = new PickupIndicator(game, this);
     this.switchTextShown = false;
+    this.dead = false;
 
     //Player movement properties
     this.movingUp = false;
@@ -84,95 +85,99 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
-
-    //display switch weapon tutorial
-    if(this.ammo == 0 && this.pickedUpFirstWeapon && !this.switchTextShown) {
-        switchText.visible = true;
-        switchText.x = this.x;
-        switchText.y = this.y - 54;
-    } else {
+    if(!this.dead) {
+        //display switch weapon tutorial
+        if(this.ammo == 0 && this.pickedUpFirstWeapon && !this.switchTextShown) {
+            switchText.visible = true;
+            switchText.x = this.x;
+            switchText.y = this.y - 54;
+        } else {
         switchText.visible = false;
-    }
+        }
 
-    //if the player just switched rooms, stall shooting for 1 second
-    if(this.lastRoom != this.currentRoom) {
-        stallShooting(this);
-        roomSwitchAud.play();
+        //if the player just switched rooms, stall shooting for 1 second
+        if(this.lastRoom != this.currentRoom) {
+            stallShooting(this);
+            roomSwitchAud.play();
 
-        if(this.body.velocity.x > 0) knockback(this, 200, Math.PI);
-        if(this.body.velocity.x < 0) knockback(this, 200, 0);
-        if(this.body.velocity.y > 0) knockback(this, 200, (3*Math.PI)/2);
-        if(this.body.velocity.y < 0) knockback(this, 200, Math.PI/2);
+            if(this.body.velocity.x > 0) knockback(this, 200, Math.PI);
+            if(this.body.velocity.x < 0) knockback(this, 200, 0);
+            if(this.body.velocity.y > 0) knockback(this, 200, (3*Math.PI)/2);
+            if(this.body.velocity.y < 0) knockback(this, 200, Math.PI/2);
 
-        this.justSwitched = true;
-        game.time.events.add(Phaser.Timer.SECOND * .5, setSwitched, this, this);
-    }
+            this.justSwitched = true;
+            game.time.events.add(Phaser.Timer.SECOND * .5, setSwitched, this, this);
+        }
 
-    //record the last room
-    this.lastRoom = this.currentRoom;
+        //record the last room
+        this.lastRoom = this.currentRoom;
 
-	//update the player movement
-    resetMovement(this);
+        //update the player movement
+        resetMovement(this);
 
-    //WASD movement
-    if(game.input.keyboard.isDown(Phaser.Keyboard.W)) moveUp(this);
+        //WASD movement
+        if(game.input.keyboard.isDown(Phaser.Keyboard.W)) moveUp(this);
 
-    if(game.input.keyboard.isDown(Phaser.Keyboard.S)) moveDown(this);
+        if(game.input.keyboard.isDown(Phaser.Keyboard.S)) moveDown(this);
 
-    if(game.input.keyboard.isDown(Phaser.Keyboard.A)) moveLeft(this);
+        if(game.input.keyboard.isDown(Phaser.Keyboard.A)) moveLeft(this);
 
-    if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
+        if(game.input.keyboard.isDown(Phaser.Keyboard.D)) moveRight(this);
 
-    //create dash text
-    if(this.canDash && !this.dashTextCreated) createDashText(this);
+        //create dash text
+        if(this.canDash && !this.dashTextCreated) createDashText(this);
 
-    //dash ability
-    if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
-    //dash particle effect
-    if(this.isDashing) {
-        new DashParticle(game, this);
-        if(game.rnd.integerInRange(1,2) == 1) new DashParticle(game, this);
-    }
-    //Swap weapon
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
+        //dash ability
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.canDash) dash(this);
+        //dash particle effect
+        if(this.isDashing) {
+            new DashParticle(game, this);
+            if(game.rnd.integerInRange(1,2) == 1) new DashParticle(game, this);
+        }
+        //Swap weapon
+        if (game.input.keyboard.justPressed(Phaser.Keyboard.Q)) swap(this);
 
-    //make the player face the mouse
-    this.rotation = game.physics.arcade.angleToPointer(this);
+        //make the player face the mouse
+        this.rotation = game.physics.arcade.angleToPointer(this);
 
-    //shoot on mouse click
-    if(game.input.activePointer.isDown) {
-        shootWeapon(this);
-        this.isFiring = true;
-    } else this.isFiring = false;
+        //shoot on mouse click
+        if(game.input.activePointer.isDown) {
+            shootWeapon(this);
+            this.isFiring = true;
+        } else this.isFiring = false;
 
-    //handle collision between bullets and player
-    game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
+        //handle collision between bullets and player
+        game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
 
-    //collision between player and missiles
-    game.physics.arcade.overlap(this, enemyMissiles, missilesPlayerCollision, null, this);
+        //collision between player and missiles
+        game.physics.arcade.overlap(this, enemyMissiles, missilesPlayerCollision, null, this);
 
-    if(this.hp <= 0)
-        game.state.start('Lose');
+        if(this.hp <= 0) {
+            this.dead = true;
+            var tween = game.add.tween(this).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+            game.time.events.add(Phaser.Timer.SECOND * 2, startLose, this);
+        }
 
-    // Spread cooldown
-    if (player.spread > 0 && this.isFiring === false) player.spread -= 0.003;
-    if (player.spread < 0) player.spread = 0;
+        // Spread cooldown
+        if (player.spread > 0 && this.isFiring === false) player.spread -= 0.003;
+        if (player.spread < 0) player.spread = 0;
 
-    if (this.reticleSpread > 1) this.reticleSpread -= 0.05;
+        if (this.reticleSpread > 1) this.reticleSpread -= 0.05;
 
-    reticle.scale.setTo(this.reticleSpread, this.reticleSpread);
+        reticle.scale.setTo(this.reticleSpread, this.reticleSpread);
 
-    barrierText.visible = false;
-    for(var i=0; i<barriers.children.length;i++) {
-        var barrier = barriers.children[i];
-        if(distance(this, barrier) <= 100 && !this.justSwitched) {
+        barrierText.visible = false;
+        for(var i=0; i<barriers.children.length;i++) {
+            var barrier = barriers.children[i];
+            if(distance(this, barrier) <= 100 && !this.justSwitched) {
             barrierText.visible = true;
             break;
-        } 
-    }
-    this.bringToTop();
+            } 
+        }
+        this.bringToTop();
 
-    displayWeapon(this);
+        displayWeapon(this);
+    }
 }
 
 Player.prototype.logRoomSwitch = function(room) {
@@ -354,7 +359,7 @@ function bulletsPlayerCollision(player, bullet) {
 
 //handle collision between bullets group and player
 function missilesPlayerCollision(player, missile) {
-    player.hp -= missile.damage;
+    player.hp -= game.rnd.integerInRange(1,4);
     playerHit.play();
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
@@ -426,3 +431,11 @@ function setSwitched(player) {
     player.justSwitched = false;
 }
 
+function startLose() {
+    game.camera.fade('#000000');
+    game.time.events.add(Phaser.Timer.SECOND * .5, loseState, this);
+}
+
+function loseState() {
+    game.state.start('Lose');
+}

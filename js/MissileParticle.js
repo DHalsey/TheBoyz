@@ -59,12 +59,6 @@ MissileParticle.prototype.update = function() {
 				knockback(enemy, 5, this.missileRotation-Math.PI);
 			}
 	}
-
-	if(distance(player, this) <= 35) {
-		player.hp -= .05
-		playerHit.play();
-		knockback(player, 5, this.missileRotation-Math.PI);
-	}
 }
 
 function fadeParticle(particle) {
