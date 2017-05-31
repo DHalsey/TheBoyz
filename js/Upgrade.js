@@ -60,7 +60,8 @@ function upgradeHealth() {
 	var index = possibleUpgrades.indexOf('hp');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradePistol() {
@@ -68,7 +69,8 @@ function upgradePistol() {
 	var index = possibleUpgrades.indexOf('pistol');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeRifle() {
@@ -76,7 +78,8 @@ function upgradeRifle() {
 	var index = possibleUpgrades.indexOf('rifle');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeShotgun() {
@@ -84,7 +87,8 @@ function upgradeShotgun() {
 	var index = possibleUpgrades.indexOf('shotgun');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeSMG() {
@@ -92,7 +96,8 @@ function upgradeSMG() {
 	var index = possibleUpgrades.indexOf('smg');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 
@@ -101,10 +106,15 @@ function enableDash() {
 	var index = possibleUpgrades.indexOf('dash');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function skipUpgrade() {
 	roomSwitchAud.play();
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
+}
+
+function startNextLevel() {
 	game.state.start(nextLevel);
 }
