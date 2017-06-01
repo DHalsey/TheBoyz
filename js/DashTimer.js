@@ -21,8 +21,9 @@ function startDashCooldown() {
 	//dashText.text = 'Dash:  2s';
 
 	//tween meter too look blue, empty the meter
-	let tween1= game.add.tween(dashBarFull).to( {alpha:0},1,"Linear",true);
-	let tween = game.add.tween(dashBar).to( {width: 0},50, Phaser.Easing.Linear.None, true);
+	let tween1 = game.add.tween(dashBar).to( {width: 0},10,Phaser.Easing.Linear.None, true);
+	let tween2 = game.add.tween(dashBarFull).to( {width: 0},50, Phaser.Easing.Linear.None, true);
+	let tween3 = game.add.tween(dashBarFull).to( {alpha:0},1,"Linear",true);
 	game.time.events.add(Phaser.Timer.SECOND * 1, changeToOne, this);
 }
 
@@ -31,6 +32,7 @@ function changeToOne() {
 
 	// fill the meter back up
 	let tween = game.add.tween(dashBar).to( {width: 192},1000,Phaser.Easing.Linear.None,true);
+	let tween2 = game.add.tween(dashBarFull).to( {width: 192},1000,Phaser.Easing.Linear.None,true);
 	dashTimer1Aud.play();
 	game.time.events.add(Phaser.Timer.SECOND * 1, changeToReady, this);
 }
