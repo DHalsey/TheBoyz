@@ -71,14 +71,14 @@ function Player(game, x, y, atlas, frame, health) {
     this.weaponGUI.fixedToCamera = true;
 
      barrierText = game.add.text(room_width/2, room_height/2, 'You must clear all enemies before leaving!',
-      {font: '25px Arial', fill: '#ffffff'});
+      {font: '25px Aldrich', fill: '#ffffff'});
        barrierText.anchor.set(0.5);
        barrierText.fixedToCamera = true;
        barrierTween = game.add.tween(barrierText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
        barrierTween.loop(true);
        barrierTween.yoyo(true, 0);
 
-       switchText = game.add.text(this.x, this.y - 54, '            Out of Ammo!\r\nPress Q to Switch Weapons!', {font: '15px Arial', fill: '#ffffff'});
+       switchText = game.add.text(this.x, this.y - 54, '            Out of Ammo!\r\nPress Q to Switch Weapons!', {font: '15px Aldrich', fill: '#ffffff'});
        switchText.anchor.set(0.5);
        switchTween = game.add.tween(switchText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
        switchTween.loop(true);

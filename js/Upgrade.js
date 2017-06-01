@@ -12,7 +12,7 @@ Upgrade.prototype = {
 	create: function() {
 		//load background and title
 		game.add.image(0, 0, 'loadBackground');
-		game.add.text(500 - 50, 80, 'Choose an Upgrade', {fontSize: '32px', fill: "#000000"});
+		upgradeText = game.add.text(500 - 50, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
 
 		playMusic.stop();
 
@@ -42,10 +42,12 @@ Upgrade.prototype = {
 				buttonFunction = skipUpgrade;
 			}
 
-			button = game.add.button(500, possibleY[i], 'genericButton', buttonFunction, this);
+			button = game.add.button(600, possibleY[i], 'genericButton', buttonFunction, this);
+			button.anchor.setTo(0.5);
 			button.inputEnabled = true;
 			button.useHandCursor = false;
-			game.add.text(510, possibleY[i] + 25, buttonString, {fontSize: '12px', fill: '#000000'});
+			buttonText = game.add.text(button.x, possibleY[i], buttonString, {font: '18px Aldrich', fill: '#000000'});
+			buttonText.anchor.setTo(0.5);
 
 		}
 

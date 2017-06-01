@@ -171,7 +171,7 @@ Menu.prototype =
 
 		//adds menu text
 		var menuTitle = game.add.text(80, 80, 'Soccer Dragon',
-			{font: '50px Arial', fill: '#000000'});
+			{font: '50px Aldrich', fill: '#ffffff'});
 
 		//adds button to press
 		button = game.add.button(game.world.centerX, game.world.centerY,
@@ -426,9 +426,9 @@ Lose.prototype =
 
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
-			{font: '50px Arial', fill: '#ffffff'});
+			{font: '50px Aldrich', fill: '#ffffff'});
 		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
-			{font: '25px Arial', fill: '#ffffff'});
+			{font: '25px Aldrich', fill: '#ffffff'});
 
 		//adds keypress
 		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
@@ -454,9 +454,9 @@ Win.prototype =
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
-			{font: '50px Arial', fill: '#ffffff'});
+			{font: '50px Aldrich', fill: '#ffffff'});
 		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
-			{ffont: '25px Arial', fill: '#ffffff'});
+			{ffont: '25px Aldrich', fill: '#ffffff'});
 		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
 	},
 	update: function()
