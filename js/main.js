@@ -77,6 +77,7 @@ Preloader.prototype = {
 		// Load Images ----------------------------------------------------------------------------------------------------
 		game.load.path = 'assets/img/';
 		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+        game.load.spritesheet('button', 'buttonSpriteSheet.png',200,53);
 		game.load.image('enemyMissile','enemyMissile.png');
 		game.load.image('player','player.png');
 		game.load.image('enemyShooter','enemyShooter.png');
@@ -103,7 +104,6 @@ Preloader.prototype = {
     game.load.image('smgSprite', 'weapon_smg.png');
 		game.load.image('collisionImage','Collision.png'); //tilemap images
 		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
-		game.load.image('button', 'button.png');
     	game.load.image('wall', 'wall2.png');
     	game.load.image('escapeImage','escapePoint.png');
     	game.load.image('healthOverlay', 'healthBarOverlay.png');
@@ -158,7 +158,7 @@ Preloader.prototype = {
 
 
 //starts the main menu state
-var Menu = function(game){};
+var Menu = function(game){var button};
 Menu.prototype =
 {
 	preload: function(){},
@@ -173,10 +173,10 @@ Menu.prototype =
 			{font: '50px Arial', fill: '#000000'});
 
 		//adds button to press
-		this.button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this);
-        this.button.inputEnabled = true;
-        this.button.input.useHandCursor = false;
+		button = game.add.button(game.world.centerX, game.world.centerY,
+			'button', this.actionOnClick, this, 1, 0, 2);
+        button.inputEnabled = true;
+        button.input.useHandCursor = false;
 
         reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
         reticle.anchor.setTo(0.5);
@@ -193,7 +193,7 @@ Menu.prototype =
 	update: function(){
 		reticle.x = game.input.activePointer.x;
         reticle.y = game.input.activePointer.y;
-        if (reticle.overlap(this.button)) reticle.scale.setTo(1.5, 1.5);
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
         else reticle.scale.setTo(1, 1);
 	},
 
