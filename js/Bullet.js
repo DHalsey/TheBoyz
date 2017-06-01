@@ -26,11 +26,13 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 	this.fading = false;
 	this.spread = spread;
 
+	this.rotation = player.rotation;
+
 	//add to the bullets group
 	playerBullets.add(this);
 
 	//make the bullet fire at the pointer
-	toPointer(this, this.movementSpeed, undefined, undefined, this.spread);
+	this.angleVel = toPointer(this, this.movementSpeed, undefined, undefined, this.spread);
 
 	//make bullet face mouse
 	this.rotation = game.physics.arcade.angleToPointer(this);

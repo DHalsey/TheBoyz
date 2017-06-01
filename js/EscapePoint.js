@@ -47,7 +47,7 @@ EscapePoint.prototype.update = function() {
     }
 
 	//handle collision between player and EscapePoint
-    game.physics.arcade.collide(this, this.playerSprite, startNewState, null, this);
+    game.physics.arcade.collide(this, this.playerSprite, escapeFade, null, this);
 }
 
 //this function checks if all enemies in the room are dead
@@ -62,9 +62,15 @@ function checkEscapeStatus(statusArray) {
 }
 
 function startNewState(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus)) {
-		escapeAud.play();
+		reticle.destroy();
 		game.state.start('Upgrade');
+}
+
+function escapeFade(escapePoint, player) {
+	if(checkEscapeStatus(escapePoint.spawnerStatus)){
+		game.camera.fade('#000000');
+		game.camera.onFadeComplete.add(startNewState, this, escapePoint, player);
+		escapeAud.play();
 	}
 }
 

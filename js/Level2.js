@@ -23,6 +23,8 @@ Level2.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        playMusic.loopFull();
+
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -33,15 +35,15 @@ Level2.prototype = {
 		levelSelect(2);
 
         //create groups
-        
+        bloodParticles = game.add.physicsGroup();
+        weaponGroup = game.add.group();
+        enemyGroup = game.add.physicsGroup();
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
-        enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
-
         missileParticles = game.add.physicsGroup();
+        
         barriers = game.add.group();
-        weaponGroup = game.add.group();
 
         player = new Player(game, (3*64)+32, (1*64)+32, 200, 'atlas', 'player0001', 15);
 
@@ -95,7 +97,7 @@ Level2.prototype = {
         room8Wave2 = new EnemySpawner(['TankyCharger', 'TankyCharger', 'TankyCharger', 'TankyCharger'], [new SpawnPoint(21,42), new SpawnPoint(23,39), new SpawnPoint(27,38), new SpawnPoint(32,37), new SpawnPoint(35,38), new SpawnPoint(37,39)], player);
 
         //spawn in the escape point
-        escape = new EscapePoint(game, [new SpawnPoint(38,6), new SpawnPoint(2,33), new SpawnPoint(2, 33), new SpawnPoint(2,37), new SpawnPoint(2,37)], player);
+        escape = new EscapePoint(game, [new SpawnPoint(38,6), new SpawnPoint(18,26), new SpawnPoint(2, 33), new SpawnPoint(2,37), new SpawnPoint(2,37)], player);
 
        createHealthBar();
 
@@ -206,6 +208,8 @@ Level2.prototype = {
             new RoomBarrier(game, 20, 18, player, room3Wave1, room3Wave2, room3Wave3);
             new RoomBarrier(game, 20, 19, player, room3Wave1, room3Wave2, room3Wave3);
             new RoomBarrier(game, 20, 20, player, room3Wave1, room3Wave2, room3Wave3);
+
+            roomThreeBarriersCreated = true;
           }
         }
         else if(player.currentRoom == 4) {

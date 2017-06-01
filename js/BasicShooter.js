@@ -25,7 +25,7 @@ function BasicShooter(game, x, y, player, spawner) {
     this.fireRate = 800;
     this.knockedBack = false;
     this.distanceToPlayer = 0;
-    this.range = 450;
+    this.range = 750;
 }
 
 BasicShooter.prototype = Object.create(Phaser.Sprite.prototype);
@@ -57,7 +57,7 @@ BasicShooter.prototype.update = function() {
         this.rotation = angleToSprite(this, this.playerSprite);
 
         //handle collision between player and enemy
-        game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
+        if(!this.playerSprite.isDashing) game.physics.arcade.collide(this, this.playerSprite, playerBasicShooterCollision, null, this);
 
         //handle collision between bullets and enemy
         game.physics.arcade.overlap(this, playerBullets, bulletsBasicShooterCollision, null, this);
@@ -68,15 +68,17 @@ BasicShooter.prototype.update = function() {
             dropWeapon(this, player);
             this.destroy();
         }
-    } 
+    }
+     
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerBasicShooterCollision(enemy, player) {
-    if(game.time.now > enemy.nextAttack) {
+    if(game.time.now > enemy.nextAttack && !player.isDashing) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         playerHit.play();
+        game.camera.shake(0.016, 100);
         knockback(player, 500, angleToSprite(player, enemy));
         enemy.knockedBack = true;
         knockback(enemy, 500, enemy.rotation);
@@ -88,6 +90,7 @@ function playerBasicShooterCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsBasicShooterCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();

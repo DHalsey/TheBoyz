@@ -14,6 +14,8 @@ Upgrade.prototype = {
 		game.add.image(0, 0, 'loadBackground');
 		game.add.text(500 - 50, 80, 'Choose an Upgrade', {fontSize: '32px', fill: "#000000"});
 
+		playMusic.stop();
+
 		for(var i=0; i<possibleUpgrades.length; i++) {
 
 			if(possibleUpgrades[i] === 'hp') {
@@ -45,9 +47,10 @@ Upgrade.prototype = {
 			button.useHandCursor = false;
 			game.add.text(510, possibleY[i] + 25, buttonString, {fontSize: '12px', fill: '#000000'});
 
-			reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
-      		reticle.anchor.setTo(0.5);
 		}
+
+		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+      	reticle.anchor.setTo(0.5);
 	},
 	update: function() {
 	   reticle.x = game.input.activePointer.x + game.camera.x;
@@ -60,7 +63,8 @@ function upgradeHealth() {
 	var index = possibleUpgrades.indexOf('hp');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradePistol() {
@@ -68,7 +72,8 @@ function upgradePistol() {
 	var index = possibleUpgrades.indexOf('pistol');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeRifle() {
@@ -76,7 +81,8 @@ function upgradeRifle() {
 	var index = possibleUpgrades.indexOf('rifle');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeShotgun() {
@@ -84,7 +90,8 @@ function upgradeShotgun() {
 	var index = possibleUpgrades.indexOf('shotgun');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function upgradeSMG() {
@@ -92,7 +99,8 @@ function upgradeSMG() {
 	var index = possibleUpgrades.indexOf('smg');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 
@@ -101,10 +109,16 @@ function enableDash() {
 	var index = possibleUpgrades.indexOf('dash');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	game.state.start(nextLevel);
+	game.camera.fade('#000000');
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
 }
 
 function skipUpgrade() {
 	roomSwitchAud.play();
+	game.time.events.add(Phaser.Timer.SECOND * .5, startNextLevel, this);
+}
+
+function startNextLevel() {
+	reticle.destroy();
 	game.state.start(nextLevel);
 }

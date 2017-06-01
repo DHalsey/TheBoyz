@@ -57,7 +57,7 @@ MissileLauncher.prototype.update = function() {
         this.rotation = angleToSprite(this, this.playerSprite);
 
         //handle collision between player and enemy
-        game.physics.arcade.collide(this, this.playerSprite, playerMissileLauncherCollision, null, this);
+        if(!this.playerSprite.isDashing) game.physics.arcade.collide(this, this.playerSprite, playerMissileLauncherCollision, null, this);
 
         //handle collision between bullets and enemy
         game.physics.arcade.overlap(this, playerBullets, bulletsMissileLauncherCollision, null, this);
@@ -67,15 +67,17 @@ MissileLauncher.prototype.update = function() {
             this.enemySpawner.enemiesAlive--;
             this.destroy();
         }
-    } 
+    }
+ 
 }
 
 //when player and enemy1 collide, player hp is decremented and both get knocked back
 function playerMissileLauncherCollision(enemy, player) {
-    if(game.time.now > enemy.nextAttack) {
+    if(game.time.now > enemy.nextAttack && !player.isDashing) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         playerHit.play();
+        game.camera.shake(0.016, 100);
         knockback(player, 500, angleToSprite(player, enemy));
         console.log("Player HP: " + player.hp); //just for testing
     }
@@ -83,6 +85,7 @@ function playerMissileLauncherCollision(enemy, player) {
 
 //handle collision between bullets group and enemy1
 function bulletsMissileLauncherCollision(enemy, bullet) {
+    makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
     hitMarker.play();
@@ -118,3 +121,4 @@ function knockbackMissileLauncher(enemy, bullet) {
         knockback(enemy, bullet.knockbackValue, enemy.rotation);
     }
 }
+

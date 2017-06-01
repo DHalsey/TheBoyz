@@ -23,6 +23,8 @@ Level3.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        playMusic.loopFull();
+
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -33,13 +35,15 @@ Level3.prototype = {
 		levelSelect(3);
 
         //create groups
+        bloodParticles = game.add.physicsGroup();
+        weaponGroup = game.add.group();
+        enemyGroup = game.add.physicsGroup();
         playerBullets = game.add.physicsGroup();
         enemyBullets = game.add.physicsGroup();
-        enemyGroup = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
         missileParticles = game.add.physicsGroup();
+        
         barriers = game.add.group();
-        weaponGroup = game.add.group();
 
         player = new Player(game, (7*64)+32, (5*64)+32, 'atlas', 'player0001', 10);
         //update the player's stats
