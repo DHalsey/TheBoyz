@@ -126,6 +126,8 @@ Preloader.prototype = {
         game.load.image('healthParticle2', 'healthParticle2.png');
         game.load.image('healthParticle3', 'healthParticle3.png');
         game.load.image('weaponWindow', 'weaponWindow.png');
+        game.load.image('DashMeter', 'DashMeter.png');
+        game.load.image('DashMeterFull', 'DashMeterFull.png');
 
         // Load Audio ----------------------------------------------------------------------------------------------------
         game.load.path = 'assets/audio/';
@@ -183,8 +185,8 @@ Menu.prototype =
     statChanger = new PlayerStatChanger();
 
     // Disable context menu on right click
-    game.canvas.oncontextmenu = function (e) { 
-      e.preventDefault(); 
+    game.canvas.oncontextmenu = function (e) {
+      e.preventDefault();
     }
 
 	},
@@ -274,9 +276,9 @@ Play.prototype = {
         enemyBullets = game.add.physicsGroup();
         enemyMissiles = game.add.physicsGroup();
         missileParticles = game.add.physicsGroup();
-        
+
         barriers = game.add.group();
-        
+
         player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
 
        //room 2 spawners
@@ -438,7 +440,7 @@ Lose.prototype =
 	},
 };
 var Win = function(game){};
-Win.prototype = 
+Win.prototype =
 {
 	preload: function(){},
 	create: function()

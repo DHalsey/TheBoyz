@@ -248,8 +248,8 @@ function updateHealthBar(widthHP, heightHP) {
 }
 
 function createAmmoText(player) {
-    
-    this.ammoText = game.add.text(1133, 120, player.currentWeapon, 
+
+    this.ammoText = game.add.text(1133, 120, player.currentWeapon,
         {font: '20px Arial', fill: '#ffffff'});
     this.ammoText.anchor.setTo(0.5);
     this.ammoText.fixedToCamera = true;
@@ -281,7 +281,7 @@ function displayWeapon(player) {
 
 // Enemies' weapon drop function
 function dropWeapon(enemy, player) {
-    
+
     var weapons = ['RIFLE', 'SHOTGUN', 'SMG', 'healthPack'];
     var randomNumber = game.rnd.realInRange(0,1);
     var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
@@ -296,11 +296,11 @@ function dropWeapon(enemy, player) {
         else {
             new HealthPack(game, enemy.x, enemy.y);
         }
-        
+
         if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
     }
 
-    
+
 }
 
 //makes an enemy aggro
