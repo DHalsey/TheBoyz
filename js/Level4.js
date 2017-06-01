@@ -71,7 +71,7 @@ Level4.prototype = {
        room2Wave3 = new EnemySpawner(['MissileLauncher', 'MissileLauncher', 'MissileLauncher', 'MissileLauncher'], room2Points, player);
 
        //Room 3 spawners
-       room3Wave1 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger'], [new SpawnPoint(43,7), new SpawnPoint(42,6), new SpawnPoint(41,5), new SpawnPoint(40,4), new SpawnPoint(39,3)], player);
+       room3Wave1 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger', 'BasicCharger'], [new SpawnPoint(43,8), new SpawnPoint(44,7), new SpawnPoint(45,6), new SpawnPoint(46,5), new SpawnPoint(47,4)], player);
        room3Wave2 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'TankyCharger', 'TankyCharger', 'BasicCharger'], [new SpawnPoint(54,9), new SpawnPoint(55,8), new SpawnPoint(56,7), new SpawnPoint(57,6), new SpawnPoint(58,5)], player);
        room3Wave3 = new EnemySpawner(['BasicCharger', 'BasicCharger', 'FastCharger', 'FastCharger', 'FastCharger'], [new SpawnPoint(44,6), new SpawnPoint(45,7), new SpawnPoint(46,8), new SpawnPoint(47,9), new SpawnPoint(48,10)], player);
 
@@ -89,11 +89,11 @@ Level4.prototype = {
        room5Wave2 = new EnemySpawner(['MissileLauncher', 'BasicShooter', 'BasicCharger', 'FastCharger', 'TankyCharger'], room5Points, player);
 
        //Room 6 spawners
-       room6Wave1Ranged = new EnemySpawner(['BasicShooter', 'BasicShooter'], [new SpawnPoint(56,13), new SpawnPoint(57,13), new SpawnPoint(58,14)], player);
+       room6Wave1Ranged = new EnemySpawner(['BasicShooter', 'BasicShooter'], [new SpawnPoint(56,13), new SpawnPoint(57,14), new SpawnPoint(58,15)], player);
        room6Wave1 = new EnemySpawner(['BasicCharger', 'TankyCharger', 'TankyCharger'], [new SpawnPoint(42,14), new SpawnPoint(43,18), new SpawnPoint(43,21), new SpawnPoint(48,20), new SpawnPoint(51,14), new SpawnPoint(54,21), new SpawnPoint(55,16)], player);
-       room6Wave2Ranged = new EnemySpawner(['MissileLauncher', 'MissileLauncher'], [new SpawnPoint(56,13), new SpawnPoint(57,13), new SpawnPoint(58,14)], player);
+       room6Wave2Ranged = new EnemySpawner(['MissileLauncher', 'MissileLauncher'], [new SpawnPoint(56,13), new SpawnPoint(57,14), new SpawnPoint(58,15)], player);
        room6Wave2 = new EnemySpawner(['FastCharger', 'TankyCharger', 'TankyCharger'], [new SpawnPoint(42,14), new SpawnPoint(43,18), new SpawnPoint(43,21), new SpawnPoint(48,20), new SpawnPoint(51,14), new SpawnPoint(54,21), new SpawnPoint(55,16)], player);
-       room6Wave3Ranged = new EnemySpawner(['BasicShooter', 'MissileLauncher', 'MissileLauncher'], [new SpawnPoint(56,13), new SpawnPoint(57,13), new SpawnPoint(58,14)], player);
+       room6Wave3Ranged = new EnemySpawner(['BasicShooter', 'MissileLauncher', 'MissileLauncher'], [new SpawnPoint(56,13), new SpawnPoint(57,14), new SpawnPoint(58,15)], player);
        room6Wave3 = new EnemySpawner(['BasicCharger', 'TankyCharger', 'TankyCharger', 'FastCharger'], [new SpawnPoint(42,14), new SpawnPoint(43,18), new SpawnPoint(43,21), new SpawnPoint(48,20), new SpawnPoint(51,14), new SpawnPoint(54,21), new SpawnPoint(55,16)], player);
 
        //Room 7 Spawners
