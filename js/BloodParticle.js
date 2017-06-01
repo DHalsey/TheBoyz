@@ -13,7 +13,7 @@ function BloodParticle(bullet, enemy, size) {
 	this.angleVel = bullet.angleVel;
 
 	shootParticle(this, this.angleVel, this.movementSpeed, this.spread);
-	game.add.tween(this).to( { alpha: 0 }, 5000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+	game.add.tween(this).to( { alpha: 0 }, 7000, Phaser.Easing.Linear.None, true, 0, 3000, false);
 }
 
 BloodParticle.prototype = Object.create(Phaser.Sprite.prototype);

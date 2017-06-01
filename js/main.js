@@ -64,77 +64,77 @@ Boot.prototype = {
 var Preloader = function(game) {};
 Preloader.prototype = {
 	preload: function(){
-        //add loading screen background
-        game.add.image(0, 0, 'loadBackground');
+      //add loading screen background
+      game.add.image(0, 0, 'loadBackground');
 
-        //display text
-        game.add.text(20, 20, 'Loading...', {fontSize: '32px', fill: 'white'});
+      //display text
+      game.add.text(20, 20, 'Loading...', {fontSize: '32px', fill: 'white'});
 
-       // add preloader bar and set as preloader sprite (auto-crops sprite)
-        var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
-        game.load.setPreloadSprite(preloadBar);
+      // add preloader bar and set as preloader sprite (auto-crops sprite)
+      var preloadBar = game.add.sprite(game.world.centerX-100, game.world.centerY,'loadbar');
+      game.load.setPreloadSprite(preloadBar);
 
-		// Load Images ----------------------------------------------------------------------------------------------------
-		game.load.path = 'assets/img/';
-		game.load.atlas('atlas', 'atlas.png', 'atlas.json');
-		game.load.image('enemyMissile','enemyMissile.png');
-		game.load.image('player','player.png');
-		game.load.image('enemyShooter','enemyShooter.png');
-		game.load.image('enemyTank','enemyTank.png');
-		game.load.image('enemyCharger','enemyCharger.png');
-		game.load.image('enemyFastCharger','enemyFastCharger.png');
+		  // Load Images ----------------------------------------------------------------------------------------------------
+		  game.load.path = 'assets/img/';
+		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+		  game.load.image('enemyMissile','enemyMissile.png');
+		  game.load.image('player','player.png');
+		  game.load.image('enemyShooter','enemyShooter.png');
+		  game.load.image('enemyTank','enemyTank.png');
+		  game.load.image('enemyCharger','enemyCharger.png');
+		  game.load.image('enemyFastCharger','enemyFastCharger.png');
 
-    //level 1 tilemap
-		game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
+      //level 1 tilemap
+		  game.load.tilemap('maptile','map.json',null,Phaser.Tilemap.TILED_JSON); //tilemap information for tiling
 
-    //level 2 tilemap
-    game.load.tilemap('maptile2', 'AustinMap.json', null, Phaser.Tilemap.TILED_JSON);
+      //level 2 tilemap
+      game.load.tilemap('maptile2', 'AustinMap.json', null, Phaser.Tilemap.TILED_JSON);
 
-    //level 3 tilemap
-    game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
+      //level 3 tilemap
+      game.load.tilemap('maptile3', 'Level3Map.json', null, Phaser.Tilemap.TILED_JSON);
 
-    //level 4 tilemap
-    game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
+      //level 4 tilemap
+      game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
 
-		game.load.image('mapImage','MapTiles.png'); //tilemap images
-    	game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
-		game.load.image('rifleSprite', 'weapon_rifle.png');
-		game.load.image('shotgunSprite', 'weapon_shotgun.png');
-    game.load.image('smgSprite', 'weapon_smg.png');
-		game.load.image('collisionImage','Collision.png'); //tilemap images
-		game.load.image('menuBackgrnd', 'menuBackgrnd.png');
-		game.load.image('button', 'button.png');
-    	game.load.image('wall', 'wall2.png');
-    	game.load.image('escapeImage','escapePoint.png');
-    	game.load.image('healthOverlay', 'healthBarOverlay.png');
-   		game.load.image('barrier', 'barrier2.png');
-    	game.load.image('missileParticle1', 'missileParticle3.png');
-      	game.load.image('missileParticle2', 'missileParticle5.png');
-        game.load.image('missileParticle3', 'missileParticle1.png');
-        game.load.image('missileParticle4', 'missileParticle2.png');
-        game.load.image('genericButton', 'genericButton.png');
-        game.load.image('reticle', 'reticle.png');
-        game.load.image('pressE', 'tempEKey.png');
-        game.load.image('bulletLine', 'bulletLine.png');
-        game.load.image('bulletLine2', 'bulletLine2.png');
-        game.load.image('muzzleParticle', 'muzzleParticle.png');
-        game.load.image('muzzleParticle2', 'muzzleParticle2.png');
-        game.load.image('bloodParticle', 'bloodParticle.png');
-        game.load.image('dashParticle', 'dashParticle1.png');
-        game.load.image('dashParticle2', 'dashParticle2.png');
-        game.load.image('healthParticle', 'healthParticle.png');
-        game.load.image('healthParticle2', 'healthParticle2.png');
-        game.load.image('healthParticle3', 'healthParticle3.png');
-        game.load.image('weaponWindow', 'weaponWindow.png');
-        game.load.image('DashMeter', 'DashMeter.png');
-        game.load.image('DashMeterFull', 'DashMeterFull.png');
+		  game.load.image('mapImage','MapTiles.png'); //tilemap images
+      game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
+		  game.load.image('rifleSprite', 'weapon_rifle.png');
+		  game.load.image('shotgunSprite', 'weapon_shotgun.png');
+      game.load.image('smgSprite', 'weapon_smg.png');
+		  game.load.image('collisionImage','Collision.png'); //tilemap images
+		  game.load.image('menuBackgrnd', 'menuBackgrnd.png');
+		  game.load.image('button', 'button.png');
+      game.load.image('wall', 'wall2.png');
+      game.load.image('escapeImage','escapePoint.png');
+      game.load.image('healthOverlay', 'healthBarOverlay.png');
+   	  game.load.image('barrier', 'barrier2.png');
+      game.load.image('missileParticle1', 'missileParticle3.png');
+      game.load.image('missileParticle2', 'missileParticle5.png');
+      game.load.image('missileParticle3', 'missileParticle1.png');
+      game.load.image('missileParticle4', 'missileParticle2.png');
+      game.load.image('genericButton', 'genericButton.png');
+      game.load.image('reticle', 'reticle.png');
+      game.load.image('pressE', 'tempEKey.png');
+      game.load.image('bulletLine', 'bulletLine.png');
+      game.load.image('bulletLine2', 'bulletLine2.png');
+      game.load.image('muzzleParticle', 'muzzleParticle.png');
+      game.load.image('muzzleParticle2', 'muzzleParticle2.png');
+      game.load.image('bloodParticle', 'bloodParticle.png');
+      game.load.image('dashParticle', 'dashParticle1.png');
+      game.load.image('dashParticle2', 'dashParticle2.png');
+      game.load.image('healthParticle', 'healthParticle.png');
+      game.load.image('healthParticle2', 'healthParticle2.png');
+      game.load.image('healthParticle3', 'healthParticle3.png');
+      game.load.image('weaponWindow', 'weaponWindow.png');
+      game.load.image('DashMeter', 'DashMeter.png');
+      game.load.image('DashMeterFull', 'DashMeterFull.png');
 
-        // Load Audio ----------------------------------------------------------------------------------------------------
-        game.load.path = 'assets/audio/';
-        game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
-        game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
-        game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
-        game.load.audio('smgAud', ['smg.mp3', 'smg.ogg']);
+      // Load Audio ----------------------------------------------------------------------------------------------------
+      game.load.path = 'assets/audio/';
+      game.load.audio('pistolAud', ['pistol.mp3', 'pistol.ogg']);
+      game.load.audio('shotgunAud', ['shotgun.mp3', 'shotgun.ogg']);
+      game.load.audio('rifleAud', ['rifle.mp3', 'rifle.ogg']);
+      game.load.audio('smgAud', ['smg.mp3', 'smg.ogg']);
       game.load.audio('hitMarker', ['hitmarker.mp3', 'hitmarker.ogg']);
 	    game.load.audio('dash2', ['dash2.mp3', 'dash2.ogg']);
 	    game.load.audio('missileExplosion', ['missileExplosion.mp3', 'missileExplosion.ogg']);
@@ -199,7 +199,8 @@ Menu.prototype =
 
 	actionOnClick: function()
 	{
-		game.state.start('Play');
+		reticle.destroy();
+    game.state.start('Play');
 	},
 };
 
@@ -230,17 +231,17 @@ Play.prototype = {
 
         //add audio
         playMusic = game.add.audio('playMusic');
-        playMusic.volume -= .5;
+        playMusic.volume = 0.5;
         playMusic.loopFull();
 
         pistolAud = game.add.audio('pistolAud');
-        pistolAud.volume -= .8;
+        pistolAud.volume = 0.2;
         rifleAud = game.add.audio('rifleAud');
-        rifleAud.volume -= .8;
+        rifleAud.volume = 0.2;
         shotgunAud = game.add.audio('shotgunAud');
-        shotgunAud.volume -= .8;
+        shotgunAud.volume = 0.2;
         smgAud = game.add.audio('smgAud');
-        smgAud.volume -= .8;
+        smgAud.volume = 0.2;
         noAmmo = game.add.audio('noAmmo');
         //noAmmo.volume -= .8;
         gunPickup = game.add.audio('gunPickup');
@@ -249,24 +250,22 @@ Play.prototype = {
         //playerHit.volume -= .8;
         hitMarker = game.add.audio('hitMarker');
         dashAud = game.add.audio('dash2');
-        dashAud.volume -= .5
+        dashAud.volume = 0.5;
         shootMissileAud = game.add.audio('shootMissile');
-        shootMissileAud.volume -= .8;
+        shootMissileAud.volume = 0.2;
         missileExplosionAud = game.add.audio('missileExplosion');
-        missileExplosionAud.volume -= .8;
+        missileExplosionAud.volume = 0.2;
         dashTimer1Aud = game.add.audio('dashTimer1');
-        dashTimer1Aud.volume -= .7;
+        dashTimer1Aud.volume = 0.3;
         dashTimer2Aud = game.add.audio('dashTimer2');
-        dashTimer2Aud.volume -= .7;
+        dashTimer2Aud.volume = 0.3;
         roomSwitchAud = game.add.audio('woosh');
         hpPickupAud = game.add.audio('hpPickup');
-        hpPickupAud.volume = .8;
+        hpPickupAud.volume = 0.3;
         escapeAud = game.add.audio('escape');
-        escapeAud.volume = .8;
+        escapeAud.volume = 0.3;
         chooseUpgradeAud = game.add.audio('chooseUpgrade');
-        chooseUpgradeAud.volume = .8;
-
-
+        chooseUpgradeAud.volume = 0.3;
 
         //create groups
         bloodParticles = game.add.physicsGroup();

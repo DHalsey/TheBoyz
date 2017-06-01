@@ -78,6 +78,7 @@ function playerBasicShooterCollision(enemy, player) {
         enemy.nextAttack = game.time.now + enemy.attackRate;
         player.hp --;
         playerHit.play();
+        game.camera.shake(0.016, 100);
         knockback(player, 500, angleToSprite(player, enemy));
         enemy.knockedBack = true;
         knockback(enemy, 500, enemy.rotation);

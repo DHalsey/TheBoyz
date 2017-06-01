@@ -144,7 +144,11 @@ Player.prototype.update = function() {
         if(game.input.activePointer.isDown) {
             shootWeapon(this);
             this.isFiring = true;
-        } else this.isFiring = false;
+            playMusic.volume = 0.4;
+        } else {
+            this.isFiring = false;
+            playMusic.volume = 0.5;
+        }
 
         //handle collision between bullets and player
         game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
@@ -290,7 +294,7 @@ function twoRoundBurst(player) {
 function shootRifle(player) {
     if (game.time.now > player.nextFire) {
             if(player.ammo > 0){
-            knockback(player, 200, player.rotation);
+            knockback(player, 150, player.rotation); //200
             player.nextFire = game.time.now + player.fireRate;
             game.camera.shake(0.01, 100);
             rifleAud.play();
@@ -330,7 +334,7 @@ function shootShotgun(player) {
 function shootSMG(player) {
     if (game.time.now > player.nextFire) {
         if(player.ammo > 0){
-            knockback(player, 100, player.rotation);
+            knockback(player, 75, player.rotation);
             player.nextFire = game.time.now + player.fireRate;
             game.camera.shake(0.008, 100);
             smgAud.play();
@@ -350,6 +354,7 @@ function bulletsPlayerCollision(player, bullet) {
     bullet.destroy();
     player.hp -= bullet.damage;
     playerHit.play();
+    game.camera.shake(0.016, 100);
 
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
@@ -361,6 +366,8 @@ function bulletsPlayerCollision(player, bullet) {
 function missilesPlayerCollision(player, missile) {
     player.hp -= game.rnd.integerInRange(1,4);
     playerHit.play();
+    game.camera.shake(0.016, 100);
+
     //knock back the player based on the bullet's trajectory
     player.knockedBack = true;
     knockback(player, 600, missile.rotation - Math.PI);

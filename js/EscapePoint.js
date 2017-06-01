@@ -62,6 +62,7 @@ function checkEscapeStatus(statusArray) {
 }
 
 function startNewState(escapePoint, player) {
+		reticle.destroy();
 		game.state.start('Upgrade');
 }
 
