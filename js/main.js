@@ -64,6 +64,7 @@ Boot.prototype = {
 var Preloader = function(game) {};
 Preloader.prototype = {
 	preload: function(){
+
       //add loading screen background
       game.add.image(0, 0, 'loadBackground');
 
@@ -158,7 +159,7 @@ Preloader.prototype = {
 
 
 //starts the main menu state
-var Menu = function(game){};
+var Menu = function(game){var button};
 Menu.prototype =
 {
 	preload: function(){},
@@ -173,10 +174,10 @@ Menu.prototype =
 			{font: '50px Arial', fill: '#000000'});
 
 		//adds button to press
-		this.button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this);
-        this.button.inputEnabled = true;
-        this.button.input.useHandCursor = false;
+		button = game.add.button(game.world.centerX, game.world.centerY,
+			'button', this.actionOnClick, this, 1, 0, 2);
+        button.inputEnabled = true;
+        button.input.useHandCursor = false;
 
         reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
         reticle.anchor.setTo(0.5);
@@ -193,7 +194,7 @@ Menu.prototype =
 	update: function(){
 		reticle.x = game.input.activePointer.x;
         reticle.y = game.input.activePointer.y;
-        if (reticle.overlap(this.button)) reticle.scale.setTo(1.5, 1.5);
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
         else reticle.scale.setTo(1, 1);
 	},
 
