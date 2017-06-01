@@ -112,11 +112,18 @@ function destroyMissile(missile) {
    missileParticleExplosion(missile)
    missileExplosionAud.play();
 
+   if(distance(player, missile) <= 120) {
+   	player.hp -= game.rnd.integerInRange(1,2);
+   	playerHit.play();
+    game.camera.shake(0.016, 100);
+   }
+
    enemyMissiles.remove(missile);
    for(var i=0; i<enemyMissiles.children.length; i++) {
    		var missile2 = enemyMissiles.children[i];
-   		if(distance(missile, missile2) <= 75) {
-   			game.time.events.add(Phaser.Timer.SECOND * .3, destroyMissile, this, missile2);
+   		if(distance(missile, missile2) <= 125) {
+   			game.time.events.add(Phaser.Timer.SECOND * .1, destroyMissile, this, missile2);
+   			break;
    		}
    }
 
