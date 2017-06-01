@@ -59,6 +59,10 @@ function Player(game, x, y, atlas, frame, health) {
     this.reticleSpread = 1;
     this.isFiring = false;
     this.smgAmmoCap = 50;
+    this.weaponBackground = game.add.sprite(1133, 62, 'collisionImage');
+    this.weaponBackground.alpha = 0;
+    this.weaponBackground.anchor.setTo(0.5);
+    this.weaponBackground.fixedToCamera = true;
     this.weaponWindow = game.add.sprite(1133, 62, 'weaponWindow');
     this.weaponWindow.fixedToCamera = true;
     this.weaponWindow.anchor.setTo(0.5);

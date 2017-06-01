@@ -422,6 +422,8 @@ Lose.prototype =
 		//adds background
 		loseBG = game.add.image(0,0, 'menuBackgrnd');
 
+    playMusic.stop();
+
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
 			{font: '50px Arial', fill: '#ffffff'});
@@ -447,6 +449,8 @@ Win.prototype =
 	{
 		//adds background
 		winBG = game.add.image(0,0, 'menuBackgrnd');
+
+    playMusic.stop();
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',

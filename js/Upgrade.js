@@ -14,6 +14,8 @@ Upgrade.prototype = {
 		game.add.image(0, 0, 'loadBackground');
 		game.add.text(500 - 50, 80, 'Choose an Upgrade', {fontSize: '32px', fill: "#000000"});
 
+		playMusic.stop();
+
 		for(var i=0; i<possibleUpgrades.length; i++) {
 
 			if(possibleUpgrades[i] === 'hp') {

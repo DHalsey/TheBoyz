@@ -23,6 +23,8 @@ Level2.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        playMusic.loopFull();
+
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
 

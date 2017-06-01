@@ -259,8 +259,15 @@ function createAmmoText(player) {
 function updateAmmoText(ammoText, player) {
     if (player.currentWeapon != 'PISTOL') {
         ammoText.text = player.currentWeapon + '   ' + player.ammo;
-        if (player.ammo <= 0) ammoText.fill = '#ff0000';
-            else ammoText.fill = '#ffffff';
+        if (player.ammo <= 0) {
+            ammoText.fill = '#ff0000';
+            ammoText.fontWeight = 'bold';
+            player.weaponBackground.alpha = 0.90;
+        } else {
+            ammoText.fill = '#ffffff';
+            ammoText.fontWeight = 'normal';
+            player.weaponBackground.alpha = 0;
+        }
     } else {
         ammoText.text = player.currentWeapon;
         ammoText.fill = '#ffffff';
