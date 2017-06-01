@@ -147,10 +147,10 @@ Player.prototype.update = function() {
         } else this.isFiring = false;
 
         //handle collision between bullets and player
-        game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
+        if(!this.isDashing) game.physics.arcade.overlap(this, enemyBullets, bulletsPlayerCollision, null, this);
 
         //collision between player and missiles
-        game.physics.arcade.overlap(this, enemyMissiles, missilesPlayerCollision, null, this);
+        if(!this.isDashing) game.physics.arcade.overlap(this, enemyMissiles, missilesPlayerCollision, null, this);
 
         if(this.hp <= 0) {
             this.dead = true;

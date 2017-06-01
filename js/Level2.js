@@ -95,7 +95,7 @@ Level2.prototype = {
         room8Wave2 = new EnemySpawner(['TankyCharger', 'TankyCharger', 'TankyCharger', 'TankyCharger'], [new SpawnPoint(21,42), new SpawnPoint(23,39), new SpawnPoint(27,38), new SpawnPoint(32,37), new SpawnPoint(35,38), new SpawnPoint(37,39)], player);
 
         //spawn in the escape point
-        escape = new EscapePoint(game, [new SpawnPoint(38,6), new SpawnPoint(2,33), new SpawnPoint(2, 33), new SpawnPoint(2,37), new SpawnPoint(2,37)], player);
+        escape = new EscapePoint(game, [new SpawnPoint(38,6), new SpawnPoint(18,26), new SpawnPoint(2, 33), new SpawnPoint(2,37), new SpawnPoint(2,37)], player);
 
        createHealthBar();
 

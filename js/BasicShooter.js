@@ -25,7 +25,7 @@ function BasicShooter(game, x, y, player, spawner) {
     this.fireRate = 800;
     this.knockedBack = false;
     this.distanceToPlayer = 0;
-    this.range = 450;
+    this.range = 750;
 }
 
 BasicShooter.prototype = Object.create(Phaser.Sprite.prototype);
