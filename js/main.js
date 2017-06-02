@@ -24,6 +24,15 @@ var barrierText;
 var barrierTween;
 var switchText;
 var switchTween;
+var totalScore;
+var accuracy;
+var damage;
+var timeBonus;
+var inGameScore;
+var enemiesKilled;
+var bulletsHit;
+var bulletsShot;
+var levelTime;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -46,6 +55,7 @@ window.onload = function(){
     game.state.add('Lose', Lose);
     game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
+    game.state.add('Score', Score);
     game.state.start('Boot');
 };
 
@@ -131,6 +141,7 @@ Preloader.prototype = {
       game.load.image('DashMeterFull', 'DashMeterFull.png');
       game.load.image('progressBg', 'progressBg.png');
       game.load.image('progressFg', 'progressFg.png');
+      game.load.image('scoreBg', 'scoreBg.png');
 
       // Load Audio ----------------------------------------------------------------------------------------------------
       game.load.path = 'assets/audio/';
@@ -320,10 +331,14 @@ Play.prototype = {
        reticle.anchor.setTo(0.5);
 
        debugCreate();
+
+       createInGameScore();
 	},
 
 	update: function(){
 		debugUpdate() //uncomment to draw debug information
+
+        updateInGameScore();
 
         game.physics.arcade.collide(player, layerCollision);
 

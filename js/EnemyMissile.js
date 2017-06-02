@@ -137,6 +137,7 @@ function missileParticleExplosion(missile) {
 }
 
 function missileBulletCollision(missile, bullet) {
+	bulletsHit++;
 	destroyMissile(missile);
 	bullet.destroy();
 }
