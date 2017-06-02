@@ -53,6 +53,7 @@ MissileParticle.prototype.update = function() {
 			enemy = enemyGroup.children[j];
 			if(distance(enemy, this) <= 35) {
 				enemy.hp -= .05;
+				damage += 0.05 * 100;
 				enemy.knockedBack = true;
 				enemy.body.drag.x = 1000;
 				enemy.body.drag.y = 1000;

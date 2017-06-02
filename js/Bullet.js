@@ -46,6 +46,7 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 		//create bullet shell
 		new BulletShell(game, player);
 	}
+	bulletsShot++;
 }
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);

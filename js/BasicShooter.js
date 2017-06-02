@@ -67,6 +67,7 @@ BasicShooter.prototype.update = function() {
             this.enemySpawner.enemiesAlive--;
             dropWeapon(this, player);
             this.destroy();
+            enemiesKilled+=1000;
         }
     }
      
@@ -93,7 +94,9 @@ function bulletsBasicShooterCollision(enemy, bullet) {
     makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    damage += bullet.damage*100;
     hitMarker.play();
+    bulletsHit++;
 
     //knock back the enemy
     if(!enemy.knockedBack) {

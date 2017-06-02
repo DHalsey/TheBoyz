@@ -119,10 +119,12 @@ Level2.prototype = {
       reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       reticle.anchor.setTo(0.5);
 
+      createInGameScore();
 	},
 
 	update: function(){
     debugUpdate();
+    updateInGameScore();
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

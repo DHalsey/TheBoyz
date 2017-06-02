@@ -63,7 +63,8 @@ function checkEscapeStatus(statusArray) {
 
 function startNewState(escapePoint, player) {
 		reticle.destroy();
-		game.state.start('Upgrade');
+		game.state.start('Score');
+		//game.state.start('Upgrade');
 }
 
 function escapeFade(escapePoint, player) {
