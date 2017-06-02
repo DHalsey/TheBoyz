@@ -21,6 +21,7 @@ function FastCharger(game, x, y, player, spawner) {
     this.enemySpawner = spawner;
     this.movementSpeed = 200;
     this.docile = true;
+    this.defaultTint = this.tint;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;

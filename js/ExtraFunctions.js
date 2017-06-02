@@ -20,13 +20,31 @@ function distance(sprite1, sprite2) {
 function chargeAtPlayer(enemy) {
       if(enemy.distanceToPlayer <= 400 && game.time.now > enemy.nextCharge) {
         enemy.nextCharge = game.time.now + enemy.chargeRate;
-
-        //knockback the enemy towards the direction its facing
-        enemy.knockedBack = true;
-        knockback(enemy, 700, enemy.rotation - Math.PI);
-        enemy.body.drag.x = 1000;
-        enemy.body.drag.y = 1000;
+        tweenTint(enemy, 0xffffff,0xd65e64, 1000);
+        game.time.events.add(Phaser.Timer.SECOND * 1, chargeAttack, this, enemy);
+        
       }
+}
+
+function chargeAttack(enemy) {
+        if(enemy.body != null) {
+            //knockback the enemy towards the direction its facing
+            enemy.knockedBack = true;
+            knockback(enemy, 700, enemy.rotation - Math.PI);
+            enemy.body.drag.x = 1000;
+            enemy.body.drag.y = 1000;
+            tweenTint(enemy, 0xd65e64, 0xeffffff, 500);
+        }
+}
+
+function tweenTint(sprite, startColor, endColor, time) {
+    var colorBlend = {step: 0};
+    var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
+    colorTween.onUpdateCallback(function() {      
+        sprite.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);       
+    });
+    sprite.tint = startColor;
+    colorTween.start();
 }
 
 //this function is used to make an enemy shoot at the playerw a
