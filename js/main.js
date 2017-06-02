@@ -78,6 +78,7 @@ Preloader.prototype = {
 		  // Load Images ----------------------------------------------------------------------------------------------------
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+          game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
 		  game.load.image('enemyMissile','enemyMissile.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
@@ -104,7 +105,6 @@ Preloader.prototype = {
       game.load.image('smgSprite', 'weapon_smg.png');
 		  game.load.image('collisionImage','Collision.png'); //tilemap images
 		  game.load.image('menuBackgrnd', 'menuBackgrnd.png');
-		  game.load.image('button', 'button.png');
       game.load.image('wall', 'wall2.png');
       game.load.image('escapeImage','escapePoint.png');
       game.load.image('healthOverlay', 'healthBarOverlay.png');
