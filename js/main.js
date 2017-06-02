@@ -129,6 +129,8 @@ Preloader.prototype = {
       game.load.image('weaponWindow', 'weaponWindow.png');
       game.load.image('DashMeter', 'DashMeter.png');
       game.load.image('DashMeterFull', 'DashMeterFull.png');
+      game.load.image('progressBg', 'progressBg.png');
+      game.load.image('progressFg', 'progressFg.png');
 
       // Load Audio ----------------------------------------------------------------------------------------------------
       game.load.path = 'assets/audio/';

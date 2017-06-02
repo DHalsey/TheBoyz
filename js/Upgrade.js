@@ -53,6 +53,7 @@ Upgrade.prototype = {
 
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       	reticle.anchor.setTo(0.5);
+      	updateProgress();
 	},
 	update: function() {
 	   reticle.x = game.input.activePointer.x + game.camera.x;
@@ -123,4 +124,19 @@ function skipUpgrade() {
 function startNextLevel() {
 	reticle.destroy();
 	game.state.start(nextLevel);
+}
+
+function updateProgress() {
+	var progressBg = game.add.image(600, 700, 'progressBg');
+	var progressBar = game.add.image(600, 700, 'progressFg');
+	var text = game.add.text(600, 667, 'Game Progress', {font: '18px Aldrich', fill: '#000000'});
+	text.anchor.set(.5);
+	progressBg.anchor.set(.5);
+	progressBar.anchor.set(.5);
+	progressBar.scale.setTo(0,1);
+	var tween;
+	if(currentLevel == 'Play') tween = game.add.tween(progressBar.scale).to( { x: (1/4) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level2') tween = game.add.tween(progressBar.scale).to( { x: (1/2) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level3') tween = game.add.tween(progressBar.scale).to( { x: (3/4) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level4') tween = tween = game.add.tween(progressBar.scale).to( { x: (1) }, 1000, Phaser.Easing.Linear.None, true);
 }
