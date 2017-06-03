@@ -12,7 +12,8 @@ Upgrade.prototype = {
 	create: function() {
 		//load background and title
 		game.add.image(0, 0, 'loadBackground');
-		upgradeText = game.add.text(500 - 50, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
+		upgradeText = game.add.text(room_width/2, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
+		upgradeText.anchor.set(.5);
 
 		playMusic.stop();
 
@@ -42,7 +43,7 @@ Upgrade.prototype = {
 				buttonFunction = skipUpgrade;
 			}
 
-			button = game.add.button(600, possibleY[i], 'genericButton', buttonFunction, this, 2, 0, 1);
+			button = game.add.button(room_width/2, possibleY[i], 'genericButton', buttonFunction, this, 2, 0, 1);
 			button.anchor.setTo(0.5);
 			button.inputEnabled = true;
 			button.input.useHandCursor = false;
@@ -127,9 +128,9 @@ function startNextLevel() {
 }
 
 function updateProgress() {
-	var progressBg = game.add.image(600, 700, 'progressBg');
-	var progressBar = game.add.image(600, 700, 'progressFg');
-	var text = game.add.text(600, 667, 'Game Progress', {font: '18px Aldrich', fill: '#000000'});
+	var progressBg = game.add.image(room_width/2, 730, 'progressBg');
+	var progressBar = game.add.image(room_width/2, 730, 'progressFg');
+	var text = game.add.text(room_width/2, 697, 'Game Progress', {font: '18px Aldrich', fill: '#000000'});
 	text.anchor.set(.5);
 	progressBg.anchor.set(.5);
 	progressBar.anchor.set(.5);

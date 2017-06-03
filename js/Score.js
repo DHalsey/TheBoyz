@@ -105,6 +105,8 @@ Score.prototype = {
         shaken = false;
 
         game.camera.follow(new RoomAnchor(game, room_width/2, room_height/2));
+
+        playMusic.stop();
 	},
 	update: function() {
 		//update reticle position
