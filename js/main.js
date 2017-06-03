@@ -90,6 +90,7 @@ Preloader.prototype = {
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
           game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
+          game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
@@ -124,7 +125,6 @@ Preloader.prototype = {
       game.load.image('missileParticle2', 'missileParticle5.png');
       game.load.image('missileParticle3', 'missileParticle1.png');
       game.load.image('missileParticle4', 'missileParticle2.png');
-      game.load.image('genericButton', 'genericButton.png');
       game.load.image('reticle', 'reticle.png');
       game.load.image('pressE', 'tempEKey.png');
       game.load.image('bulletLine', 'bulletLine.png');
@@ -430,7 +430,7 @@ Play.prototype = {
 
 
 //Lose state
-var Lose = function(game){};
+var Lose = function(game){ var button, buttonText;};
 Lose.prototype =
 {
 	preload: function(){},
@@ -448,18 +448,34 @@ Lose.prototype =
 		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
 			{font: '25px Aldrich', fill: '#ffffff'});
 
-		//adds keypress
-		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+        // adds a button to the lose screen
+        button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
+		button.anchor.setTo(0.5);
+		button.inputEnabled = true;
+		button.input.useHandCursor = false;
+		button.visible = true;
+		buttonText = game.add.text(button.x, button.y, 'Retry', {font: '18px Aldrich', fill: '#000000'});
+		buttonText.anchor.setTo(0.5);
+
+        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+        reticle.anchor.setTo(0.5);
 
 	},
 	update: function()
 	{
-		//sends the game back to the play state
-		if(this.rkey.justPressed())
-			game.state.start(currentLevel);
+		//update the reticle
+        reticle.x = game.input.activePointer.x;
+        reticle.y = game.input.activePointer.y;
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+        else reticle.scale.setTo(1, 1);
+	},
+    actionOnClick: function()
+	{
+		reticle.destroy();
+        game.state.start(currentLevel);
 	},
 };
-var Win = function(game){};
+var Win = function(game){var button, buttonText;};
 Win.prototype =
 {
 	preload: function(){},
@@ -473,13 +489,32 @@ Win.prototype =
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
 			{font: '50px Aldrich', fill: '#ffffff'});
-		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
-			{ffont: '25px Aldrich', fill: '#ffffff'});
-		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n',
+			{font: '25px Aldrich', fill: '#ffffff'});
+
+        //adds a button to the win state
+        button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
+		button.anchor.setTo(0.5);
+		button.inputEnabled = true;
+		button.input.useHandCursor = false;
+		button.visible = true;
+		buttonText = game.add.text(button.x, button.y, 'Replay', {font: '18px Aldrich', fill: '#000000'});
+		buttonText.anchor.setTo(0.5);
+
+        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+        reticle.anchor.setTo(0.5);
 	},
 	update: function()
 	{
-		if(this.rkey.justPressed())
-			game.state.start('Play');
+        //update the reticle
+        reticle.x = game.input.activePointer.x;
+        reticle.y = game.input.activePointer.y;
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+        else reticle.scale.setTo(1, 1);
+	},
+    actionOnClick: function()
+	{
+		reticle.destroy();
+        game.state.start('Play');
 	},
 };

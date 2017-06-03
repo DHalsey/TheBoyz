@@ -42,10 +42,10 @@ Upgrade.prototype = {
 				buttonFunction = skipUpgrade;
 			}
 
-			button = game.add.button(600, possibleY[i], 'genericButton', buttonFunction, this);
+			button = game.add.button(600, possibleY[i], 'genericButton', buttonFunction, this, 2, 0, 1);
 			button.anchor.setTo(0.5);
 			button.inputEnabled = true;
-			button.useHandCursor = false;
+			button.input.useHandCursor = false;
 			buttonText = game.add.text(button.x, possibleY[i], buttonString, {font: '18px Aldrich', fill: '#000000'});
 			buttonText.anchor.setTo(0.5);
 

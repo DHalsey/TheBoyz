@@ -41,7 +41,7 @@ function updateInGameScore() {
 	else levelTimer.text = 'Time: ' + min + ':0' + sec;
 
 	inGameScore = damage + enemiesKilled;
-	inGameScoreText.text = 'Score: ' + inGameScore; 
+	inGameScoreText.text = 'Score: ' + inGameScore;
 }
 
 //create upgrades array
@@ -71,10 +71,10 @@ Score.prototype = {
 		game.time.events.add(Phaser.Timer.SECOND * 10, showTimeBonus, this);
 
 		//continue button
-		button = game.add.button(250, 50, 'genericButton', skipScore, this);
+		button = game.add.button(250, 50, 'genericButton', skipScore, this, 2, 0, 1);
 		button.anchor.setTo(0.5);
 		button.inputEnabled = true;
-		button.useHandCursor = false;
+		button.input.useHandCursor = false;
 		button.visible = false;
 		button.scale.setTo(.6,1);
 		buttonText = game.add.text(button.x, 50, 'Continue', {font: '18px Aldrich', fill: '#000000'});
@@ -221,6 +221,7 @@ function slideText(body) {
 function skipScore() {
 	game.state.start('Upgrade');
 }
+<<<<<<< HEAD
 
 function tweenFinalScore(text) {
 	if(!tweenedFinalScore) {
@@ -229,3 +230,5 @@ function tweenFinalScore(text) {
 		tweenedFinalScore = true;
 	}	
 }
+=======
+>>>>>>> f8109107013a7c995ed41450eb739418eee5c833
