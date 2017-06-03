@@ -38,7 +38,7 @@ function updateInGameScore() {
 	else levelTimer.text = 'Time: ' + min + ':0' + sec;
 
 	inGameScore = damage + enemiesKilled;
-	inGameScoreText.text = 'Score: ' + inGameScore; 
+	inGameScoreText.text = 'Score: ' + inGameScore;
 }
 
 //create upgrades array
@@ -60,7 +60,7 @@ Score.prototype = {
 		game.time.events.add(Phaser.Timer.SECOND * 4, showAccuracy, this);
 		game.time.events.add(Phaser.Timer.SECOND * 5, showTime, this);
 
-		button = game.add.button(250, 50, 'genericButton', skipScore, this);
+		button = game.add.button(250, 50, 'genericButton', skipScore, this, 2, 0, 1);
 		button.anchor.setTo(0.5);
 		button.inputEnabled = true;
 		button.useHandCursor = false;

@@ -89,6 +89,7 @@ Preloader.prototype = {
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
           game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
+          game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
@@ -123,7 +124,6 @@ Preloader.prototype = {
       game.load.image('missileParticle2', 'missileParticle5.png');
       game.load.image('missileParticle3', 'missileParticle1.png');
       game.load.image('missileParticle4', 'missileParticle2.png');
-      game.load.image('genericButton', 'genericButton.png');
       game.load.image('reticle', 'reticle.png');
       game.load.image('pressE', 'tempEKey.png');
       game.load.image('bulletLine', 'bulletLine.png');
