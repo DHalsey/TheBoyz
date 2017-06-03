@@ -143,6 +143,7 @@ Preloader.prototype = {
       game.load.image('progressBg', 'progressBg.png');
       game.load.image('progressFg', 'progressFg.png');
       game.load.image('scoreBg', 'scoreBg.png');
+      game.load.image('scoreboard', 'scoreboard.png');
 
       // Load Audio ----------------------------------------------------------------------------------------------------
       game.load.path = 'assets/audio/';
@@ -445,8 +446,6 @@ Lose.prototype =
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
 			{font: '50px Aldrich', fill: '#ffffff'});
-		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
-			{font: '25px Aldrich', fill: '#ffffff'});
 
         // adds a button to the lose screen
         button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
