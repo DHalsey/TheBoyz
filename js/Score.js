@@ -97,6 +97,8 @@ Score.prototype = {
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'scoreReticle');
         reticle.anchor.setTo(0.5);
         reticle.scale.setTo(.5);
+
+        tweenFinalScore = false;
 	},
 	update: function() {
 		reticle.x = game.input.activePointer.x + game.camera.x;
