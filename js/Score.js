@@ -93,8 +93,14 @@ Score.prototype = {
 		game.time.events.add(Phaser.Timer.SECOND * 11, showFinalScore, this);
 		finalShown = false;
 		scoreCounter = 0;
+
+		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'scoreReticle');
+        reticle.anchor.setTo(0.5);
+        reticle.scale.setTo(.5);
 	},
 	update: function() {
+		reticle.x = game.input.activePointer.x + game.camera.x;
+        reticle.y = game.input.activePointer.y + game.camera.y;
 		if(finalShown) {
 			finalScoreText.visible = true;
 			if(scoreCounter < totalScore) {
