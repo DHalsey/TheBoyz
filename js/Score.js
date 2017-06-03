@@ -4,7 +4,6 @@ var levelStartTime;
 var levelTimer;
 var min, sec, totalSec;
 var finalShown;
-var tweenedFinalScore = false;
 var finalShownTime;
 var finalTextSlid;
 var shaken = false;
@@ -121,7 +120,7 @@ Score.prototype = {
 				finalScoreText.text = 'Final Score: ' + scoreCounter;
 				}
 				if(scoreCounter == totalScore) {
-					tweenFinalScore(finalScoreText);
+					shake();
 				}
 			}	
 		}
@@ -246,13 +245,6 @@ function slideText(body) {
 
 function skipScore() {
 	game.state.start('Upgrade');
-}
-
-function tweenFinalScore(text) {
-	if(!tweenedFinalScore) {
-		shake();
-		tweenedFinalScore = true;
-	}	
 }
 
 function slideFinalText(body) {
