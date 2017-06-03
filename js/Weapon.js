@@ -17,8 +17,8 @@ function Weapon(game, x, y, sprite, type, player) {
 	this.ammoCap;
 	weaponGroup.add(this);
 
-	if(this.type === 'SHOTGUN') this.ammoCap = 6;
-	if(this.type === 'RIFLE') this.ammoCap = 25;
+	if(this.type === 'SHOTGUN') this.ammoCap = 8;
+	if(this.type === 'RIFLE') this.ammoCap = 30;
 	if(this.type === 'SMG') this.ammoCap = player.smgAmmoCap;
 }
 
@@ -52,14 +52,14 @@ Weapon.prototype.update = function() {
 		
 		// Rifle
 		if (this.type === 'RIFLE') {
-			player.ammo = 25;
+			player.ammo = 30;
 			player.fireRate = player.rifleROF;
 			player.spread = 0;
 		}
 		
 		// Shotgun
 		else if (this.type === 'SHOTGUN') {
-			player.ammo = 6;
+			player.ammo = 8;
 			player.fireRate = 1000;
 			player.spread = 0;
 		}

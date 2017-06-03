@@ -66,6 +66,7 @@ MissileLauncher.prototype.update = function() {
         if(this.hp <= 0) {
             this.enemySpawner.enemiesAlive--;
             this.destroy();
+            dropWeapon(this, player);
             enemiesKilled += 1000;
         }
     }
