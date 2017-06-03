@@ -66,6 +66,9 @@ Score.prototype = {
 	create: function() {
 		game.add.image(0, 0, 'scoreBg');
 
+		//Hide mouse cursor
+    	document.body.style.cursor = 'none';
+
 		//first wave of stats
 		game.time.events.add(Phaser.Timer.SECOND * 1, displayTitle, this);
 		game.time.events.add(Phaser.Timer.SECOND * 2, showEnemiesKilled, this);

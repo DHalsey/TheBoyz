@@ -315,8 +315,8 @@ function dropWeapon(enemy, player) {
     var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
     var randomSprite;
 
-    // 2/3 Chance of dropping a weapon
-    if (randomNumber >= 0.33) {
+    // 2/5 Chance of dropping a weapon
+    if (randomNumber <= 0.4) {
 
         if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
         else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
@@ -335,3 +335,5 @@ function dropWeapon(enemy, player) {
 function makeAggro(enemy) {
     enemy.docile = false;
 }
+
+

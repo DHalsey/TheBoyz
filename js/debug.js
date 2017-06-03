@@ -3,7 +3,7 @@
 function debugCreate(){
 	
 	var testMissile
-	testMissile = new EnemySpawner(['enemyMissiles'], [new SpawnPoint(18,1)], player);
+	testMissile = new EnemySpawner(['enemyMissiles'], [new SpawnPoint(10,6)], player);
 	testMissile.spawn();
 	var rifle = new Weapon(game, room_width/2, room_height/2, 'rifleSprite', 'RIFLE', player);
     var shotgun = new Weapon(game, room_width/2 + 100, room_height/2, 'shotgunSprite', 'SHOTGUN', player);

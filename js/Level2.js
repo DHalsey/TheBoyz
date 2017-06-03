@@ -23,6 +23,9 @@ Level2.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        //Hide mouse cursor
+        document.body.style.cursor = 'none';
+
         playMusic.loopFull();
 
         //start physics

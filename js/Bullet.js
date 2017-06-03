@@ -25,6 +25,7 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 	this.currentWeapon = player.currentWeapon;
 	this.fading = false;
 	this.spread = spread;
+	this.type = 'BULLET';
 
 	this.rotation = player.rotation;
 
