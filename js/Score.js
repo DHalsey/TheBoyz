@@ -5,6 +5,9 @@ var levelTimer;
 var min, sec, totalSec;
 var finalShown;
 var tweenedFinalScore = false;
+var finalShownTime;
+var finalTextSlid;
+var shaken = false;
 function createInGameScore() {
 
 	var scoreboard = game.add.image(620, 0, 'scoreboard');
@@ -87,9 +90,8 @@ Score.prototype = {
 		buttonText.anchor.setTo(0.5);
 
 		//final score
-		finalScoreText = game.add.text(250, 550, 'Final Score: ', {font: '80px Aldrich', fill: '#ffffff'});
+		finalScoreText = game.add.text(-600, 550, 'Final Score: 0', {font: '80px Aldrich', fill: '#ffffff'});
 		finalScoreText.anchor.set(0, .5);
-		finalScoreText.visible = false;
 		game.time.events.add(Phaser.Timer.SECOND * 11, showFinalScore, this);
 		finalShown = false;
 		scoreCounter = 0;
@@ -98,23 +100,29 @@ Score.prototype = {
         reticle.anchor.setTo(0.5);
         reticle.scale.setTo(.5);
 
-        tweenFinalScore = false;
+        tweenedFinalScore = false;
+        finalTextSlid = false;
+        shaken = false;
+
+        game.camera.follow(new RoomAnchor(game, room_width/2, room_height/2));
 	},
 	update: function() {
 		reticle.x = game.input.activePointer.x + game.camera.x;
         reticle.y = game.input.activePointer.y + game.camera.y;
 		if(finalShown) {
-			finalScoreText.visible = true;
-			if(scoreCounter < totalScore) {
+			slideFinalText(finalScoreText);
+			if(game.time.now > finalShownTime + 1000) {
+				if(scoreCounter < totalScore) {
 				if(currentLevel === 'Play') scoreCounter += 100;
 				else scoreCounter += 1000;
 
 				if(scoreCounter > totalScore) scoreCounter = totalScore
 
 				finalScoreText.text = 'Final Score: ' + scoreCounter;
-			}
-			if(scoreCounter == totalScore) {
-				//tweenFinalScore(finalScoreText);
+				}
+				if(scoreCounter == totalScore) {
+					tweenFinalScore(finalScoreText);
+				}
 			}	
 		}
 	}
@@ -228,6 +236,7 @@ function showTimeBonus() {
 
 function showFinalScore() {
 	finalShown = true;
+	finalShownTime = game.time.now;
 	totalScore = inGameScore + accuracyBonus + timeBonus;
 }
 
@@ -241,9 +250,25 @@ function skipScore() {
 
 function tweenFinalScore(text) {
 	if(!tweenedFinalScore) {
-		var tween = game.add.tween(text.scale).to( { x: 1.3, y: 1.3 }, 300, Phaser.Easing.Linear.None, true);
-		tween.yoyo(true, 0);
-		tweenedFinalScore = true;
+		//var tween = game.add.tween(text).to( { x: 1200 }, 100, Phaser.Easing.Linear.None, true);
+		//tween.yoyo(true, 0);
+		//tweenedFinalScore = true;
+		shake();
+
 	}	
 }
 
+function slideFinalText(body) {
+	if(!finalTextSlid) {
+		finalTextSlid = true;
+		var tween = game.add.tween(body).to( { x: 250 }, 200, Phaser.Easing.Linear.None, true);
+	}
+}
+
+function shake() {
+	if(!shaken) {
+		game.camera.flash(0xffffff, 1500);
+		game.camera.shake(0.02, 300);
+		shaken = true;
+	}
+}
