@@ -336,6 +336,9 @@ Play.prototype = {
        debugCreate();
 
        createInGameScore();
+
+       possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'smg', 'dash','skip');
+       possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
 	},
 
 	update: function(){
