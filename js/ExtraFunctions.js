@@ -20,9 +20,9 @@ function distance(sprite1, sprite2) {
 function chargeAtPlayer(enemy) {
       if(enemy.distanceToPlayer <= 400 && game.time.now > enemy.nextCharge) {
         enemy.nextCharge = game.time.now + enemy.chargeRate;
-        tweenTint(enemy, 0xffffff,0xd65e64, 1000);
+        tweenTint(enemy, 0xffffff,0xd65e64, 500);
         enemy.knockedBack = true;
-        game.time.events.add(Phaser.Timer.SECOND * 1, chargeAttack, this, enemy);
+        game.time.events.add(Phaser.Timer.SECOND * .5, chargeAttack, this, enemy);
         
       }
 }
@@ -35,7 +35,7 @@ function chargeAttack(enemy) {
             knockback(enemy, 700, enemy.rotation - Math.PI);
             enemy.body.drag.x = 1000;
             enemy.body.drag.y = 1000;
-            tweenTint(enemy, 0xd65e64, 0xeffffff, 500);
+            tweenTint(enemy, 0xd65e64, 0xeffffff, 300);
         }
 }
 
