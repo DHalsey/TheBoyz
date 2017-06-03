@@ -488,8 +488,8 @@ Win.prototype =
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
 			{font: '50px Aldrich', fill: '#ffffff'});
-		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
-			{ffont: '25px Aldrich', fill: '#ffffff'});
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n',
+			{font: '25px Aldrich', fill: '#ffffff'});
 
         //adds a button to the win state
         button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
