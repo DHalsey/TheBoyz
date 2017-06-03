@@ -311,24 +311,39 @@ function displayWeapon(player) {
 function dropWeapon(enemy, player) {
 
     var weapons = ['RIFLE', 'SHOTGUN', 'SMG', 'healthPack'];
-    var randomNumber = game.rnd.realInRange(0,1);
-    var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
-    var randomSprite;
+    if(player.hp > (player.maxHP/3)) {
+        var randomNumber = game.rnd.realInRange(0,1);
+        var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
+        var randomSprite;
 
-    // 2/3 Chance of dropping a weapon
-    if (randomNumber >= 0.33) {
+        // 2/3 Chance of dropping a weapon
+        if (randomNumber >= 0.33) {
 
-        if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
-        else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
-        else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
-        else {
-            new HealthPack(game, enemy.x, enemy.y);
+            if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
+            else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
+            else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
+            else {
+                new HealthPack(game, enemy.x, enemy.y);
+            }
+
+            if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
         }
-
-        if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
+    } else { //if player is low on health, greater chance of spawning a health pack
+        var randomNumber = game.rnd.integerInRange(1,10);
+        var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
+        var randomSprite;
+        if(randomNumber >= 1 && randomNumber <= 6) {
+            new HealthPack(game, enemy.x, enemy.y);
+        } else {
+            if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
+            else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
+            else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
+            else {
+                new HealthPack(game, enemy.x, enemy.y);
+            }
+            if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
+        }
     }
-
-
 }
 
 //makes an enemy aggro
