@@ -250,11 +250,8 @@ function skipScore() {
 
 function tweenFinalScore(text) {
 	if(!tweenedFinalScore) {
-		//var tween = game.add.tween(text).to( { x: 1200 }, 100, Phaser.Easing.Linear.None, true);
-		//tween.yoyo(true, 0);
-		//tweenedFinalScore = true;
 		shake();
-
+		tweenedFinalScore = true;
 	}	
 }
 
@@ -268,7 +265,7 @@ function slideFinalText(body) {
 function shake() {
 	if(!shaken) {
 		game.camera.flash(0xffffff, 1500);
-		game.camera.shake(0.02, 300);
+		game.camera.shake(0.01, 300);
 		shaken = true;
 	}
 }
