@@ -33,6 +33,7 @@ var enemiesKilled;
 var bulletsHit;
 var bulletsShot;
 var levelTime;
+var accuracyBonus;
 
 //upgrader global variables
 var healthUpgraded = false;
