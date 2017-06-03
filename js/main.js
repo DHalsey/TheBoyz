@@ -186,7 +186,7 @@ Menu.prototype =
 		menuBG = game.add.image(0,0, 'menuBackgrnd');
 
 		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Soccer Dragon',
+		var menuTitle = game.add.text(80, 80, 'Alien Invasion',
 			{font: '50px Aldrich', fill: '#ffffff'});
 
 		//adds button to press

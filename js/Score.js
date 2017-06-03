@@ -95,6 +95,7 @@ Score.prototype = {
 		finalShown = false;
 		scoreCounter = 0;
 
+		//make reticle
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'scoreReticle');
         reticle.anchor.setTo(0.5);
         reticle.scale.setTo(.5);
@@ -106,8 +107,12 @@ Score.prototype = {
         game.camera.follow(new RoomAnchor(game, room_width/2, room_height/2));
 	},
 	update: function() {
+		//update reticle position
 		reticle.x = game.input.activePointer.x + game.camera.x;
         reticle.y = game.input.activePointer.y + game.camera.y;
+
+        //show the final score text and increase the number every frame
+        //when finished, shake the screen and do a camera flash
 		if(finalShown) {
 			slideFinalText(finalScoreText);
 			if(game.time.now > finalShownTime + 1000) {
@@ -128,7 +133,7 @@ Score.prototype = {
 };
 
 function displayTitle() {
-	var title = game.add.text(600, 50, 'Your Results', {font: '70px Aldrich', fill: '#ffffff'});
+	var title = game.add.text(room_width/2, 50, 'Scoreboard', {font: '70px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);
 	var underline = game.add.graphics(title.left, title.bottom - 7);
 	var tween = game.add.tween(title).to( { x: 900}, 200, Phaser.Easing.Linear.None, true);
@@ -182,7 +187,7 @@ function showTime() {
 }
 
 function showInGameScore() {
-	var title = game.add.text(600, 200, 'Level Score: ' + inGameScore, {font: '55px Aldrich', fill: '#ffffff'});
+	var title = game.add.text(room_width/2, 200, 'Level Score: ' + inGameScore, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
@@ -191,7 +196,7 @@ function showInGameScore() {
 function showAccuracyBonus() {
 	if(currentLevel != 'Play') accuracyBonus = accuracy * 500;
 	else accuracyBonus = accuracy * 100;
-	var title = game.add.text(600, 300, 'Accuracy Bonus: ' + accuracyBonus, {font: '55px Aldrich', fill: '#ffffff'});
+	var title = game.add.text(room_width/2, 300, 'Accuracy Bonus: ' + accuracyBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
@@ -227,7 +232,7 @@ function showTimeBonus() {
 		else if(totalSec <= 360) timeBonus = 5000;
 		else timeBonus = 0;
 	}
-	var title = game.add.text(600, 400, 'Speed Bonus: ' + timeBonus, {font: '55px Aldrich', fill: '#ffffff'});
+	var title = game.add.text(room_width/2, 400, 'Speed Bonus: ' + timeBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
