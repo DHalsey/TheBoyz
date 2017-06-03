@@ -143,7 +143,7 @@ Preloader.prototype = {
       game.load.image('progressBg', 'progressBg.png');
       game.load.image('progressFg', 'progressFg.png');
       game.load.image('scoreBg', 'scoreBg.png');
-      game.load.image('scoreboard', 'scoreboard.png');
+      game.load.image('scoreboard', 'scoreboard4.png');
       game.load.image('scoreReticle', 'scoreReticle.png');
 
       // Load Audio ----------------------------------------------------------------------------------------------------

@@ -9,10 +9,10 @@ var finalTextSlid;
 var shaken = false;
 function createInGameScore() {
 
-	var scoreboard = game.add.image(room_width/2, 0, 'scoreboard');
+	var scoreboard = game.add.image(room_width/2, -10, 'scoreboard');
 	scoreboard.fixedToCamera = true;
-	scoreboard.anchor.set(.5);
-	scoreboard.scale.setTo(1.3, 1.7);
+	scoreboard.anchor.set(.5, 0);
+	scoreboard.scale.setTo(1.3, 1);
 
 	inGameScoreText = game.add.text((room_width/2) - 180, 20, 'Score: 0', {font: '30px Aldrich', fill: '#ffffff'});
 	inGameScoreText.anchor.set(.5);
