@@ -114,7 +114,7 @@ Score.prototype = {
 				finalScoreText.text = 'Final Score: ' + scoreCounter;
 			}
 			if(scoreCounter == totalScore) {
-				tweenFinalScore(finalScoreText);
+				//tweenFinalScore(finalScoreText);
 			}	
 		}
 	}
