@@ -63,14 +63,18 @@ Score.prototype = {
 		button = game.add.button(250, 50, 'genericButton', skipScore, this, 2, 0, 1);
 		button.anchor.setTo(0.5);
 		button.inputEnabled = true;
-		button.useHandCursor = false;
+		button.input.useHandCursor = false;
 		button.visible = false;
 		button.scale.setTo(.6,1);
 		buttonText = game.add.text(button.x, 50, 'Continue', {font: '18px Aldrich', fill: '#000000'});
 		buttonText.anchor.setTo(0.5);
+
+		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+      	reticle.anchor.setTo(0.5);
 	},
 	update: function() {
-
+		reticle.x = game.input.activePointer.x + game.camera.x;
+        reticle.y = game.input.activePointer.y + game.camera.y;
 	}
 };
 
