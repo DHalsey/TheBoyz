@@ -3,7 +3,7 @@
 
 function MissileLauncher(game, x, y, player, spawner) {
 
-    Phaser.Sprite.call(this, game, x, y, 'enemyShooter');
+    Phaser.Sprite.call(this, game, x, y, 'enemyMissiler');
 	//add to the game
 	game.add.existing(this);
 

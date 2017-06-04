@@ -92,6 +92,7 @@ Preloader.prototype = {
       game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
       game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');
+      game.load.image('enemyMissiler','enemyMissiler.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
 		  game.load.image('enemyTank','enemyTank.png');
