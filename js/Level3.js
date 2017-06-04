@@ -128,7 +128,7 @@ Level3.prototype = {
 	},
 
 	update: function(){
-
+        debugUpdate();
         updateInGameScore();
         
         game.physics.arcade.collide(player, layerCollision);
