@@ -271,6 +271,7 @@ function slideText(body) {
 }
 
 function skipScore() {
+	roomSwitchAud.play();
 	game.state.start('Upgrade');
 }
 

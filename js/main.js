@@ -296,8 +296,11 @@ Play.prototype = {
         chooseUpgradeAud = game.add.audio('chooseUpgrade');
         chooseUpgradeAud.volume = 0.3;
         bonus1Aud = game.add.audio('bonus1');
+        bonus1Aud.volume = .35;
         bonus2Aud = game.add.audio('bonus2');
+        bonus2Aud.volume = .35;
         bonus3Aud = game.add.audio('bonus3');
+        bonus3Aud.volume = .35;
         blipAud = game.add.audio('blip');
         //create groups
         bloodParticles = game.add.physicsGroup();
