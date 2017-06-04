@@ -7,6 +7,7 @@ var finalShown;
 var finalShownTime;
 var finalTextSlid;
 var shaken = false;
+var frameCounter = 0;
 function createInGameScore() {
 
 	var scoreboard = game.add.image(room_width/2, -10, 'scoreboard');
@@ -23,9 +24,9 @@ function createInGameScore() {
 	levelTimer.fixedToCamera = true;
 
 	pointAud = game.add.audio('points');
-	pointAud.volume = .1;
+	pointAud.volume = .2;
 	pointEnd = game.add.audio('pointEnd');
-	pointEnd.volume = .4;
+	pointEnd.volume = 3.5;
 	pointSlide = game.add.audio('pointSlide');
 
 	totalScore = 0;
@@ -113,8 +114,6 @@ Score.prototype = {
         shaken = false;
 
         game.camera.follow(new RoomAnchor(game, room_width/2, room_height/2));
-
-        playMusic.stop();
 	},
 	update: function() {
 		//update reticle position
@@ -129,7 +128,8 @@ Score.prototype = {
 				if(scoreCounter < totalScore) {
 				if(currentLevel === 'Play') scoreCounter += 100;
 				else scoreCounter += 1000;
-				pointAud.play();
+				frameCounter++;
+				if(frameCounter % 3 == 0) pointAud.play();
 
 				if(scoreCounter > totalScore) scoreCounter = totalScore
 
@@ -157,6 +157,8 @@ function displayTitle() {
 
 	var tween3 = game.add.tween(buttonText).to( { x: button.x + 300}, 200, Phaser.Easing.Linear.None, true);
 	tween3.yoyo(true, 0);
+
+	roomSwitchAud.play();
 }
 
 function showEnemiesKilled() {
@@ -205,7 +207,7 @@ function showTime() {
 function showInGameScore() {
 	var title = game.add.text(room_width/2, 200, 'Level Score: ' + inGameScore, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
-	pointSlide.play();
+	bonus1Aud.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 }
@@ -215,9 +217,9 @@ function showAccuracyBonus() {
 	else accuracyBonus = accuracy * 100;
 	var title = game.add.text(room_width/2, 300, 'Accuracy Bonus: ' + accuracyBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
-	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
+	bonus2Aud.play();
 }
 
 function showTimeBonus() {
@@ -252,7 +254,7 @@ function showTimeBonus() {
 	}
 	var title = game.add.text(room_width/2, 400, 'Speed Bonus: ' + timeBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
-	pointSlide.play();
+	bonus3Aud.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 }
@@ -265,6 +267,7 @@ function showFinalScore() {
 
 function slideText(body) {
 	var tween = game.add.tween(body).to( { x: 2000 }, 300, Phaser.Easing.Linear.None, true);
+	roomSwitchAud.play();
 }
 
 function skipScore() {
@@ -274,6 +277,7 @@ function skipScore() {
 function slideFinalText(body) {
 	if(!finalTextSlid) {
 		finalTextSlid = true;
+		roomSwitchAud.play();
 		var tween = game.add.tween(body).to( { x: 250 }, 200, Phaser.Easing.Linear.None, true);
 	}
 }

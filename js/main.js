@@ -169,6 +169,10 @@ Preloader.prototype = {
 	    game.load.audio('points', ['points.ogg', 'points.mp3']);
 	    game.load.audio('pointEnd', ['pointEnd.ogg', 'pointEnd.mp3']);
       game.load.audio('pointSlide', ['pointSlide.ogg', 'pointSlide.mp3']);
+      game.load.audio('blip', ['blip.mp3', 'blip.ogg']);
+      game.load.audio('bonus1', ['bonus1.mp3', 'bonus1.ogg']);
+      game.load.audio('bonus2', ['bonus2.mp3', 'bonus2.ogg']);
+      game.load.audio('bonus3', ['bonus3.mp3', 'bonus3.ogg']);
 
     },
     create: function(){
@@ -291,7 +295,10 @@ Play.prototype = {
         escapeAud.volume = 0.3;
         chooseUpgradeAud = game.add.audio('chooseUpgrade');
         chooseUpgradeAud.volume = 0.3;
-
+        bonus1Aud = game.add.audio('bonus1');
+        bonus2Aud = game.add.audio('bonus2');
+        bonus3Aud = game.add.audio('bonus3');
+        blipAud = game.add.audio('blip');
         //create groups
         bloodParticles = game.add.physicsGroup();
         weaponGroup = game.add.group();
@@ -452,15 +459,11 @@ Lose.prototype =
 	{
 		//adds background
 		loseBG = game.add.image(0,0, 'menuBackgrnd');
-
-<<<<<<< HEAD
     	playMusic.stop();
-=======
+
     //Hide mouse cursor
     document.body.style.cursor = 'none';
 
-    playMusic.stop();
->>>>>>> d52ae086c7c47d76ff1ae2155a34080e2b0315a4
 
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
@@ -501,14 +504,9 @@ Win.prototype =
 		//adds background
 		winBG = game.add.image(0,0, 'menuBackgrnd');
 
-<<<<<<< HEAD
     	playMusic.stop();
-=======
     //Hide mouse cursor
     document.body.style.cursor = 'none';
-
-    playMusic.stop();
->>>>>>> d52ae086c7c47d76ff1ae2155a34080e2b0315a4
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',

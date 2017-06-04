@@ -18,7 +18,6 @@ Upgrade.prototype = {
 		//Hide mouse cursor
     	document.body.style.cursor = 'none';
 
-		playMusic.stop();
 
 		for(var i=0; i<possibleUpgrades.length; i++) {
 
