@@ -34,6 +34,7 @@ var bulletsHit;
 var bulletsShot;
 var levelTime;
 var accuracyBonus;
+var greencards;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -145,6 +146,12 @@ Preloader.prototype = {
       game.load.image('scoreBg', 'scoreBg.png');
       game.load.image('scoreboard', 'scoreboard4.png');
       game.load.image('scoreReticle', 'scoreReticle.png');
+      game.load.image('greencard', 'greencard.png');
+      game.load.image('greencardParticle1', 'greencardParticle1.png');
+      game.load.image('greencardParticle2', 'greencardParticle2.png');
+      game.load.image('greencardParticle3', 'greencardParticle3.png');
+      game.load.image('greencardDisplay', 'greencardDisplay2.png');
+
 
       // Load Audio ----------------------------------------------------------------------------------------------------
       game.load.path = 'assets/audio/';
@@ -357,6 +364,8 @@ Play.prototype = {
 
        possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'smg', 'dash','skip');
        possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
+       greencards = 0;
+       displayGreencards();
 	},
 
 	update: function(){

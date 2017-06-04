@@ -77,6 +77,7 @@ FastCharger.prototype.update = function() {
             dropWeapon(this, player);
             this.destroy();
             enemiesKilled += 1000;
+            createGreencards(this);
         } 
     }
     
