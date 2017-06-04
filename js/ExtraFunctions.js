@@ -311,13 +311,14 @@ function displayWeapon(player) {
 function dropWeapon(enemy, player) {
 
     var weapons = ['RIFLE', 'SHOTGUN', 'SMG', 'healthPack'];
+
     if(player.hp > (player.maxHP/3)) {
         var randomNumber = game.rnd.realInRange(0,1);
         var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
         var randomSprite;
 
-        // 2/3 Chance of dropping a weapon
-        if (randomNumber >= 0.33) {
+        // 2/5 Chance of dropping a weapon
+        if (randomNumber <= 0.4) {
 
             if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
             else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
@@ -333,6 +334,7 @@ function dropWeapon(enemy, player) {
         var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
         var randomSprite;
         if(randomNumber >= 1 && randomNumber <= 6) {
+
             new HealthPack(game, enemy.x, enemy.y);
         } else {
             if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
@@ -350,3 +352,5 @@ function dropWeapon(enemy, player) {
 function makeAggro(enemy) {
     enemy.docile = false;
 }
+
+

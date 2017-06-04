@@ -25,6 +25,7 @@ function MissileParticle(game, missile) {
 		this.startTime = game.time.now;
 		this.missileRotation = missile.rotation;
 		this.missile = missile;
+		this.type = 'BULLET';
 
 		//set random scale
 		rand = game.rnd.realInRange(0.5, 1.2);

@@ -10,9 +10,16 @@ function BloodParticle(bullet, enemy, size) {
 	this.scale.setTo(size);
 	this.startTime = game.time.now;
 	this.spread = 0.5;
-	this.angleVel = bullet.angleVel;
+	this.angleVel;
 
+	if (bullet.type === 'BULLET') {
+		this.angleVel = bullet.angleVel;
+	} else if (bullet.type === 'MISSILE') {
+		this.angleVel = game.rnd.realInRange(0,2*Math.PI);
+	}
+	
 	shootParticle(this, this.angleVel, this.movementSpeed, this.spread);
+	
 	game.add.tween(this).to( { alpha: 0 }, 7000, Phaser.Easing.Linear.None, true, 0, 3000, false);
 }
 
@@ -34,6 +41,10 @@ function shootParticle(bloodParticle, angle, speed, spread) {
 
 	bloodParticle.body.velocity.x = ((Math.cos(angle) + game.rnd.realInRange(-spread, spread)) * speed);
     bloodParticle.body.velocity.y = ((Math.sin(angle) + game.rnd.realInRange(-spread, spread)) * speed);
+}
+
+function shootParticleMissile(bloodParticle, angle, speed, spread) {
+
 }
 
 function makeBloodParticles(bullet, enemy) {

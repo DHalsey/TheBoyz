@@ -89,8 +89,8 @@ Preloader.prototype = {
 		  // Load Images ----------------------------------------------------------------------------------------------------
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
-          game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
-          game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
+      game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
+      game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
@@ -188,18 +188,21 @@ Menu.prototype =
 		//adds background
 		menuBG = game.add.image(0,0, 'menuBackgrnd');
 
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
+
 		//adds menu text
 		var menuTitle = game.add.text(80, 80, 'Alien Invasion',
 			{font: '50px Aldrich', fill: '#ffffff'});
 
 		//adds button to press
 		button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this, 1, 0, 2);
-        button.inputEnabled = true;
-        button.input.useHandCursor = false;
+	 'button', this.actionOnClick, this, 1, 0, 2);
+    button.inputEnabled = true;
+    button.input.useHandCursor = false;
 
-        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
-        reticle.anchor.setTo(0.5);
+    reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+    reticle.anchor.setTo(0.5);
 
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
@@ -212,14 +215,13 @@ Menu.prototype =
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
-        reticle.y = game.input.activePointer.y;
-        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
-        else reticle.scale.setTo(1, 1);
+    reticle.y = game.input.activePointer.y;
+    if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+    else reticle.scale.setTo(1, 1);
 	},
 
 	actionOnClick: function()
 	{
-		reticle.destroy();
     game.state.start('Play');
 	},
 };
@@ -239,6 +241,9 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
+
+        //Hide mouse cursor
+        document.body.style.cursor = 'none';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -448,7 +453,14 @@ Lose.prototype =
 		//adds background
 		loseBG = game.add.image(0,0, 'menuBackgrnd');
 
+<<<<<<< HEAD
     	playMusic.stop();
+=======
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
+
+    playMusic.stop();
+>>>>>>> d52ae086c7c47d76ff1ae2155a34080e2b0315a4
 
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
@@ -477,7 +489,6 @@ Lose.prototype =
 	},
     actionOnClick: function()
 	{
-		reticle.destroy();
         game.state.start(currentLevel);
 	},
 };
@@ -490,7 +501,14 @@ Win.prototype =
 		//adds background
 		winBG = game.add.image(0,0, 'menuBackgrnd');
 
+<<<<<<< HEAD
     	playMusic.stop();
+=======
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
+
+    playMusic.stop();
+>>>>>>> d52ae086c7c47d76ff1ae2155a34080e2b0315a4
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
@@ -520,7 +538,6 @@ Win.prototype =
 	},
     actionOnClick: function()
 	{
-		reticle.destroy();
-        game.state.start('Play');
+      game.state.start('Play');
 	},
 };

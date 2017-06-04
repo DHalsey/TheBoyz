@@ -26,6 +26,9 @@ Level4.prototype = {
 
         playMusic.loopFull();
 
+        //Hide mouse cursor
+        document.body.style.cursor = 'none';
+
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
 

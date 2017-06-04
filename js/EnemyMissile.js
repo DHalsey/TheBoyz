@@ -22,6 +22,7 @@ function EnemyMissile(game, x, y, atlas, frame, damage, player, emitter) {
 	this.playerSprite = player;
 	this.rotation = angleToSprite(this, this.playerSprite);
 	this.timeCreated = game.time.now;
+	this.type = 'MISSILE';
 	//add to the bullets group
 	enemyMissiles.add(this);
 
@@ -57,6 +58,7 @@ EnemyMissile.prototype.update = function() {
 		for(var j=0; j<enemyGroup.children.length;j++) {
 			enemy = enemyGroup.children[j];
 			if(distance(enemy, this) <= 35 && game.time.now > this.timeCreated + 500) {
+				for (var k = 0; k < 9; k++) makeBloodParticles(this, enemy);
 				destroyMissile(this);
 			}
 		}

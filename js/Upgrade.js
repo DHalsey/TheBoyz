@@ -15,6 +15,9 @@ Upgrade.prototype = {
 		upgradeText = game.add.text(room_width/2, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
 		upgradeText.anchor.set(.5);
 
+		//Hide mouse cursor
+    	document.body.style.cursor = 'none';
+
 		playMusic.stop();
 
 		for(var i=0; i<possibleUpgrades.length; i++) {
@@ -123,7 +126,6 @@ function skipUpgrade() {
 }
 
 function startNextLevel() {
-	reticle.destroy();
 	game.state.start(nextLevel);
 }
 
