@@ -125,11 +125,13 @@ Level3.prototype = {
         reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
         reticle.anchor.setTo(0.5);
         createInGameScore();
+        displayGreencards();
 	},
 
 	update: function(){
 
         updateInGameScore();
+        updateGreencards();
         
         game.physics.arcade.collide(player, layerCollision);
 

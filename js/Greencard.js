@@ -110,12 +110,21 @@ function createGreencards(enemy) {
 	}
 }
 
+var cardText;
 function displayGreencards() {
 	var display = game.add.image(55, 105, 'greencardDisplay');
-	var card = game.add.image(display.x, display.y, 'greencard');
+	var card = game.add.image(display.x, display.y-15, 'greencard');
 	display.anchor.set(.5);
 	display.scale.set(2);
 	card.anchor.set(.5);
 	display.fixedToCamera = true;
 	card.fixedToCamera = true;
+	cardText = game.add.text(display.x, display.y+19, '0',
+        {font: '18px Aldrich', fill: '#ffffff'});
+	cardText.anchor.set(.5);
+	cardText.fixedToCamera = true;
+}
+
+function updateGreencards() {
+	cardText.text = '' + greencards;
 }

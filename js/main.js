@@ -372,6 +372,7 @@ Play.prototype = {
 		debugUpdate() //uncomment to draw debug information
 
         updateInGameScore();
+        updateGreencards()
 
         game.physics.arcade.collide(player, layerCollision);
 

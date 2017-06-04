@@ -123,11 +123,13 @@ Level2.prototype = {
       reticle.anchor.setTo(0.5);
 
       createInGameScore();
+      displayGreencards();
 	},
 
 	update: function(){
     debugUpdate();
     updateInGameScore();
+    updateGreencards();
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

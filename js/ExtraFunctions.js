@@ -21,9 +21,7 @@ function chargeAtPlayer(enemy) {
       if(enemy.distanceToPlayer <= 400 && game.time.now > enemy.nextCharge) {
         enemy.nextCharge = game.time.now + enemy.chargeRate;
         tweenTint(enemy, 0xffffff,0xd65e64, 500);
-        enemy.knockedBack = true;
         game.time.events.add(Phaser.Timer.SECOND * .5, chargeAttack, this, enemy);
-        
       }
 }
 
