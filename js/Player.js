@@ -368,7 +368,7 @@ function bulletsPlayerCollision(player, bullet) {
 
 //handle collision between bullets group and player
 function missilesPlayerCollision(player, missile) {
-    player.hp -= game.rnd.integerInRange(1,4);
+    player.hp -= game.rnd.integerInRange(1,3);
     playerHit.play();
     game.camera.shake(0.016, 100);
 

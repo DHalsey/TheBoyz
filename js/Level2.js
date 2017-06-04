@@ -23,6 +23,9 @@ Level2.prototype = {
         room_width = 1280;
         room_height= 768;
 
+        //Hide mouse cursor
+        document.body.style.cursor = 'none';
+
         playMusic.loopFull();
 
         //start physics
@@ -119,10 +122,12 @@ Level2.prototype = {
       reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       reticle.anchor.setTo(0.5);
 
+      createInGameScore();
 	},
 
 	update: function(){
     debugUpdate();
+    updateInGameScore();
         game.physics.arcade.collide(player, layerCollision);
 
         game.physics.arcade.collide(enemyGroup, layerCollision);

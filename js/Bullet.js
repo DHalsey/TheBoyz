@@ -25,6 +25,7 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 	this.currentWeapon = player.currentWeapon;
 	this.fading = false;
 	this.spread = spread;
+	this.type = 'BULLET';
 
 	this.rotation = player.rotation;
 
@@ -46,6 +47,7 @@ function Bullet(game, x, y, atlas, frame, damage, player, knockback, spread) {
 		//create bullet shell
 		new BulletShell(game, player);
 	}
+	bulletsShot++;
 }
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);

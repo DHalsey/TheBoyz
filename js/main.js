@@ -24,6 +24,16 @@ var barrierText;
 var barrierTween;
 var switchText;
 var switchTween;
+var totalScore;
+var accuracy;
+var damage;
+var timeBonus;
+var inGameScore;
+var enemiesKilled;
+var bulletsHit;
+var bulletsShot;
+var levelTime;
+var accuracyBonus;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -46,6 +56,7 @@ window.onload = function(){
     game.state.add('Lose', Lose);
     game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
+    game.state.add('Score', Score);
     game.state.start('Boot');
 };
 
@@ -78,6 +89,8 @@ Preloader.prototype = {
 		  // Load Images ----------------------------------------------------------------------------------------------------
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+      game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
+      game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');
 		  game.load.image('player','player.png');
 		  game.load.image('enemyShooter','enemyShooter.png');
@@ -104,7 +117,6 @@ Preloader.prototype = {
       game.load.image('smgSprite', 'weapon_smg.png');
 		  game.load.image('collisionImage','Collision.png'); //tilemap images
 		  game.load.image('menuBackgrnd', 'menuBackgrnd.png');
-		  game.load.image('button', 'button.png');
       game.load.image('wall', 'wall2.png');
       game.load.image('escapeImage','escapePoint.png');
       game.load.image('healthOverlay', 'healthBarOverlay.png');
@@ -113,7 +125,6 @@ Preloader.prototype = {
       game.load.image('missileParticle2', 'missileParticle5.png');
       game.load.image('missileParticle3', 'missileParticle1.png');
       game.load.image('missileParticle4', 'missileParticle2.png');
-      game.load.image('genericButton', 'genericButton.png');
       game.load.image('reticle', 'reticle.png');
       game.load.image('pressE', 'tempEKey.png');
       game.load.image('bulletLine', 'bulletLine.png');
@@ -129,6 +140,11 @@ Preloader.prototype = {
       game.load.image('weaponWindow', 'weaponWindow.png');
       game.load.image('DashMeter', 'DashMeter.png');
       game.load.image('DashMeterFull', 'DashMeterFull.png');
+      game.load.image('progressBg', 'progressBg.png');
+      game.load.image('progressFg', 'progressFg.png');
+      game.load.image('scoreBg', 'scoreBg.png');
+      game.load.image('scoreboard', 'scoreboard4.png');
+      game.load.image('scoreReticle', 'scoreReticle.png');
 
       // Load Audio ----------------------------------------------------------------------------------------------------
       game.load.path = 'assets/audio/';
@@ -150,6 +166,13 @@ Preloader.prototype = {
 	    game.load.audio('playerHit', ['playerHit.ogg', 'playerHit.mp3']);
 	    game.load.audio('noAmmo', ['noAmmo.ogg', 'noAmmo.mp3']);
 	    game.load.audio('gunPickup', ['gunPickup.ogg', 'gunPickup.mp3']);
+	    game.load.audio('points', ['points.ogg', 'points.mp3']);
+	    game.load.audio('pointEnd', ['pointEnd.ogg', 'pointEnd.mp3']);
+      game.load.audio('pointSlide', ['pointSlide.ogg', 'pointSlide.mp3']);
+      game.load.audio('blip', ['blip.mp3', 'blip.ogg']);
+      game.load.audio('bonus1', ['bonus1.mp3', 'bonus1.ogg']);
+      game.load.audio('bonus2', ['bonus2.mp3', 'bonus2.ogg']);
+      game.load.audio('bonus3', ['bonus3.mp3', 'bonus3.ogg']);
 
     },
     create: function(){
@@ -169,18 +192,21 @@ Menu.prototype =
 		//adds background
 		menuBG = game.add.image(0,0, 'menuBackgrnd');
 
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
+
 		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Soccer Dragon',
+		var menuTitle = game.add.text(80, 80, 'Alien Invasion',
 			{font: '50px Aldrich', fill: '#ffffff'});
 
 		//adds button to press
 		button = game.add.button(game.world.centerX, game.world.centerY,
-			'button', this.actionOnClick, this, 1, 0, 2);
-        button.inputEnabled = true;
-        button.input.useHandCursor = false;
+	 'button', this.actionOnClick, this, 1, 0, 2);
+    button.inputEnabled = true;
+    button.input.useHandCursor = false;
 
-        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
-        reticle.anchor.setTo(0.5);
+    reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+    reticle.anchor.setTo(0.5);
 
     //initialize the stat changer
     statChanger = new PlayerStatChanger();
@@ -193,14 +219,13 @@ Menu.prototype =
 	},
 	update: function(){
 		reticle.x = game.input.activePointer.x;
-        reticle.y = game.input.activePointer.y;
-        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
-        else reticle.scale.setTo(1, 1);
+    reticle.y = game.input.activePointer.y;
+    if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+    else reticle.scale.setTo(1, 1);
 	},
 
 	actionOnClick: function()
 	{
-		reticle.destroy();
     game.state.start('Play');
 	},
 };
@@ -220,6 +245,9 @@ Play.prototype = {
         world_height= 1536;
         room_width = 1280;
         room_height= 768;
+
+        //Hide mouse cursor
+        document.body.style.cursor = 'none';
 
         //start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -267,7 +295,13 @@ Play.prototype = {
         escapeAud.volume = 0.3;
         chooseUpgradeAud = game.add.audio('chooseUpgrade');
         chooseUpgradeAud.volume = 0.3;
-
+        bonus1Aud = game.add.audio('bonus1');
+        bonus1Aud.volume = .35;
+        bonus2Aud = game.add.audio('bonus2');
+        bonus2Aud.volume = .35;
+        bonus3Aud = game.add.audio('bonus3');
+        bonus3Aud.volume = .35;
+        blipAud = game.add.audio('blip');
         //create groups
         bloodParticles = game.add.physicsGroup();
         weaponGroup = game.add.group();
@@ -318,10 +352,17 @@ Play.prototype = {
        reticle.anchor.setTo(0.5);
 
        debugCreate();
+
+       createInGameScore();
+
+       possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'smg', 'dash','skip');
+       possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
 	},
 
 	update: function(){
 		debugUpdate() //uncomment to draw debug information
+
+        updateInGameScore();
 
         game.physics.arcade.collide(player, layerCollision);
 
@@ -412,7 +453,7 @@ Play.prototype = {
 
 
 //Lose state
-var Lose = function(game){};
+var Lose = function(game){ var button, buttonText;};
 Lose.prototype =
 {
 	preload: function(){},
@@ -421,27 +462,43 @@ Lose.prototype =
 	{
 		//adds background
 		loseBG = game.add.image(0,0, 'menuBackgrnd');
+    	playMusic.stop();
 
-    playMusic.stop();
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
+
 
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
 			{font: '50px Aldrich', fill: '#ffffff'});
-		var loseText = game.add.text(80, 200, 'Press "R" to Restart',
-			{font: '25px Aldrich', fill: '#ffffff'});
 
-		//adds keypress
-		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+        // adds a button to the lose screen
+        button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
+		button.anchor.setTo(0.5);
+		button.inputEnabled = true;
+		button.input.useHandCursor = false;
+		button.visible = true;
+		buttonText = game.add.text(button.x, button.y, 'Retry', {font: '18px Aldrich', fill: '#000000'});
+		buttonText.anchor.setTo(0.5);
+
+        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+        reticle.anchor.setTo(0.5);
 
 	},
 	update: function()
 	{
-		//sends the game back to the play state
-		if(this.rkey.justPressed())
-			game.state.start(currentLevel);
+		//update the reticle
+        reticle.x = game.input.activePointer.x;
+        reticle.y = game.input.activePointer.y;
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+        else reticle.scale.setTo(1, 1);
+	},
+    actionOnClick: function()
+	{
+        game.state.start(currentLevel);
 	},
 };
-var Win = function(game){};
+var Win = function(game){var button, buttonText;};
 Win.prototype =
 {
 	preload: function(){},
@@ -450,18 +507,38 @@ Win.prototype =
 		//adds background
 		winBG = game.add.image(0,0, 'menuBackgrnd');
 
-    playMusic.stop();
+    	playMusic.stop();
+    //Hide mouse cursor
+    document.body.style.cursor = 'none';
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
 			{font: '50px Aldrich', fill: '#ffffff'});
-		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n Press "R" to Restart',
-			{ffont: '25px Aldrich', fill: '#ffffff'});
-		this.rkey = game.input.keyboard.addKey(Phaser.Keyboard.R);
+		var winText = game.add.text(80,200, 'Has it been 4 years already?\n I guess we can elect someone new now.\n\n',
+			{font: '25px Aldrich', fill: '#ffffff'});
+
+        //adds a button to the win state
+        button = game.add.button(680, 384, 'genericButton', this.actionOnClick, this, 2, 0, 1);
+		button.anchor.setTo(0.5);
+		button.inputEnabled = true;
+		button.input.useHandCursor = false;
+		button.visible = true;
+		buttonText = game.add.text(button.x, button.y, 'Replay', {font: '18px Aldrich', fill: '#000000'});
+		buttonText.anchor.setTo(0.5);
+
+        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
+        reticle.anchor.setTo(0.5);
 	},
 	update: function()
 	{
-		if(this.rkey.justPressed())
-			game.state.start('Play');
+        //update the reticle
+        reticle.x = game.input.activePointer.x;
+        reticle.y = game.input.activePointer.y;
+        if (reticle.overlap(button)) reticle.scale.setTo(1.5, 1.5);
+        else reticle.scale.setTo(1, 1);
+	},
+    actionOnClick: function()
+	{
+      game.state.start('Play');
 	},
 };

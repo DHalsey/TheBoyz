@@ -12,9 +12,12 @@ Upgrade.prototype = {
 	create: function() {
 		//load background and title
 		game.add.image(0, 0, 'loadBackground');
-		upgradeText = game.add.text(500 - 50, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
+		upgradeText = game.add.text(room_width/2, 80, 'Choose an Upgrade', {font: '32px Aldrich', fill: "#000000"});
+		upgradeText.anchor.set(.5);
 
-		playMusic.stop();
+		//Hide mouse cursor
+    	document.body.style.cursor = 'none';
+
 
 		for(var i=0; i<possibleUpgrades.length; i++) {
 
@@ -42,10 +45,10 @@ Upgrade.prototype = {
 				buttonFunction = skipUpgrade;
 			}
 
-			button = game.add.button(600, possibleY[i], 'genericButton', buttonFunction, this);
+			button = game.add.button(room_width/2, possibleY[i], 'genericButton', buttonFunction, this, 2, 0, 1);
 			button.anchor.setTo(0.5);
 			button.inputEnabled = true;
-			button.useHandCursor = false;
+			button.input.useHandCursor = false;
 			buttonText = game.add.text(button.x, possibleY[i], buttonString, {font: '18px Aldrich', fill: '#000000'});
 			buttonText.anchor.setTo(0.5);
 
@@ -53,6 +56,7 @@ Upgrade.prototype = {
 
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       	reticle.anchor.setTo(0.5);
+      	updateProgress();
 	},
 	update: function() {
 	   reticle.x = game.input.activePointer.x + game.camera.x;
@@ -121,6 +125,20 @@ function skipUpgrade() {
 }
 
 function startNextLevel() {
-	reticle.destroy();
 	game.state.start(nextLevel);
+}
+
+function updateProgress() {
+	var progressBg = game.add.image(room_width/2, 730, 'progressBg');
+	var progressBar = game.add.image(room_width/2, 730, 'progressFg');
+	var text = game.add.text(room_width/2, 697, 'Game Progress', {font: '18px Aldrich', fill: '#000000'});
+	text.anchor.set(.5);
+	progressBg.anchor.set(.5);
+	progressBar.anchor.set(.5);
+	progressBar.scale.setTo(0,1);
+	var tween;
+	if(currentLevel == 'Play') tween = game.add.tween(progressBar.scale).to( { x: (1/4) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level2') tween = game.add.tween(progressBar.scale).to( { x: (1/2) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level3') tween = game.add.tween(progressBar.scale).to( { x: (3/4) }, 1000, Phaser.Easing.Linear.None, true);
+	if(currentLevel == 'Level4') tween = tween = game.add.tween(progressBar.scale).to( { x: (1) }, 1000, Phaser.Easing.Linear.None, true);
 }

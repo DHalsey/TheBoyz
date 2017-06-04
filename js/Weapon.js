@@ -14,7 +14,12 @@ function Weapon(game, x, y, sprite, type, player) {
 	this.anchor.set(0.5);
 	this.direction = 1;
 	this.type = type;
+	this.ammoCap;
 	weaponGroup.add(this);
+
+	if(this.type === 'SHOTGUN') this.ammoCap = 8;
+	if(this.type === 'RIFLE') this.ammoCap = 30;
+	if(this.type === 'SMG') this.ammoCap = player.smgAmmoCap;
 }
 
 Weapon.prototype = Object.create(Phaser.Sprite.prototype);
@@ -32,7 +37,10 @@ Weapon.prototype.update = function() {
 	if(this.anchor.y>=0.7) this.direction = -1; //reverses direction
 	if(this.anchor.y<=0.3) this.direction = 1; //reverses direction
 
-	if (distance(player, this) < 50 && game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
+	if ((distance(player, this) < 50 && game.input.keyboard.justPressed(Phaser.Keyboard.E)) || 
+		(distance(player, this) < 50 && player.secondWeapon != '' && player.ammo <= 0) || 
+		(distance(player, this) < 50 && player.currentWeapon == this.type && player.ammo < this.ammoCap)) {
+
 		player.currentWeapon = this.type;
 		player.secondWeapon = 'PISTOL';
 		gunPickup.play();
@@ -44,14 +52,14 @@ Weapon.prototype.update = function() {
 		
 		// Rifle
 		if (this.type === 'RIFLE') {
-			player.ammo = 25;
+			player.ammo = 30;
 			player.fireRate = player.rifleROF;
 			player.spread = 0;
 		}
 		
 		// Shotgun
 		else if (this.type === 'SHOTGUN') {
-			player.ammo = 6;
+			player.ammo = 8;
 			player.fireRate = 1000;
 			player.spread = 0;
 		}

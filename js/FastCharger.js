@@ -21,6 +21,8 @@ function FastCharger(game, x, y, player, spawner) {
     this.enemySpawner = spawner;
     this.movementSpeed = 200;
     this.docile = true;
+    this.defaultTint = this.tint;
+    this.timeCreated = game.time.now;
 
     //These are to allow damage to the player and knockback effects
     this.nextAttack = 0;
@@ -40,6 +42,8 @@ FastCharger.prototype.constructor = FastCharger;
 
 //override FastCharger's update
 FastCharger.prototype.update = function() {
+    //make enemy face the player
+    if(!this.knockedBack) this.rotation = angleToSprite(this, this.playerSprite);
     if(this.docile) game.time.events.add(Phaser.Timer.SECOND * 1, makeAggro, this, this);
     else {
         //make enemy move towards the player unless it is in the process of being knocked back
@@ -59,10 +63,7 @@ FastCharger.prototype.update = function() {
         this.distanceToPlayer = distance(this, this.playerSprite);
 
         //charge attack
-        chargeAtPlayer(this);
-
-        //make enemy face the player
-        if(!this.knockedBack) this.rotation = angleToSprite(this, this.playerSprite);
+        if(game.time.now > this.timeCreated + 1000) chargeAtPlayer(this);
 
         //handle collision between player and enemy
         if(!this.playerSprite.isDashing) game.physics.arcade.collide(this, this.playerSprite, playerFastChargerCollision, null, this);
@@ -75,6 +76,7 @@ FastCharger.prototype.update = function() {
             this.enemySpawner.enemiesAlive--;
             dropWeapon(this, player);
             this.destroy();
+            enemiesKilled += 1000;
         } 
     }
     
@@ -101,7 +103,9 @@ function bulletsFastChargerCollision(enemy, bullet) {
     makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    damage += bullet.damage * 100;
     hitMarker.play();
+    bulletsHit++;
 
     //knock back the enemy
     if(!enemy.knockedBack) {

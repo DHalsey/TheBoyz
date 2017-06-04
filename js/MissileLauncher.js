@@ -66,6 +66,8 @@ MissileLauncher.prototype.update = function() {
         if(this.hp <= 0) {
             this.enemySpawner.enemiesAlive--;
             this.destroy();
+            dropWeapon(this, player);
+            enemiesKilled += 1000;
         }
     }
  
@@ -88,7 +90,9 @@ function bulletsMissileLauncherCollision(enemy, bullet) {
     makeBloodParticles(bullet, enemy);
     bullet.destroy();
     enemy.hp -= bullet.damage;
+    damage += bullet.damage * 100;
     hitMarker.play();
+    bulletsHit++;
     
     knockbackMissileLauncher(enemy, bullet);
 }

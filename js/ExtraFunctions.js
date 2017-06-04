@@ -20,13 +20,33 @@ function distance(sprite1, sprite2) {
 function chargeAtPlayer(enemy) {
       if(enemy.distanceToPlayer <= 400 && game.time.now > enemy.nextCharge) {
         enemy.nextCharge = game.time.now + enemy.chargeRate;
-
-        //knockback the enemy towards the direction its facing
+        tweenTint(enemy, 0xffffff,0xd65e64, 500);
         enemy.knockedBack = true;
-        knockback(enemy, 700, enemy.rotation - Math.PI);
-        enemy.body.drag.x = 1000;
-        enemy.body.drag.y = 1000;
+        game.time.events.add(Phaser.Timer.SECOND * .5, chargeAttack, this, enemy);
+        
       }
+}
+
+
+function chargeAttack(enemy) {
+        if(enemy.body != null) {
+            //knockback the enemy towards the direction its facing
+            enemy.knockedBack = true;
+            knockback(enemy, 700, enemy.rotation - Math.PI);
+            enemy.body.drag.x = 1000;
+            enemy.body.drag.y = 1000;
+            tweenTint(enemy, 0xd65e64, 0xeffffff, 300);
+        }
+}
+
+function tweenTint(sprite, startColor, endColor, time) {
+    var colorBlend = {step: 0};
+    var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
+    colorTween.onUpdateCallback(function() {      
+        sprite.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);       
+    });
+    sprite.tint = startColor;
+    colorTween.start();
 }
 
 //this function is used to make an enemy shoot at the playerw a
@@ -291,27 +311,46 @@ function displayWeapon(player) {
 function dropWeapon(enemy, player) {
 
     var weapons = ['RIFLE', 'SHOTGUN', 'SMG', 'healthPack'];
-    var randomNumber = game.rnd.realInRange(0,1);
-    var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
-    var randomSprite;
 
-    // 2/3 Chance of dropping a weapon
-    if (randomNumber >= 0.33) {
+    if(player.hp > (player.maxHP/3)) {
+        var randomNumber = game.rnd.realInRange(0,1);
+        var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
+        var randomSprite;
 
-        if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
-        else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
-        else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
-        else {
-            new HealthPack(game, enemy.x, enemy.y);
+        // 2/5 Chance of dropping a weapon
+        if (randomNumber <= 0.4) {
+
+            if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
+            else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
+            else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
+            else {
+                new HealthPack(game, enemy.x, enemy.y);
+            }
+
+            if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
         }
+    } else { //if player is low on health, greater chance of spawning a health pack
+        var randomNumber = game.rnd.integerInRange(1,10);
+        var randomWeap = Phaser.ArrayUtils.getRandomItem(weapons);
+        var randomSprite;
+        if(randomNumber >= 1 && randomNumber <= 6) {
 
-        if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
+            new HealthPack(game, enemy.x, enemy.y);
+        } else {
+            if (randomWeap === 'RIFLE') randomSprite = 'rifleSprite';
+            else if (randomWeap === 'SHOTGUN') randomSprite = 'shotgunSprite';
+            else if (randomWeap === 'SMG') randomSprite = 'smgSprite';
+            else {
+                new HealthPack(game, enemy.x, enemy.y);
+            }
+            if(randomWeap != 'healthPack') this.weapon = new Weapon(game, enemy.x, enemy.y, randomSprite, randomWeap, player);
+        }
     }
-
-
 }
 
 //makes an enemy aggro
 function makeAggro(enemy) {
     enemy.docile = false;
 }
+
+
