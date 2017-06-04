@@ -68,6 +68,7 @@ MissileLauncher.prototype.update = function() {
             this.destroy();
             dropWeapon(this, player);
             enemiesKilled += 1000;
+            createGreencards(this);
         }
     }
  

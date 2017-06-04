@@ -142,12 +142,13 @@ Level4.prototype = {
       reticle.anchor.setTo(0.5);
 
       createInGameScore();
-
+      displayGreencards();
 	},
 
 	update: function(){
 
         updateInGameScore();
+        updateGreencards();
 
         game.physics.arcade.collide(player, layerCollision);
 
