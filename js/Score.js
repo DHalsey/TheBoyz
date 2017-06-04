@@ -22,6 +22,11 @@ function createInGameScore() {
 	levelTimer.anchor.set(.5);
 	levelTimer.fixedToCamera = true;
 
+	pointAud = game.add.audio('points');
+	pointAud.volume = .1;
+	pointEnd = game.add.audio('pointEnd');
+	pointEnd.volume = .4;
+	pointSlide = game.add.audio('pointSlide');
 
 	totalScore = 0;
 	accuracy = 0;
@@ -121,6 +126,7 @@ Score.prototype = {
 				if(scoreCounter < totalScore) {
 				if(currentLevel === 'Play') scoreCounter += 100;
 				else scoreCounter += 1000;
+				pointAud.play();
 
 				if(scoreCounter > totalScore) scoreCounter = totalScore
 
@@ -138,6 +144,7 @@ function displayTitle() {
 	var title = game.add.text(room_width/2, 50, 'Scoreboard', {font: '70px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);
 	var underline = game.add.graphics(title.left, title.bottom - 7);
+	
 	var tween = game.add.tween(title).to( { x: 900}, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 	button.visible = true;
@@ -153,6 +160,7 @@ function showEnemiesKilled() {
 	var killed = enemiesKilled / 1000;
 	var title = game.add.text(40, 200, 'Aliens Apprehended: ' + killed, {font: '45px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0, 0.5);
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 	game.time.events.add(Phaser.Timer.SECOND * 5, slideText, this, title);
@@ -162,6 +170,7 @@ function showDamage() {
 	var damageDealt = Math.trunc(damage/100);
 	var title = game.add.text(40, 300, 'Damage Dealt: ' + damageDealt, {font: '45px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0, 0.5);
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 	game.time.events.add(Phaser.Timer.SECOND * 4.1, slideText, this, title);
@@ -173,6 +182,7 @@ function showAccuracy() {
 	accuracy = Math.trunc(accuracy * 100);
 	var title = game.add.text(40, 400, 'Bullet Accuracy: ' + accuracy + '%', {font: '45px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0, 0.5);
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 	game.time.events.add(Phaser.Timer.SECOND * 3.2, slideText, this, title);
@@ -183,6 +193,7 @@ function showTime() {
 	if(sec > 9) var title = game.add.text(40, 500, 'Time: ' + min + ':' + sec, {font: '45px Aldrich', fill: '#ffffff'});
 	else var title = game.add.text(40, 500, 'Time: ' + min + ':0' + sec, {font: '45px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0, 0.5);;
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 	game.time.events.add(Phaser.Timer.SECOND * 2.3, slideText, this, title);
@@ -191,6 +202,7 @@ function showTime() {
 function showInGameScore() {
 	var title = game.add.text(room_width/2, 200, 'Level Score: ' + inGameScore, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 }
@@ -200,6 +212,7 @@ function showAccuracyBonus() {
 	else accuracyBonus = accuracy * 100;
 	var title = game.add.text(room_width/2, 300, 'Accuracy Bonus: ' + accuracyBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 }
@@ -236,6 +249,7 @@ function showTimeBonus() {
 	}
 	var title = game.add.text(room_width/2, 400, 'Speed Bonus: ' + timeBonus, {font: '55px Aldrich', fill: '#ffffff'});
 	title.anchor.set(0.5);;
+	pointSlide.play();
 	var tween = game.add.tween(title.scale).to( { x: 1.3, y: 1.3 }, 200, Phaser.Easing.Linear.None, true);
 	tween.yoyo(true, 0);
 }
@@ -263,6 +277,7 @@ function slideFinalText(body) {
 
 function shake() {
 	if(!shaken) {
+		pointEnd.play();
 		game.camera.flash(0xffffff, 1500);
 		game.camera.shake(0.01, 300);
 		shaken = true;

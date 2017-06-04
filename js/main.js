@@ -166,6 +166,9 @@ Preloader.prototype = {
 	    game.load.audio('playerHit', ['playerHit.ogg', 'playerHit.mp3']);
 	    game.load.audio('noAmmo', ['noAmmo.ogg', 'noAmmo.mp3']);
 	    game.load.audio('gunPickup', ['gunPickup.ogg', 'gunPickup.mp3']);
+	    game.load.audio('points', ['points.ogg', 'points.mp3']);
+	    game.load.audio('pointEnd', ['pointEnd.ogg', 'pointEnd.mp3']);
+      game.load.audio('pointSlide', ['pointSlide.ogg', 'pointSlide.mp3']);
 
     },
     create: function(){
@@ -445,7 +448,7 @@ Lose.prototype =
 		//adds background
 		loseBG = game.add.image(0,0, 'menuBackgrnd');
 
-    playMusic.stop();
+    	playMusic.stop();
 
 		//adds menu text
 		var loseTitle = game.add.text(80, 80, 'You Lost',
@@ -487,7 +490,7 @@ Win.prototype =
 		//adds background
 		winBG = game.add.image(0,0, 'menuBackgrnd');
 
-    playMusic.stop();
+    	playMusic.stop();
 
 		//adds text
 		var winTitle = game.add.text(80,80, 'You Survived!!!',
