@@ -68,7 +68,7 @@ function startNewState(escapePoint, player) {
 }
 
 function escapeFade(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus)){
+	if(checkEscapeStatus(escapePoint.spawnerStatus) && !player.dead){
 		game.camera.fade('#000000');
 		game.camera.onFadeComplete.add(startNewState, this, escapePoint, player);
 		escapeAud.play();
