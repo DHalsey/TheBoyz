@@ -8,6 +8,8 @@ var rifleCost = 100;
 var shotgunCost = 100;
 var smgCost = 100;
 var notEnough;
+var backLayer;
+var frontLayer;
 
 //Upgrade.js
 var Upgrade = function(game) {var buttonString, button, buttonFunction;};
@@ -16,10 +18,14 @@ Upgrade.prototype = {
 
 	},
 	create: function() {
+		backLayer = game.add.group();
+		frontLayer = game.add.group();
 		createLayout();
 
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       	reticle.anchor.setTo(0.5);
+      	//Hide mouse cursor
+    	document.body.style.cursor = 'none';
       	updateProgress();
 	},
 	update: function() {
@@ -30,21 +36,19 @@ Upgrade.prototype = {
 
 function createLayout() {
 	//load background and title
+	reticle.z -= 1000;
 		game.add.image(0, 0, 'loadBackground');
 		var upgradeText = game.add.text(room_width/4, 80, 'Upgrade', {font: '32px Aldrich', fill: "#000000"});
 		upgradeText.anchor.set(.5);
-		var costText = game.add.text(room_width/2, 80, 'Cost', {font: '32px Aldrich', fill: "#000000"});
+		var costText = game.add.text((room_width/2)-140, 80, 'Cost', {font: '32px Aldrich', fill: "#000000"});
 		costText.anchor.set(.5);
-		var cardText = game.add.text(room_width/1.5, 80, 'Greencards: ' + greencards, {font: '32px Aldrich', fill: "#000000"});
+		var cardText = game.add.text(room_width/1.5, 80, 'Green Cards: ' + greencards, {font: '32px Aldrich', fill: "#000000"});
 		cardText.anchor.set(.5);
 		var cost;
 		var upgradeCost;
 		notEnough = game.add.text(room_width/1.5, 200, 'Not Enough Cards!', {font: '28px Aldrich', fill: '#000000'});
 		notEnough.anchor.set(.5);
 		notEnough.visible = false;
-
-		//Hide mouse cursor
-    	document.body.style.cursor = 'none';
 
 
 		for(var i=0; i<possibleUpgrades.length; i++) {
@@ -87,10 +91,9 @@ function createLayout() {
 			buttonText = game.add.text(button.x, possibleY[i], buttonString, {font: '18px Aldrich', fill: '#000000'});
 			buttonText.anchor.setTo(0.5);
 
-			cost = game.add.text(room_width/2, possibleY[i], '' + upgradeCost, {font: '30px Aldrich', fill: '#000000'});
+			cost = game.add.text((room_width/2)-140, possibleY[i], '' + upgradeCost, {font: '30px Aldrich', fill: '#000000'});
 			cost.anchor.set(.5);
-			reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
-      	    reticle.anchor.setTo(0.5);
+			game.world.bringToTop(reticle);
 		}
 }
 

@@ -37,6 +37,7 @@ var accuracyBonus;
 var greencards;
 var currentLevelGreencards;
 var died;
+var playerDead;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -226,6 +227,7 @@ Menu.prototype =
       e.preventDefault();
     }
     died = false;
+    playerDead = false;
 
 	},
 	update: function(){
@@ -516,6 +518,7 @@ Lose.prototype =
     actionOnClick: function()
 	{
         game.state.start(currentLevel);
+        playerDead = false;
 	},
 };
 var Win = function(game){var button, buttonText;};

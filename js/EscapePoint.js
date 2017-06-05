@@ -61,16 +61,17 @@ function checkEscapeStatus(statusArray) {
 	return returnValue;
 }
 
-function startNewState(escapePoint, player) {
+function startNewStateEscape(escapePoint, player) {
+	if(!playerDead) {
 		reticle.destroy();
 		game.state.start('Score');
-		//game.state.start('Upgrade');
+	}
 }
 
 function escapeFade(escapePoint, player) {
-	if(checkEscapeStatus(escapePoint.spawnerStatus) && !player.dead){
+	if(checkEscapeStatus(escapePoint.spawnerStatus) && !playerDead){
 		game.camera.fade('#000000');
-		game.camera.onFadeComplete.add(startNewState, this, escapePoint, player);
+		game.camera.onFadeComplete.add(startNewStateEscape, this, escapePoint, player);
 		escapeAud.play();
 	}
 }

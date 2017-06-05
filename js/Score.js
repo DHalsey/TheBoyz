@@ -272,7 +272,8 @@ function slideText(body) {
 
 function skipScore() {
 	roomSwitchAud.play();
-	game.state.start('Upgrade');
+	if(currentLevel != 'Level4') game.state.start('Upgrade');
+	else game.state.start('Win');
 }
 
 function slideFinalText(body) {

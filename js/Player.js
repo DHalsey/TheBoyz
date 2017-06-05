@@ -162,6 +162,7 @@ Player.prototype.update = function() {
 
         if(this.hp <= 0) {
             this.dead = true;
+            playerDead = true;
             var tween = game.add.tween(this).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
             game.time.events.add(Phaser.Timer.SECOND * 2, startLose, this);
         }
