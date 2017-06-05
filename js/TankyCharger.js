@@ -4,7 +4,7 @@
 function TankyCharger(game, x, y, player, spawner) {
 
 	//Phaser.Sprite.call(this, game, x, y, atlas, frame);
-    Phaser.Sprite.call(this, game, x, y, 'enemyTank');
+    Phaser.Sprite.call(this, game, x, y, 'atlas2', 'EnemyTank');
 	//add to the game
 	game.add.existing(this);
 

@@ -93,6 +93,7 @@ Preloader.prototype = {
 		  // Load Images ----------------------------------------------------------------------------------------------------
 		  game.load.path = 'assets/img/';
 		  game.load.atlas('atlas', 'atlas.png', 'atlas.json');
+      game.load.atlas('atlas2', 'tempatlas.png', 'tempatlas.json');
       game.load.spritesheet('button', 'buttonSpriteSheet.png', 200, 53);
       game.load.spritesheet('genericButton', 'genericButtonSpriteSheet.png', 202, 57);
 		  game.load.image('enemyMissile','enemyMissile.png');

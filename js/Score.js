@@ -10,7 +10,7 @@ var shaken = false;
 var frameCounter = 0;
 function createInGameScore() {
 
-	var scoreboard = game.add.image(room_width/2, -10, 'scoreboard');
+	var scoreboard = game.add.image(room_width/2, -10, 'atlas2', 'scoreBoard4');
 	scoreboard.fixedToCamera = true;
 	scoreboard.anchor.set(.5, 0);
 	scoreboard.scale.setTo(1.3, 1);
@@ -70,7 +70,7 @@ Score.prototype = {
 
 	},
 	create: function() {
-		game.add.image(0, 0, 'scoreBg');
+		game.add.image(0, 0, 'atlas2', 'scoreBg');
 
 		//Hide mouse cursor
     	document.body.style.cursor = 'none';
