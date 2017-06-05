@@ -61,6 +61,7 @@ window.onload = function(){
     game.state.add('Win', Win);
     game.state.add('Upgrade', Upgrade);
     game.state.add('Score', Score);
+    game.state.add('Great', Great);
     game.state.start('Boot');
 };
 
@@ -240,9 +241,44 @@ Menu.prototype =
 
 	actionOnClick: function()
 	{
-    game.state.start('Play');
+    game.camera.fade('#000000');
+    game.time.events.add(Phaser.Timer.SECOND * 1, makeGreat, this);
+    game.time.events.add(Phaser.Timer.SECOND * 4, startPlay, this);
+    
 	},
 };
+
+function makeGreat() {
+  game.state.start('Great');
+}
+
+function startPlay() {
+  game.state.start('Play');
+}
+
+var Great = function(game){var text;};
+Great.prototype = {
+  preload: function(){},
+
+  create: function() {
+    game.add.image(0, 0, 'atlas2', 'scoreBg');
+    //adds menu text
+     text = game.add.text(1280/2, 786/2, 'Make America Great Again.',
+      {font: '40px Aldrich', fill: '#ffffff'});
+     text.anchor.set(.5);
+    text.alpha = 0;
+    var tween = game.add.tween(text).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, true);
+    game.time.events.add(Phaser.Timer.SECOND * 3, fadeGreat, this);
+  },
+  update: function() {
+
+  }
+};
+
+function fadeGreat() {
+   var tween = game.add.tween(text).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true);
+   game.time.events.add(Phaser.Timer.SECOND * 1.2, startPlay, this);
+}
 
 var Play = function(game) {
   var roomTwoFast, roomTwoCharger, roomThreeCharger, roomThreeFast, roomThreeTanky, roomFourCharger,roomFourTanky, escape, healthBar;
