@@ -35,6 +35,8 @@ var bulletsShot;
 var levelTime;
 var accuracyBonus;
 var greencards;
+var currentLevelGreencards;
+var died;
 
 //upgrader global variables
 var healthUpgraded = false;
@@ -223,6 +225,7 @@ Menu.prototype =
     game.canvas.oncontextmenu = function (e) {
       e.preventDefault();
     }
+    died = false;
 
 	},
 	update: function(){
@@ -363,9 +366,14 @@ Play.prototype = {
 
        createInGameScore();
 
-       possibleUpgrades = new Array('hp', 'pistol', 'rifle', 'shotgun', 'smg', 'dash','skip');
+       possibleUpgrades = new Array('dash', 'pistol', 'rifle', 'shotgun', 'smg', 'hp','skip');
        possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
-       greencards = 0;
+       
+       if(!died) {
+          greencards = 0;
+          currentLevelGreencards = 0;
+       }
+       currentLevelGreencards = greencards;;
        displayGreencards();
 	},
 
@@ -494,7 +502,8 @@ Lose.prototype =
 
         reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
         reticle.anchor.setTo(0.5);
-
+        died = true;
+        greencards = currentLevelGreencards;
 	},
 	update: function()
 	{
@@ -539,6 +548,7 @@ Win.prototype =
 
         reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
         reticle.anchor.setTo(0.5);
+        died = false;
 	},
 	update: function()
 	{

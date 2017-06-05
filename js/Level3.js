@@ -126,6 +126,7 @@ Level3.prototype = {
         reticle.anchor.setTo(0.5);
         createInGameScore();
         displayGreencards();
+        currentLevelGreencards = greencards;
 	},
 
 	update: function(){

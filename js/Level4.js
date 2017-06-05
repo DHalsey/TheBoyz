@@ -143,6 +143,7 @@ Level4.prototype = {
 
       createInGameScore();
       displayGreencards();
+      currentLevelGreencards = greencards;
 	},
 
 	update: function(){
