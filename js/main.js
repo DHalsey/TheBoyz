@@ -220,9 +220,7 @@ Menu.prototype =
 
     reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
     reticle.anchor.setTo(0.5);
-
-    //initialize the stat changer
-    statChanger = new PlayerStatChanger();
+    
 
     // Disable context menu on right click
     game.canvas.oncontextmenu = function (e) {
@@ -290,6 +288,8 @@ Play.prototype = {
     preload: function(){
 	},
 	create: function(){
+
+        statChanger = new PlayerStatChanger();
 
         world_width = 2560; //The world has been set to be 2x2 rooms big
         world_height= 1536;
