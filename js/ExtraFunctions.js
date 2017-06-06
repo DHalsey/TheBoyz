@@ -295,7 +295,7 @@ function updateAmmoText(ammoText, player) {
 
 function displayWeapon(player) {
     if (player.currentWeapon == 'PISTOL') {
-        player.weaponGUI.loadTexture('wall');
+        player.weaponGUI.loadTexture('pistolSprite');
     } else if (player.currentWeapon == 'RIFLE') {
         player.weaponGUI.loadTexture('rifleSprite');
     } else if (player.currentWeapon == 'SHOTGUN') {

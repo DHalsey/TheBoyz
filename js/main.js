@@ -122,6 +122,7 @@ Preloader.prototype = {
 		  game.load.image('rifleSprite', 'weapon_rifle.png');
 		  game.load.image('shotgunSprite', 'weapon_shotgun.png');
       game.load.image('smgSprite', 'weapon_smg.png');
+      game.load.image('pistolSprite', 'weapon_pistol.png');
 		  game.load.image('collisionImage','Collision.png'); //tilemap images
 		  game.load.image('menuBackgrnd', 'menuBackgrnd.png');
       game.load.image('wall', 'wall2.png');
@@ -209,12 +210,13 @@ Menu.prototype =
     document.body.style.cursor = 'none';
 
 		//adds menu text
-		var menuTitle = game.add.text(80, 80, 'Alien Invasion',
-			{font: '50px Aldrich', fill: '#ffffff'});
+		var menuTitle = game.add.text(500, 80, 'Alien Invasion',
+			{font: '100px Aldrich', fill: '#ffffff'});
+    menuTitle.stroke = '#000000';
+    menuTitle.strokeThickness = 12;
 
 		//adds button to press
-		button = game.add.button(game.world.centerX, game.world.centerY,
-	 'button', this.actionOnClick, this, 1, 0, 2);
+		button = game.add.button(800,300,'button', this.actionOnClick, this, 1, 0, 2);
     button.inputEnabled = true;
     button.input.useHandCursor = false;
 
