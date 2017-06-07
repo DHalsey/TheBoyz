@@ -187,6 +187,7 @@ Preloader.prototype = {
       game.load.audio('bonus1', ['bonus1.mp3', 'bonus1.ogg']);
       game.load.audio('bonus2', ['bonus2.mp3', 'bonus2.ogg']);
       game.load.audio('bonus3', ['bonus3.mp3', 'bonus3.ogg']);
+      game.load.audio('collectGCards', ['cardPop.mp3', 'cardPop.ogg']);
 
     },
     create: function(){
@@ -222,7 +223,7 @@ Menu.prototype =
 
     reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
     reticle.anchor.setTo(0.5);
-    
+
 
     // Disable context menu on right click
     game.canvas.oncontextmenu = function (e) {
@@ -244,7 +245,7 @@ Menu.prototype =
     game.camera.fade('#000000');
     game.time.events.add(Phaser.Timer.SECOND * 1, makeGreat, this);
     game.time.events.add(Phaser.Timer.SECOND * 4, startPlay, this);
-    
+
 	},
 };
 
@@ -354,6 +355,8 @@ Play.prototype = {
         bonus3Aud = game.add.audio('bonus3');
         bonus3Aud.volume = .35;
         blipAud = game.add.audio('blip');
+        collectGCard = game.add.audio('collectGCards');
+        collectGCard.volume = 1.5;
         //create groups
         bloodParticles = game.add.physicsGroup();
         weaponGroup = game.add.group();
@@ -409,7 +412,7 @@ Play.prototype = {
 
        possibleUpgrades = new Array('dash', 'pistol', 'rifle', 'shotgun', 'smg', 'hp','skip');
        possibleY = new Array(175, 250, 325, 400, 475, 550, 625);
-       
+
        if(!died) {
           greencards = 0;
           currentLevelGreencards = 0;

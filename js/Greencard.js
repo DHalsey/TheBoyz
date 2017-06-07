@@ -1,6 +1,6 @@
 //Greencard.js
 function Greencard(game, enemy) {
-	
+
 	Phaser.Sprite.call(this, game, enemy.x, enemy.y, 'greencard');
 	game.add.existing(this);
 	game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -94,6 +94,8 @@ function destroyGreencard(greencard) {
 function greenCardCollision(greencard, player) {
 	explodeGreencard(greencard);
 	greencard.destroy();
+	collectGCard.play();
+	collectGCard._sound.playbackRate.value = 1+(.2 * game.rnd.realInRange(0,3));
 	greencards++;
 }
 
