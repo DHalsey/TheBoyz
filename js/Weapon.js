@@ -47,7 +47,6 @@ Weapon.prototype.update = function() {
 
 		if(!player.pickedUpFirstWeapon) {
 			player.pickedUpFirstWeapon = true;
-			destroyIndicator(player.pickup);
 		}
 		
 		// Rifle

@@ -23,6 +23,7 @@ var currentLevel;
 var barrierText;
 var barrierTween;
 var switchText;
+var pickupText;
 var switchTween;
 var totalScore;
 var accuracy;
@@ -406,7 +407,7 @@ Play.prototype = {
        reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
        reticle.anchor.setTo(0.5);
 
-       debugCreate();
+       //debugCreate();
 
        createInGameScore();
 

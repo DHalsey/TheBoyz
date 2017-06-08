@@ -175,6 +175,7 @@ function enableDash() {
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
 	createLayout();
+	dashTutorial();
 }
 
 function skipUpgrade() {
@@ -212,4 +213,10 @@ function upgradeMakeInvis() {
 
 function updateCardText() {
 	cardText.text = 'Greencards: ' + greencards;
+}
+
+function dashTutorial() {
+	var text = game.add.text(room_width/2, room_height-100, 'Controls:\nPress Spacebar to dash.\nDashing makes you briefly invulnerable to damage.', {font: '28px Aldrich', fill: '#000000'});
+	text.anchor.set(.5);
+	game.world.bringToTop(text);
 }

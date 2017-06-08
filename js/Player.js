@@ -27,7 +27,7 @@ function Player(game, x, y, atlas, frame, health) {
     this.lastRoom = 1;
     this.justSwitched = false;
     this.pickedUpFirstWeapon = false;
-    this.pickup = new PickupIndicator(game, this);
+    this.showPickup = false;
     this.switchTextShown = false;
     this.dead = false;
 
@@ -78,11 +78,17 @@ function Player(game, x, y, atlas, frame, health) {
        barrierTween.loop(true);
        barrierTween.yoyo(true, 0);
 
-       switchText = game.add.text(this.x, this.y - 54, '            Out of Ammo!\r\nPress Q to Switch Weapons!', {font: '15px Aldrich', fill: '#ffffff'});
+       switchText = game.add.text(this.x, this.y - 54, '            Out of Ammo!\r\nPress Q to Switch Weapons!', {font: '20px Aldrich', fill: '#ffffff'});
        switchText.anchor.set(0.5);
        switchTween = game.add.tween(switchText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
        switchTween.loop(true);
        switchTween.yoyo(true, 0);
+
+       pickupText = game.add.text(this.x, this.y-54, 'Press E to Pick Up Weapons', {font: '20px Aldrich', fill: '#ffffff'});
+       pickupText.anchor.set(0.5);
+       pickupTween = game.add.tween(pickupText.scale).to( { x: 1.2, y: 1.2 }, 800, Phaser.Easing.Linear.None, true);
+       pickupTween.loop(true);
+       pickupTween.yoyo(true, 0);
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -97,6 +103,24 @@ Player.prototype.update = function() {
             switchText.y = this.y - 54;
         } else {
         switchText.visible = false;
+        }
+
+        //display weapon pickup tutorial
+        this.showPickup = false;
+        for(var i=0; i<weaponGroup.children.length; i++) {
+            var weapon = weaponGroup.children[i];
+            if(distance(weapon, this) < 50) {
+                this.showPickup = true;
+                pickupText.x = this.x;
+                pickupText.y = this.y-54;
+                break;
+            }
+        }
+
+        if(this.showPickup && !this.pickedUpFirstWeapon) {
+            pickupText.visible = true;
+        } else {
+            pickupText.visible = false;
         }
 
         //if the player just switched rooms, stall shooting for 1 second
