@@ -40,8 +40,8 @@ function chargeAttack(enemy) {
 function tweenTint(sprite, startColor, endColor, time) {
     var colorBlend = {step: 0};
     var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
-    colorTween.onUpdateCallback(function() {      
-        sprite.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);       
+    colorTween.onUpdateCallback(function() {
+        sprite.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);
     });
     sprite.tint = startColor;
     colorTween.start();
@@ -290,6 +290,7 @@ function updateAmmoText(ammoText, player) {
         ammoText.text = player.currentWeapon;
         ammoText.fontWeight = 'normal';
         ammoText.fill = '#ffffff';
+        player.weaponBackground.alpha = 0;
     }
 }
 
@@ -350,5 +351,3 @@ function dropWeapon(enemy, player) {
 function makeAggro(enemy) {
     enemy.docile = false;
 }
-
-
