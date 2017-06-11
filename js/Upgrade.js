@@ -20,7 +20,7 @@ Upgrade.prototype = {
 	create: function() {
 		backLayer = game.add.group();
 		frontLayer = game.add.group();
-		createLayout();
+		createLayout(false);
 
 		reticle = game.add.sprite(game.input.activePointer.x - 8, game.input.activePointer.y - 8, 'reticle');
       	reticle.anchor.setTo(0.5);
@@ -34,7 +34,7 @@ Upgrade.prototype = {
 	}
 };
 
-function createLayout() {
+function createLayout(prog) {
 	//load background and title
 	reticle.z -= 1000;
 		game.add.image(0, 0, 'loadBackground');
@@ -94,6 +94,14 @@ function createLayout() {
 			cost = game.add.text((room_width/2)-140, possibleY[i], '' + upgradeCost, {font: '30px Aldrich', fill: '#000000'});
 			cost.anchor.set(.5);
 			game.world.bringToTop(reticle);
+
+			var frac;
+			if(currentLevel === 'Play') frac = (1/4);
+			else if(currentLevel === 'Level2') frac = (1/2);
+			else if(currentLevel === 'Level3') frac = (3/4);
+			else frac = 1
+
+			if(prog) showProgress(frac);
 		}
 }
 
@@ -107,7 +115,7 @@ function upgradeHealth() {
 		var index = possibleUpgrades.indexOf('hp');
 		if(index > -1) possibleUpgrades.splice(index, 1);
 		chooseUpgradeAud.play();
-		createLayout();
+		createLayout(true);
 	}
 }
 
@@ -121,7 +129,7 @@ function upgradePistol() {
 		var index = possibleUpgrades.indexOf('pistol');
 		if(index > -1) possibleUpgrades.splice(index, 1);
 		chooseUpgradeAud.play();
-		createLayout();
+		createLayout(true);
 	}
 }
 
@@ -135,7 +143,7 @@ function upgradeRifle() {
 		var index = possibleUpgrades.indexOf('rifle');
 		if(index > -1) possibleUpgrades.splice(index, 1);
 		chooseUpgradeAud.play();
-		createLayout();
+		createLayout(true);
 	}
 }
 
@@ -149,7 +157,7 @@ function upgradeShotgun() {
 		var index = possibleUpgrades.indexOf('shotgun');
 		if(index > -1) possibleUpgrades.splice(index, 1);
 		chooseUpgradeAud.play();
-		createLayout();
+		createLayout(true);
 	}
 }
 
@@ -163,7 +171,7 @@ function upgradeSMG() {
 		var index = possibleUpgrades.indexOf('smg');
 		if(index > -1) possibleUpgrades.splice(index, 1);
 		chooseUpgradeAud.play();
-		createLayout();
+		createLayout(true);
 	}
 }
 
@@ -174,7 +182,7 @@ function enableDash() {
 	var index = possibleUpgrades.indexOf('dash');
 	if(index > -1) possibleUpgrades.splice(index, 1);
 	chooseUpgradeAud.play();
-	createLayout();
+	createLayout(true);
 	dashTutorial();
 }
 
@@ -202,6 +210,16 @@ function updateProgress() {
 	if(currentLevel == 'Level4') tween = tween = game.add.tween(progressBar.scale).to( { x: (1) }, 1000, Phaser.Easing.Linear.None, true);
 }
 
+function showProgress(fraction) {
+	var progressBg = game.add.image(room_width/2, 730, 'progressBg');
+	var progressBar = game.add.image(room_width/2, 730, 'progressFg');
+	var text = game.add.text(room_width/2, 697, 'Game Progress', {font: '18px Aldrich', fill: '#000000'});
+	text.anchor.set(.5);
+	progressBg.anchor.set(.5);
+	progressBar.anchor.set(.5);
+	progressBar.scale.setTo(fraction,1);
+}
+
 function notEnoughCards() {
 	notEnough.visible = true;
 	game.time.events.add(Phaser.Timer.SECOND * 3, upgradeMakeInvis, this);
@@ -216,7 +234,8 @@ function updateCardText() {
 }
 
 function dashTutorial() {
-	var text = game.add.text(room_width/2, room_height-100, 'Controls:\nPress Spacebar to dash.\nDashing makes you briefly invulnerable to damage.', {font: '28px Aldrich', fill: '#000000'});
+	var text = game.add.text(room_width/2, room_height*.82, 'Controls:\nPress Spacebar to dash.\nDashing makes you briefly invulnerable to damage.',
+	 {font: '18px Aldrich', fill: '#000000', boundsAlignH: "center", boundsAlignV: "middle"});
 	text.anchor.set(.5);
 	game.world.bringToTop(text);
 }

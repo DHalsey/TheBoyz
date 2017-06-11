@@ -102,7 +102,7 @@ Player.prototype.update = function() {
             switchText.x = this.x;
             switchText.y = this.y - 54;
         } else {
-        switchText.visible = false;
+            switchText.visible = false;
         }
 
         //display weapon pickup tutorial
