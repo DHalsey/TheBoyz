@@ -4,6 +4,7 @@ function levelSelect(level){
 		map = game.add.tilemap('maptile');
         map.addTilesetImage('Map','mapImage');
         map.addTilesetImage('MAIN','mapMAINImage');
+        map.addTilesetImage('WASD','WASDImage');
         layerMain = map.createLayer('1-Base'); //main world layer
         layerDetail = map.createLayer('1-Detail'); //main world layer
         map.addTilesetImage('Collision','collisionImage');

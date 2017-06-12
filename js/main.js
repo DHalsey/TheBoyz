@@ -131,6 +131,7 @@ Preloader.prototype = {
       game.load.tilemap('maptile4', 'Level4Map.json', null, Phaser.Tilemap.TILED_JSON);
 
 		  game.load.image('mapImage','MapTiles.png'); //tilemap images
+      game.load.image('WASDImage','WASD.png'); //tilemap images
       game.load.image('mapMAINImage',"TileMAIN.png"); //tilemap images
 		  game.load.image('rifleSprite', 'weapon_rifle.png');
 		  game.load.image('shotgunSprite', 'weapon_shotgun.png');
@@ -381,7 +382,7 @@ Play.prototype = {
 
         barriers = game.add.group();
 
-        player = new Player(game, 200, 200, 'atlas', 'player0001', 15);
+        player = new Player(game, 352, 352, 'atlas', 'player0001', 15);
 
        //room 2 spawners
        roomTwoFast = new EnemySpawner(['FastCharger'], [new SpawnPoint(29,6)], player);
