@@ -66,6 +66,18 @@ window.onload = function(){
     game.state.start('Boot');
 };
 
+// Pause event and function. Thanks Nathan!
+window.onkeydown = function(event) {
+  var keycode = event.keyCode || event.which;
+  if (keycode === Phaser.Keyboard.P) {
+    pauseGame();
+  }
+};
+
+function pauseGame() {
+  game.paused ? game.paused = false : game.paused = true;
+};
+
 var Boot = function(game) {};
 Boot.prototype = {
     preload: function() {
@@ -423,7 +435,7 @@ Play.prototype = {
 	},
 
 	update: function(){
-		debugUpdate() //uncomment to draw debug information
+		//debugUpdate(); //uncomment to draw debug information
 
         updateInGameScore();
         updateGreencards()

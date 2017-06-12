@@ -130,7 +130,7 @@ Level3.prototype = {
 	},
 
 	update: function(){
-        debugUpdate();
+        //debugUpdate();
         updateInGameScore();
         updateGreencards();
         

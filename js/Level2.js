@@ -128,7 +128,7 @@ Level2.prototype = {
 	},
 
 	update: function(){
-    debugUpdate();
+    //debugUpdate();
     updateInGameScore();
     updateGreencards();
         game.physics.arcade.collide(player, layerCollision);

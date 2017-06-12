@@ -148,6 +148,8 @@ Level4.prototype = {
 
 	update: function(){
 
+     //s debugUpdate(); //uncomment to draw debug information
+
         updateInGameScore();
         updateGreencards();
 
